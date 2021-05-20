@@ -9,6 +9,7 @@ namespace Assets.Scripts.Startup
     public class StartupSingle : StartupBase
     {
         public GameObject PlayerPrefab;
+        public GameObject SwordPrefab;
 
         protected override void Start()
         {
@@ -23,7 +24,10 @@ namespace Assets.Scripts.Startup
                 new ResetInputsSystem());
 
             var player = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            var playerEntity = EntityHelper.GetPlayerEntity(PlayerPrefab, 3);
+            var playerEntity = EntityHelper.GetPlayerEntity(player, 3);
+
+            var sword = Instantiate(SwordPrefab, new Vector3(-1.2f, 0, 0), Quaternion.identity);
+            sword.transform.parent = player.transform;
 
             Unfixed.AddEntity(playerEntity);
             Fixed.AddEntity(playerEntity);
