@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Assets.Scripts.ECS.Nodes;
+﻿using Assets.Scripts.ECS.Nodes;
 using ECS.Core;
 using UnityEngine;
 
@@ -20,14 +19,8 @@ namespace Assets.Scripts.ECS.Systems.Fixed
             }
         }
 
-        public override void Register(Engine engine)
-        {
-            _engine = engine;
-        }
+        public override void Register(Engine engine) => _engine = engine;
 
-        public override void Unregister(Engine engine)
-        {
-            _engine = null;
-        }
+        public override void Unregister(Engine engine) => _engine = null;
     }
 }

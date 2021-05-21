@@ -16,6 +16,7 @@ namespace Assets.Scripts.Startup
 
         public GameObject PlayerPrefab;
         public GameObject CameraPrefab;
+        public GameObject SwordPrefab;
 
         protected override void Start()
         {
@@ -31,24 +32,30 @@ namespace Assets.Scripts.Startup
 
             AddFixedSystems(
                 new ApplyPositionSystem(),
+                new ApplyRotationSystem(),
                 new MoveCameraSystem(),
                 new ResetKeysInputsSystem());
 
             var thisPlayerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            var thisPlayerEntity = EntityHelper.GetThisPlayerPhantomEntity(thisPlayerGo, 1, 3);
-
             var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
-            var cameraEntity = EntityHelper.GetCamera(cameraGo, thisPlayerGo);
-
+            
             var otherPlayerGo = Instantiate(PlayerPrefab, new Vector3(3, 3, 0), Quaternion.identity);
+            var otherPlayerSwordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            otherPlayerSwordGo.transform.parent = otherPlayerGo.transform;
+
+            var thisPlayerEntity = EntityHelper.GetThisPlayerPhantomEntity(thisPlayerGo, 2, 3);
+            var cameraEntity = EntityHelper.GetCameraEntity(cameraGo, thisPlayerGo);
+
             var otherPlayerEntity = EntityHelper.GetOtherPlayerPhantomEntity(otherPlayerGo, 0, 3);
+            var otherPlayerSwordEntity = EntityHelper.GetPlayerPhantomSwordEntity(otherPlayerSwordGo, 1);
 
             Unfixed.AddEntity(thisPlayerEntity);
             Unfixed.AddEntity(otherPlayerEntity);
 
             Fixed.AddEntity(thisPlayerEntity);
-            Fixed.AddEntity(otherPlayerEntity);
             Fixed.AddEntity(cameraEntity);
+            Fixed.AddEntity(otherPlayerEntity);
+            Fixed.AddEntity(otherPlayerSwordEntity);
         }
 
         protected override void FixedUpdate()

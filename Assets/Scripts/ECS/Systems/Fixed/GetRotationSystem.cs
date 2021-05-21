@@ -3,15 +3,15 @@ using ECS.Core;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
-    public class VelocitySystem : SystemBase
+    public class GetRotationSystem : SystemBase
     {
-        private Engine _engine;
+        public Engine _engine;
 
         public override void Update(double time)
         {
-            foreach (var node in _engine.GetNodes<VelocityNode>())
+            foreach (var node in _engine.GetNodes<RotationNode>())
             {
-                node.VelocityComponent.Velocity = node.DirectionComponent.Direction * node.SpeedComponent.Speed;
+                node.RotationComponent.Rotation = node.TransformComponent.Transform.rotation;
             }
         }
 

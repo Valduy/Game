@@ -28,14 +28,14 @@ namespace Assets.Scripts.Startup
                 new ResetKeysInputsSystem());
             
             var playerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            var playerEntity = EntityHelper.GetPlayerEntity(playerGo, 3);
-
-            var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
-            var cameraEntity = EntityHelper.GetCamera(cameraGo, playerGo);
-
             var swordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             swordGo.transform.parent = playerGo.transform;
-            var swordEntity = EntityHelper.GetSword(swordGo, playerGo, cameraGo, 1.2f);
+            var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+
+            var playerEntity = EntityHelper.GetPlayerEntity(playerGo, 3);
+            var swordEntity = EntityHelper.GetSwordEntity(swordGo, playerGo, 1.2f)
+                .MakeEntityMouseInputReceiver(cameraGo);
+            var cameraEntity = EntityHelper.GetCameraEntity(cameraGo, playerGo);
 
             Unfixed.AddEntity(playerEntity);
             Unfixed.AddEntity(swordEntity);

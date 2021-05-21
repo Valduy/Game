@@ -154,6 +154,8 @@ MonoBehaviour:
     type: 3}
   PlayerPrefab: {fileID: 2323408106406757114, guid: e3df9aaee2e933e4e8ab779c63165255,
     type: 3}
+  SwordPrefab: {fileID: 4704870805806649563, guid: 70a6da6c8f7c7f14db17a81a0b0e3d75,
+    type: 3}
 --- !u!4 &1747674036
 Transform:
   m_ObjectHideFlags: 0

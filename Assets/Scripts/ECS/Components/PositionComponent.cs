@@ -19,7 +19,7 @@ namespace Assets.Scripts.ECS.Components
         public void ToTokensSequence(object component, ISequentialWriter writer)
         {
             var positionComponent = (PositionComponent)component;
-            ConverterHelper.WriteVector3(positionComponent.Position, 2, writer);
+            ConverterHelper.WriteVector3(positionComponent.Position, writer);
         }
 
         public ComponentBase FromTokenSequence(ISequentialReader reader)

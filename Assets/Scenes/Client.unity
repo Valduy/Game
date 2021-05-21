@@ -154,6 +154,8 @@ MonoBehaviour:
     type: 3}
   CameraPrefab: {fileID: 115479406459253204, guid: b7b67caa4ab728a40874eb3ae1fdb0de,
     type: 3}
+  SwordPrefab: {fileID: 4704870805806649563, guid: 70a6da6c8f7c7f14db17a81a0b0e3d75,
+    type: 3}
 --- !u!4 &439067959
 Transform:
   m_ObjectHideFlags: 0

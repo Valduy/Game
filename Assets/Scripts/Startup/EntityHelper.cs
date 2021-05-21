@@ -7,6 +7,8 @@ namespace Assets.Scripts.Startup
 {
     public static class EntityHelper
     {
+        #region Player.
+
         public static Entity GetPlayerEntity(GameObject player, float speed)
             => GetPlayerBase(player, speed)
                 .Add(new KeysComponent())
@@ -16,9 +18,9 @@ namespace Assets.Scripts.Startup
             => GetPlayerEntity(player, speed)
                 .Add(new SerializableComponent())
                 .Add(new PositionComponent())
-                .Add(new IdComponent {Id = id});
+                .Add(new IdComponent { Id = id });
 
-        public static Entity GetOtherPlayerEntity(GameObject player, uint id, float speed, IPEndPoint endPoint) 
+        public static Entity GetOtherPlayerEntity(GameObject player, uint id, float speed, IPEndPoint endPoint)
             => GetPlayerBase(player, speed)
                 .Add(new KeysComponent())
                 .Add(new EndPointComponent { EndPoint = endPoint })
@@ -30,15 +32,15 @@ namespace Assets.Scripts.Startup
             => GetPlayerBase(player, speed)
                 .Add(new KeysComponent())
                 .Add(new InputReceiverComponent())
-                .Add(new IdComponent {Id = 1})
+                .Add(new IdComponent { Id = id })
                 .Add(new PositionComponent());
 
-        public static Entity GetOtherPlayerPhantomEntity(GameObject player, uint id, float speed) 
+        public static Entity GetOtherPlayerPhantomEntity(GameObject player, uint id, float speed)
             => GetPlayerBase(player, speed)
-                .Add(new IdComponent {Id = id})
+                .Add(new IdComponent { Id = id })
                 .Add(new PositionComponent());
 
-        private static Entity GetPlayerBase(GameObject player, float speed) 
+        private static Entity GetPlayerBase(GameObject player, float speed)
             => new Entity()
                 .Add(new DirectionComponent())
                 .Add(new SpeedComponent { Speed = speed })
@@ -46,19 +48,48 @@ namespace Assets.Scripts.Startup
                 .Add(new TransformComponent { Transform = player.GetComponent<Transform>() })
                 .Add(new RigidbodyComponent { Rigidbody = player.GetComponent<Rigidbody2D>() });
 
-        public static Entity GetSword(GameObject sword, GameObject owner, GameObject camera, float r) 
-            => new Entity()
-                .Add(new MouseComponent())
-                .Add(new InputReceiverComponent())
-                .Add(new TransformComponent {Transform = sword.GetComponent<Transform>()})
-                .Add(new OwnerTransformComponent {Transform = owner.GetComponent<Transform>()})
-                .Add(new CameraComponent {Camera = camera.GetComponent<Camera>()})
-                .Add(new WeaponRadiusComponent {R = r});
+        #endregion
 
-        public static Entity GetCamera(GameObject camera, GameObject target)
+        #region Sword.
+
+        public static Entity GetSwordEntity(GameObject sword, GameObject owner, float r) 
+            => new Entity()
+                .Add(new TransformComponent { Transform = sword.GetComponent<Transform>() })
+                .Add(new OwnerTransformComponent { Transform = owner.GetComponent<Transform>() })
+                .Add(new WeaponRadiusComponent { R = r });
+
+        public static Entity GetPlayerSwordEntity(GameObject sword, GameObject owner, uint id, float r)
+            => GetSwordEntity(sword, owner, r)
+                .Add(new IdComponent { Id = id })
+                .Add(new SerializableComponent())
+                .Add(new PositionComponent())
+                .Add(new RotationComponent());
+
+        public static Entity GetPlayerPhantomSwordEntity(GameObject sword, uint id) 
+            => new Entity()
+                .Add(new IdComponent {Id = id})
+                .Add(new TransformComponent { Transform = sword.GetComponent<Transform>() })
+                .Add(new PositionComponent());
+
+        #endregion
+
+        #region Camera.
+
+        public static Entity GetCameraEntity(GameObject camera, GameObject target)
             => new Entity()
                 .Add(new FollowComponent())
-                .Add(new TransformComponent {Transform = camera.GetComponent<Transform>()})
-                .Add(new OwnerTransformComponent {Transform = target.GetComponent<Transform>()});
+                .Add(new TransformComponent { Transform = camera.GetComponent<Transform>() })
+                .Add(new OwnerTransformComponent { Transform = target.GetComponent<Transform>() });
+
+        #endregion
+
+        public static Entity MakeEntityMouseInputSource(this Entity entity) 
+            => entity.Add(new MouseComponent());
+
+        public static Entity MakeEntityMouseInputReceiver(this Entity entity, GameObject camera)
+            => entity
+                .Add(new InputReceiverComponent())
+                .Add(new MouseComponent())
+                .Add(new CameraComponent {Camera = camera.GetComponent<Camera>()});
     }
 }
