@@ -6,7 +6,7 @@ using ECS.Serialization.Writers;
 
 namespace Assets.Scripts.ECS.Components
 {
-    [ComponentConverter(typeof(KeyComponentConverter))]
+    [ComponentConverter(typeof(KeysComponentConverter))]
     public class KeysComponent : ComponentBase
     {
         public bool W;
@@ -15,7 +15,7 @@ namespace Assets.Scripts.ECS.Components
         public bool D;
     }
 
-    public class KeyComponentConverter : IComponentConverter
+    public class KeysComponentConverter : IComponentConverter
     {
         public void ToTokensSequence(object component, ISequentialWriter writer)
         {

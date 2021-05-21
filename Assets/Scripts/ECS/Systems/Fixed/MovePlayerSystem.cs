@@ -3,7 +3,7 @@ using ECS.Core;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
-    public class MoveSystem : SystemBase
+    public class MovePlayerSystem : SystemBase
     {
         private Engine _engine;
 

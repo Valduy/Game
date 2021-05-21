@@ -1,9 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
-using Assets.Scripts.ECS.Components;
 using Assets.Scripts.ECS.Systems.Fixed;
 using Assets.Scripts.ECS.Systems.Unfixed;
-using ECS.Core;
 using Network.Proxy;
 using UnityEngine;
 
@@ -17,6 +15,7 @@ namespace Assets.Scripts.Startup
         private Reconcilator _reconcilator;
 
         public GameObject PlayerPrefab;
+        public GameObject CameraPrefab;
 
         protected override void Start()
         {
@@ -32,10 +31,14 @@ namespace Assets.Scripts.Startup
 
             AddFixedSystems(
                 new ApplyPositionSystem(),
+                new MoveCameraSystem(),
                 new ResetKeysInputsSystem());
 
             var thisPlayerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             var thisPlayerEntity = EntityHelper.GetThisPlayerPhantomEntity(thisPlayerGo, 1, 3);
+
+            var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+            var cameraEntity = EntityHelper.GetCamera(cameraGo, thisPlayerGo);
 
             var otherPlayerGo = Instantiate(PlayerPrefab, new Vector3(3, 3, 0), Quaternion.identity);
             var otherPlayerEntity = EntityHelper.GetOtherPlayerPhantomEntity(otherPlayerGo, 0, 3);
@@ -45,6 +48,7 @@ namespace Assets.Scripts.Startup
 
             Fixed.AddEntity(thisPlayerEntity);
             Fixed.AddEntity(otherPlayerEntity);
+            Fixed.AddEntity(cameraEntity);
         }
 
         protected override void FixedUpdate()

@@ -16,6 +16,7 @@ namespace Assets.Scripts.Startup
         private HostNetworkProxy _hostProxy;
         private Snapshoter _snapshoter;
 
+        public GameObject CameraPrefab;
         public GameObject PlayerPrefab;
 
         protected override void Start()
@@ -34,12 +35,16 @@ namespace Assets.Scripts.Startup
                 new ResetDirectionSystem(),
                 new DirectionSystem(),
                 new VelocitySystem(),
-                new MoveSystem(),
+                new MovePlayerSystem(),
+                new MoveCameraSystem(),
                 new GetPositionSystem(),
                 new ResetKeysInputsSystem());
             
             var thisPlayerGo = Instantiate(PlayerPrefab, new Vector3(3, 3, 0), Quaternion.identity);
             var thisPlayerEntity = EntityHelper.GetThisPlayerEntity(thisPlayerGo, 0, 3);
+
+            var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+            var cameraEntity = EntityHelper.GetCamera(cameraGo, thisPlayerGo);
 
             var otherPlayerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             var otherPlayerEntity = EntityHelper.GetOtherPlayerEntity(otherPlayerGo, 1, 3, _clients.First());
@@ -49,6 +54,7 @@ namespace Assets.Scripts.Startup
             
             Fixed.AddEntity(thisPlayerEntity);
             Fixed.AddEntity(otherPlayerEntity);
+            Fixed.AddEntity(cameraEntity);
         }
 
         protected override void FixedUpdate()

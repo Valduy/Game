@@ -22,14 +22,16 @@ namespace Assets.Scripts.Startup
                 new ResetDirectionSystem(),
                 new DirectionSystem(),
                 new VelocitySystem(),
-                new MoveSystem(),
+                new MovePlayerSystem(),
                 new MoveWeaponSystem(),
+                new MoveCameraSystem(),
                 new ResetKeysInputsSystem());
-
-            var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
-
+            
             var playerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             var playerEntity = EntityHelper.GetPlayerEntity(playerGo, 3);
+
+            var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+            var cameraEntity = EntityHelper.GetCamera(cameraGo, playerGo);
 
             var swordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             swordGo.transform.parent = playerGo.transform;
@@ -40,6 +42,7 @@ namespace Assets.Scripts.Startup
 
             Fixed.AddEntity(playerEntity);
             Fixed.AddEntity(swordEntity);
+            Fixed.AddEntity(cameraEntity);
         }
     }
 }

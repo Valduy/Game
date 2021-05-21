@@ -54,5 +54,11 @@ namespace Assets.Scripts.Startup
                 .Add(new OwnerTransformComponent {Transform = owner.GetComponent<Transform>()})
                 .Add(new CameraComponent {Camera = camera.GetComponent<Camera>()})
                 .Add(new WeaponRadiusComponent {R = r});
+
+        public static Entity GetCamera(GameObject camera, GameObject target)
+            => new Entity()
+                .Add(new FollowComponent())
+                .Add(new TransformComponent {Transform = camera.GetComponent<Transform>()})
+                .Add(new OwnerTransformComponent {Transform = target.GetComponent<Transform>()});
     }
 }

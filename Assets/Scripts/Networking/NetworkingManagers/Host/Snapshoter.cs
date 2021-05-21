@@ -58,7 +58,6 @@ public class Snapshoter : IEngineWrapper
 
         foreach (var node in _engine.GetNodes<EndPointNode>())
         {
-            Debug.Log("here?");
             var buffer = _hostProxy.GetWriteBuffer(node.EndPointComponent.EndPoint);
             buffer.Write(message);
         }
