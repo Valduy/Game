@@ -14,14 +14,17 @@ namespace Assets.Scripts.Startup
         {
             base.Start();
 
-            AddUnfixedSystems(new CollectInputsSystem());
+            AddUnfixedSystems(
+                new CollectKeyInputsSystem(), 
+                new CollectMouseInputsSystem());
 
             AddFixedSystems(
                 new ResetDirectionSystem(),
                 new DirectionSystem(),
+                new VelocitySystem(),
                 new MoveSystem(),
-                new RotateWeaponSystem(),
-                new ResetInputsSystem());
+                new MoveWeaponSystem(),
+                new ResetKeysInputsSystem());
 
             var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
 
@@ -30,7 +33,7 @@ namespace Assets.Scripts.Startup
 
             var swordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             swordGo.transform.parent = playerGo.transform;
-            var swordEntity = EntityHelper.GetSword(swordGo, playerGo, cameraGo);
+            var swordEntity = EntityHelper.GetSword(swordGo, playerGo, cameraGo, 1.2f);
 
             Unfixed.AddEntity(playerEntity);
             Unfixed.AddEntity(swordEntity);

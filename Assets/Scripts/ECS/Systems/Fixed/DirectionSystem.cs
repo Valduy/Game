@@ -13,8 +13,8 @@ namespace Assets.Scripts.ECS.Systems.Fixed
             foreach (var node in _engine.GetNodes<DirectionNode>())
             {
                 node.DirectionComponent.Direction = new Vector2(
-                    -BoolToInt(node.KeyComponent.A) + BoolToInt(node.KeyComponent.D),
-                    -BoolToInt(node.KeyComponent.S) + BoolToInt(node.KeyComponent.W));
+                    -BoolToInt(node.KeysComponent.A) + BoolToInt(node.KeysComponent.D),
+                    -BoolToInt(node.KeysComponent.S) + BoolToInt(node.KeysComponent.W));
             }
         }
 

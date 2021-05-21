@@ -34,10 +34,12 @@ public class Reconcilator : IEngineWrapper
 
     private void Receive()
     {
+        Debug.Log("asdfasdf");
         if (!_clientProxy.ReadBuffer.IsEmpty)
         {
             var message = _clientProxy.ReadBuffer.ReadLast();
             var data = Encoding.ASCII.GetString(message);
+            Debug.Log(data);
             var snapshot = _worldSerializer.Deserialize(EcsContextHelper.HostWorldContext, data);
             var reconcilableEntities = GetReconcilableEntities();
 
@@ -56,10 +58,10 @@ public class Reconcilator : IEngineWrapper
 
     private void Send()
     {
-        foreach (var node in _engine.GetNodes<KeyNode>())
+        foreach (var node in _engine.GetNodes<KeysNode>())
         {
             var data = _componentSerializer.Serialize(
-                EcsContextHelper.ClientWorldContext, typeof(KeyComponent), node.KeyComponent);
+                EcsContextHelper.ClientWorldContext, typeof(KeysComponent), node.KeysComponent);
             var message = Encoding.ASCII.GetBytes(data);
             _clientProxy.WriteBuffer.Write(message);
         }

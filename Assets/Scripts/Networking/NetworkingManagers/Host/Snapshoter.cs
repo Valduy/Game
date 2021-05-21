@@ -43,7 +43,7 @@ public class Snapshoter : IEngineWrapper
                 var message = buffer.ReadLast();
                 var data = Encoding.ASCII.GetString(message);
                 var component = _componentSerializer.Deserialize(EcsContextHelper.ClientWorldContext, data);
-                node.Entity.Remove<KeyComponent>();
+                node.Entity.Remove<KeysComponent>();
                 node.Entity.Add(component);
             }
         }
@@ -57,6 +57,7 @@ public class Snapshoter : IEngineWrapper
 
         foreach (var node in _engine.GetNodes<EndPointNode>())
         {
+            Debug.Log("here?");
             var buffer = _hostProxy.GetWriteBuffer(node.EndPointComponent.EndPoint);
             buffer.Write(message);
         }

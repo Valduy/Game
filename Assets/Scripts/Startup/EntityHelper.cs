@@ -9,7 +9,7 @@ namespace Assets.Scripts.Startup
     {
         public static Entity GetPlayerEntity(GameObject player, float speed)
             => GetPlayerBase(player, speed)
-                .Add(new KeyComponent())
+                .Add(new KeysComponent())
                 .Add(new InputReceiverComponent());
 
         public static Entity GetThisPlayerEntity(GameObject player, uint id, float speed)
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Startup
 
         public static Entity GetOtherPlayerEntity(GameObject player, uint id, float speed, IPEndPoint endPoint) 
             => GetPlayerBase(player, speed)
-                .Add(new KeyComponent())
+                .Add(new KeysComponent())
                 .Add(new EndPointComponent { EndPoint = endPoint })
                 .Add(new SerializableComponent())
                 .Add(new PositionComponent())
@@ -28,7 +28,7 @@ namespace Assets.Scripts.Startup
 
         public static Entity GetThisPlayerPhantomEntity(GameObject player, uint id, float speed)
             => GetPlayerBase(player, speed)
-                .Add(new KeyComponent())
+                .Add(new KeysComponent())
                 .Add(new InputReceiverComponent())
                 .Add(new IdComponent {Id = 1})
                 .Add(new PositionComponent());
@@ -42,15 +42,17 @@ namespace Assets.Scripts.Startup
             => new Entity()
                 .Add(new DirectionComponent())
                 .Add(new SpeedComponent { Speed = speed })
+                .Add(new VelocityComponent())
                 .Add(new TransformComponent { Transform = player.GetComponent<Transform>() })
                 .Add(new RigidbodyComponent { Rigidbody = player.GetComponent<Rigidbody2D>() });
 
-        public static Entity GetSword(GameObject sword, GameObject owner, GameObject camera) 
+        public static Entity GetSword(GameObject sword, GameObject owner, GameObject camera, float r) 
             => new Entity()
-                .Add(new KeyComponent())
+                .Add(new MouseComponent())
                 .Add(new InputReceiverComponent())
                 .Add(new TransformComponent {Transform = sword.GetComponent<Transform>()})
                 .Add(new OwnerTransformComponent {Transform = owner.GetComponent<Transform>()})
-                .Add(new CameraComponent {Camera = camera.GetComponent<Camera>()});
+                .Add(new CameraComponent {Camera = camera.GetComponent<Camera>()})
+                .Add(new WeaponRadiusComponent {R = r});
     }
 }

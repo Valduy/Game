@@ -28,11 +28,11 @@ namespace Assets.Scripts.Startup
             _clientProxy.Start();
             _reconcilator = new Reconcilator(Fixed, _clientProxy);
 
-            AddUnfixedSystems(new CollectInputsSystem());
+            AddUnfixedSystems(new CollectKeyInputsSystem());
 
             AddFixedSystems(
                 new ApplyPositionSystem(),
-                new ResetInputsSystem());
+                new ResetKeysInputsSystem());
 
             var thisPlayerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             var thisPlayerEntity = EntityHelper.GetThisPlayerPhantomEntity(thisPlayerGo, 1, 3);

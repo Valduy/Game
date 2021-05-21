@@ -3,15 +3,18 @@ using ECS.Core;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
-    public class MoveSystem : SystemBase
+    public class ResetKeysInputsSystem : SystemBase
     {
         private Engine _engine;
 
         public override void Update(double time)
         {
-            foreach (var node in _engine.GetNodes<MoveNode>())
+            foreach (var node in _engine.GetNodes<KeysNode>())
             {
-                node.RigidbodyComponent.Rigidbody.velocity = node.VelocityComponent.Velocity;
+                node.KeysComponent.W = false;
+                node.KeysComponent.A = false;
+                node.KeysComponent.S = false;
+                node.KeysComponent.D = false;
             }
         }
 

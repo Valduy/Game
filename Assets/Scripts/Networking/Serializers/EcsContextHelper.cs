@@ -11,10 +11,10 @@ namespace Assets.Scripts.Networking.Serializers
         static EcsContextHelper()
         {
             HostWorldContext.Register<IdComponent>();
-            HostWorldContext.Register<DirectionComponent>();
+            HostWorldContext.Register<VelocityComponent>();
             HostWorldContext.Register<PositionComponent>();
 
-            ClientWorldContext.Register<KeyComponent>();
+            ClientWorldContext.Register<KeysComponent>();
         }
     }
 }

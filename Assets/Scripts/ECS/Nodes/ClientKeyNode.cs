@@ -5,12 +5,12 @@ namespace Assets.Scripts.ECS.Nodes
 {
     public class ClientKeyNode : NodeBase
     {
-        public KeyComponent KeyComponent { get; private set; }
+        public KeysComponent KeysComponent { get; private set; }
         public EndPointComponent EndPointComponent { get; private set; }
 
         protected override void OnEntityChanged()
         {
-            KeyComponent = Entity.Get<KeyComponent>();
+            KeysComponent = Entity.Get<KeysComponent>();
             EndPointComponent = Entity.Get<EndPointComponent>();
         }
     }

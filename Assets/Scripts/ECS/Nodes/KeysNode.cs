@@ -3,15 +3,15 @@ using ECS.Core;
 
 namespace Assets.Scripts.ECS.Nodes
 {
-    public class KeyNode : NodeBase
+    public class KeysNode : NodeBase
     {
         public InputReceiverComponent InputReceiverComponent { get; private set; }
-        public KeyComponent KeyComponent { get; private set; }
+        public KeysComponent KeysComponent { get; private set; }
 
         protected override void OnEntityChanged()
         {
             InputReceiverComponent = Entity.Get<InputReceiverComponent>();
-            KeyComponent = Entity.Get<KeyComponent>();
+            KeysComponent = Entity.Get<KeysComponent>();
         }
     }
 }

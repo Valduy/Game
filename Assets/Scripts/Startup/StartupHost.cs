@@ -28,14 +28,15 @@ namespace Assets.Scripts.Startup
             _hostProxy.Start();
             _snapshoter = new Snapshoter(Fixed, _hostProxy);
             
-            AddUnfixedSystems(new CollectInputsSystem());
+            AddUnfixedSystems(new CollectKeyInputsSystem());
 
             AddFixedSystems(
                 new ResetDirectionSystem(),
                 new DirectionSystem(),
+                new VelocitySystem(),
                 new MoveSystem(),
                 new GetPositionSystem(),
-                new ResetInputsSystem());
+                new ResetKeysInputsSystem());
             
             var thisPlayerGo = Instantiate(PlayerPrefab, new Vector3(3, 3, 0), Quaternion.identity);
             var thisPlayerEntity = EntityHelper.GetThisPlayerEntity(thisPlayerGo, 0, 3);
