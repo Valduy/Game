@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.ECS.Nodes;
 using ECS.Core;
+using UnityEngine;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
@@ -16,6 +17,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
                 node.KeyComponent.A = false;
                 node.KeyComponent.S = false;
                 node.KeyComponent.D = false;
+                node.KeyComponent.MousePosition = Vector3.zero;
             }
         }
 

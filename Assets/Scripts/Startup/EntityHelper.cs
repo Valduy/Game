@@ -45,12 +45,12 @@ namespace Assets.Scripts.Startup
                 .Add(new TransformComponent { Transform = player.GetComponent<Transform>() })
                 .Add(new RigidbodyComponent { Rigidbody = player.GetComponent<Rigidbody2D>() });
 
-        public static Entity GetSword(GameObject sword, GameObject owner)
-        {
-            return new Entity()
+        public static Entity GetSword(GameObject sword, GameObject owner, GameObject camera) 
+            => new Entity()
                 .Add(new KeyComponent())
                 .Add(new InputReceiverComponent())
-                .Add(new TransformComponent {Transform = sword.GetComponent<Transform>()});
-        }
+                .Add(new TransformComponent {Transform = sword.GetComponent<Transform>()})
+                .Add(new OwnerTransformComponent {Transform = owner.GetComponent<Transform>()})
+                .Add(new CameraComponent {Camera = camera.GetComponent<Camera>()});
     }
 }

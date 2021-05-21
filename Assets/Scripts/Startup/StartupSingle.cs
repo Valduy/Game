@@ -6,6 +6,7 @@ namespace Assets.Scripts.Startup
 {
     public class StartupSingle : StartupBase
     {
+        public GameObject CameraPrefab;
         public GameObject PlayerPrefab;
         public GameObject SwordPrefab;
 
@@ -19,17 +20,23 @@ namespace Assets.Scripts.Startup
                 new ResetDirectionSystem(),
                 new DirectionSystem(),
                 new MoveSystem(),
+                new RotateWeaponSystem(),
                 new ResetInputsSystem());
 
-            var player = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            var playerEntity = EntityHelper.GetPlayerEntity(player, 3);
+            var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
 
-            var sword = Instantiate(SwordPrefab, new Vector3(1.2f, 0, 0), Quaternion.identity);
-            sword.transform.parent = player.transform;
-            //var swordEntity
+            var playerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            var playerEntity = EntityHelper.GetPlayerEntity(playerGo, 3);
+
+            var swordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            swordGo.transform.parent = playerGo.transform;
+            var swordEntity = EntityHelper.GetSword(swordGo, playerGo, cameraGo);
 
             Unfixed.AddEntity(playerEntity);
+            Unfixed.AddEntity(swordEntity);
+
             Fixed.AddEntity(playerEntity);
+            Fixed.AddEntity(swordEntity);
         }
     }
 }

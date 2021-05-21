@@ -37,11 +37,11 @@ namespace Assets.Scripts.Startup
                 new GetPositionSystem(),
                 new ResetInputsSystem());
             
-            var thisPlayer = Instantiate(PlayerPrefab, new Vector3(3, 3, 0), Quaternion.identity);
-            var thisPlayerEntity = EntityHelper.GetThisPlayerEntity(thisPlayer, 0, 3);
+            var thisPlayerGo = Instantiate(PlayerPrefab, new Vector3(3, 3, 0), Quaternion.identity);
+            var thisPlayerEntity = EntityHelper.GetThisPlayerEntity(thisPlayerGo, 0, 3);
 
-            var otherPlayer = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            var otherPlayerEntity = EntityHelper.GetOtherPlayerEntity(otherPlayer, 1, 3, _clients.First());
+            var otherPlayerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            var otherPlayerEntity = EntityHelper.GetOtherPlayerEntity(otherPlayerGo, 1, 3, _clients.First());
 
             Unfixed.AddEntity(thisPlayerEntity);
             Unfixed.AddEntity(otherPlayerEntity);

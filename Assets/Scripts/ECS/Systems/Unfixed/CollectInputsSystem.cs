@@ -16,6 +16,7 @@ namespace Assets.Scripts.ECS.Systems.Unfixed
                 node.KeyComponent.A |= Input.GetKey(KeyCode.A);
                 node.KeyComponent.S |= Input.GetKey(KeyCode.S);
                 node.KeyComponent.D |= Input.GetKey(KeyCode.D);
+                node.KeyComponent.MousePosition = Input.mousePosition;
             }
         }
 
