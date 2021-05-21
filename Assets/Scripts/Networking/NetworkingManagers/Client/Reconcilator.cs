@@ -5,6 +5,7 @@ using Assets.Scripts.ECS.Components;
 using Assets.Scripts.ECS.Nodes;
 using Assets.Scripts.Networking.NetworkingManagers;
 using Assets.Scripts.Networking.Serializers;
+using Assets.Scripts.Util;
 using ECS.Core;
 using ECS.Serialization;
 using Network.Proxy;
@@ -34,12 +35,10 @@ public class Reconcilator : IEngineWrapper
 
     private void Receive()
     {
-        Debug.Log("asdfasdf");
         if (!_clientProxy.ReadBuffer.IsEmpty)
         {
             var message = _clientProxy.ReadBuffer.ReadLast();
             var data = Encoding.ASCII.GetString(message);
-            Debug.Log(data);
             var snapshot = _worldSerializer.Deserialize(EcsContextHelper.HostWorldContext, data);
             var reconcilableEntities = GetReconcilableEntities();
 
@@ -69,6 +68,6 @@ public class Reconcilator : IEngineWrapper
 
     private Dictionary<uint, Entity> GetReconcilableEntities() 
         => _engine.GetEntities()
-            .Where(e => e.Contain<IdComponent>())
+            .Filter<IdComponent>()
             .ToDictionary(e => e.Get<IdComponent>().Id, e => e);
 }

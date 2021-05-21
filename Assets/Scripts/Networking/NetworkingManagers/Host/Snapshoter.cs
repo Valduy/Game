@@ -5,6 +5,7 @@ using Assets.Scripts.ECS.Components;
 using Assets.Scripts.ECS.Nodes;
 using Assets.Scripts.Networking.NetworkingManagers;
 using Assets.Scripts.Networking.Serializers;
+using Assets.Scripts.Util;
 using ECS.Core;
 using ECS.Serialization;
 using Network.Proxy;
@@ -64,7 +65,5 @@ public class Snapshoter : IEngineWrapper
     }
 
     private List<Entity> GetSerializableEntities() 
-        => _engine.GetEntities()
-            .Where(e => e.Contain<SerializableComponent>())
-            .ToList();
+        => _engine.GetEntities().Filter<SerializableComponent>().ToList();
 }
