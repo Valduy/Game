@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Assets.Scripts.Networking.Serializers;
 using ECS.Core;
 using ECS.Serialization.Attributes;
 using ECS.Serialization.Converters;
@@ -19,11 +19,10 @@ namespace Assets.Scripts.ECS.Components
         public void ToTokensSequence(object component, ISequentialWriter writer)
         {
             var directionComponent = (DirectionComponent) component;
-            writer.WriteFloat(directionComponent.Direction.x);
-            writer.WriteFloat(directionComponent.Direction.y);
+            ConverterHelper.WriteVector2(directionComponent.Direction, writer);
         }
 
         public ComponentBase FromTokenSequence(ISequentialReader reader) 
-            => new DirectionComponent {Direction = {x = reader.ReadFloat(), y = reader.ReadFloat()}};
+            => new DirectionComponent {Direction = ConverterHelper.ReadVector2(reader)};
     }
 }

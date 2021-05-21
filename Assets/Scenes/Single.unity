@@ -233,7 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ec47567e8430e40a2a9a12b0a85804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 4166779538327386586, guid: 9875f801aa06c644b82e8e429a4dd784,
+  PlayerPrefab: {fileID: 2323408106406757114, guid: e3df9aaee2e933e4e8ab779c63165255,
+    type: 3}
+  SwordPrefab: {fileID: 4704870805806649563, guid: 70a6da6c8f7c7f14db17a81a0b0e3d75,
     type: 3}
 --- !u!4 &1791474073
 Transform:

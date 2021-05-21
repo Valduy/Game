@@ -1,7 +1,5 @@
-﻿using Assets.Scripts.ECS.Components;
-using Assets.Scripts.ECS.Systems.Fixed;
+﻿using Assets.Scripts.ECS.Systems.Fixed;
 using Assets.Scripts.ECS.Systems.Unfixed;
-using ECS.Core;
 using UnityEngine;
 
 namespace Assets.Scripts.Startup
@@ -26,8 +24,9 @@ namespace Assets.Scripts.Startup
             var player = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             var playerEntity = EntityHelper.GetPlayerEntity(player, 3);
 
-            var sword = Instantiate(SwordPrefab, new Vector3(-1.2f, 0, 0), Quaternion.identity);
+            var sword = Instantiate(SwordPrefab, new Vector3(1.2f, 0, 0), Quaternion.identity);
             sword.transform.parent = player.transform;
+            //var swordEntity
 
             Unfixed.AddEntity(playerEntity);
             Fixed.AddEntity(playerEntity);

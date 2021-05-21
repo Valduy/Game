@@ -1,8 +1,10 @@
-﻿using ECS.Core;
+﻿using Assets.Scripts.Networking.Serializers;
+using ECS.Core;
 using ECS.Serialization.Attributes;
 using ECS.Serialization.Converters;
 using ECS.Serialization.Readers;
 using ECS.Serialization.Writers;
+using UnityEngine;
 
 namespace Assets.Scripts.ECS.Components
 {
@@ -13,6 +15,7 @@ namespace Assets.Scripts.ECS.Components
         public bool A;
         public bool S;
         public bool D;
+        public Vector3 MousePosition;
     }
 
     public class KeyComponentConverter : IComponentConverter
@@ -24,15 +27,17 @@ namespace Assets.Scripts.ECS.Components
             writer.WriteBool(keyComponent.A);
             writer.WriteBool(keyComponent.S);
             writer.WriteBool(keyComponent.D);
+            ConverterHelper.WriteVector3(keyComponent.MousePosition, writer);
         }
 
         public ComponentBase FromTokenSequence(ISequentialReader reader) 
-            => new KeyComponent()
+            => new KeyComponent
             {
                 W = reader.ReadBool(),
                 A = reader.ReadBool(),
                 S = reader.ReadBool(),
                 D = reader.ReadBool(),
+                MousePosition = ConverterHelper.ReadVector3(reader)
             };
     }
 }

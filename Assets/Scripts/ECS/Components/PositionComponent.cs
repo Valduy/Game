@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Assets.Scripts.Networking.Serializers;
 using ECS.Core;
 using ECS.Serialization.Attributes;
 using ECS.Serialization.Converters;
@@ -19,12 +19,10 @@ namespace Assets.Scripts.ECS.Components
         public void ToTokensSequence(object component, ISequentialWriter writer)
         {
             var positionComponent = (PositionComponent)component;
-            writer.WriteFloat((float)Math.Round(positionComponent.Position.x, 2, MidpointRounding.AwayFromZero));
-            writer.WriteFloat((float)Math.Round(positionComponent.Position.y, 2, MidpointRounding.AwayFromZero));
-            writer.WriteFloat((float)Math.Round(positionComponent.Position.z, 2, MidpointRounding.AwayFromZero));
+            ConverterHelper.WriteVector3(positionComponent.Position, 2, writer);
         }
 
         public ComponentBase FromTokenSequence(ISequentialReader reader)
-            => new PositionComponent { Position = { x = reader.ReadFloat(), y = reader.ReadFloat(), z = reader.ReadFloat() } };
+            => new PositionComponent { Position = ConverterHelper.ReadVector3(reader) };
     }
 }
