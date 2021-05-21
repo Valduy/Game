@@ -10,40 +10,23 @@ namespace Assets.Scripts.Startup
         #region Player.
 
         public static Entity GetPlayerEntity(GameObject player, float speed)
-            => GetPlayerBase(player, speed)
-                .Add(new KeysComponent())
-                .Add(new InputReceiverComponent());
+            => GetPlayerEntityBase(player, speed)
+                .Add(new DirectionComponent())
+                .Add(new SpeedComponent { Speed = speed });
 
-        public static Entity GetThisPlayerEntity(GameObject player, uint id, float speed)
+        public static Entity GetHostPlayerEntity(GameObject player, uint id, float speed)
             => GetPlayerEntity(player, speed)
                 .Add(new SerializableComponent())
                 .Add(new PositionComponent())
                 .Add(new IdComponent { Id = id });
 
-        public static Entity GetOtherPlayerEntity(GameObject player, uint id, float speed, IPEndPoint endPoint)
-            => GetPlayerBase(player, speed)
-                .Add(new KeysComponent())
-                .Add(new EndPointComponent { EndPoint = endPoint })
-                .Add(new SerializableComponent())
-                .Add(new PositionComponent())
-                .Add(new IdComponent { Id = id });
-
-        public static Entity GetThisPlayerPhantomEntity(GameObject player, uint id, float speed)
-            => GetPlayerBase(player, speed)
-                .Add(new KeysComponent())
-                .Add(new InputReceiverComponent())
-                .Add(new IdComponent { Id = id })
+        public static Entity GetClientPlayerEntity(GameObject player, uint id, float speed)
+            => GetPlayerEntityBase(player, speed)
+                .Add(new IdComponent {Id = id})
                 .Add(new PositionComponent());
 
-        public static Entity GetOtherPlayerPhantomEntity(GameObject player, uint id, float speed)
-            => GetPlayerBase(player, speed)
-                .Add(new IdComponent { Id = id })
-                .Add(new PositionComponent());
-
-        private static Entity GetPlayerBase(GameObject player, float speed)
+        private static Entity GetPlayerEntityBase(GameObject player, float speed)
             => new Entity()
-                .Add(new DirectionComponent())
-                .Add(new SpeedComponent { Speed = speed })
                 .Add(new VelocityComponent())
                 .Add(new TransformComponent { Transform = player.GetComponent<Transform>() })
                 .Add(new RigidbodyComponent { Rigidbody = player.GetComponent<Rigidbody2D>() });
@@ -58,14 +41,14 @@ namespace Assets.Scripts.Startup
                 .Add(new OwnerTransformComponent { Transform = owner.GetComponent<Transform>() })
                 .Add(new WeaponRadiusComponent { R = r });
 
-        public static Entity GetPlayerSwordEntity(GameObject sword, GameObject owner, uint id, float r)
+        public static Entity GetHostSwordEntity(GameObject sword, GameObject owner, uint id, float r)
             => GetSwordEntity(sword, owner, r)
                 .Add(new IdComponent { Id = id })
                 .Add(new SerializableComponent())
                 .Add(new PositionComponent())
                 .Add(new RotationComponent());
 
-        public static Entity GetPlayerPhantomSwordEntity(GameObject sword, uint id) 
+        public static Entity GetClientSwordEntity(GameObject sword, uint id) 
             => new Entity()
                 .Add(new IdComponent {Id = id})
                 .Add(new TransformComponent { Transform = sword.GetComponent<Transform>() })
@@ -83,13 +66,22 @@ namespace Assets.Scripts.Startup
 
         #endregion
 
+        public static Entity BindWithClient(this Entity entity, IPEndPoint endPoint)
+            => entity.Add(new EndPointComponent {EndPoint = endPoint});
+
+        public static Entity MakeEntityKeyInputSource(this Entity entity)
+            => entity.Add(new KeysComponent());
+
+        public static Entity MakeEntityKeyInputsReceiver(this Entity entity) 
+            => entity.MakeEntityKeyInputSource()
+                .Add(new InputReceiverComponent());
+
         public static Entity MakeEntityMouseInputSource(this Entity entity) 
             => entity.Add(new MouseComponent());
 
         public static Entity MakeEntityMouseInputReceiver(this Entity entity, GameObject camera)
-            => entity
+            => entity.MakeEntityMouseInputSource()
                 .Add(new InputReceiverComponent())
-                .Add(new MouseComponent())
                 .Add(new CameraComponent {Camera = camera.GetComponent<Camera>()});
     }
 }

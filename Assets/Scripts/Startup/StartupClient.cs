@@ -43,11 +43,12 @@ namespace Assets.Scripts.Startup
             var otherPlayerSwordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             otherPlayerSwordGo.transform.parent = otherPlayerGo.transform;
 
-            var thisPlayerEntity = EntityHelper.GetThisPlayerPhantomEntity(thisPlayerGo, 2, 3);
+            var thisPlayerEntity = EntityHelper.GetClientPlayerEntity(thisPlayerGo, 2, 3)
+                .MakeEntityKeyInputsReceiver();
             var cameraEntity = EntityHelper.GetCameraEntity(cameraGo, thisPlayerGo);
 
-            var otherPlayerEntity = EntityHelper.GetOtherPlayerPhantomEntity(otherPlayerGo, 0, 3);
-            var otherPlayerSwordEntity = EntityHelper.GetPlayerPhantomSwordEntity(otherPlayerSwordGo, 1);
+            var otherPlayerEntity = EntityHelper.GetClientPlayerEntity(otherPlayerGo, 0, 3);
+            var otherPlayerSwordEntity = EntityHelper.GetClientSwordEntity(otherPlayerSwordGo, 1);
 
             Unfixed.AddEntity(thisPlayerEntity);
             Unfixed.AddEntity(otherPlayerEntity);

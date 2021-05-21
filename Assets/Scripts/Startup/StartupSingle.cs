@@ -32,7 +32,8 @@ namespace Assets.Scripts.Startup
             swordGo.transform.parent = playerGo.transform;
             var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
 
-            var playerEntity = EntityHelper.GetPlayerEntity(playerGo, 3);
+            var playerEntity = EntityHelper.GetPlayerEntity(playerGo, 3)
+                .MakeEntityKeyInputsReceiver();
             var swordEntity = EntityHelper.GetSwordEntity(swordGo, playerGo, 1.2f)
                 .MakeEntityMouseInputReceiver(cameraGo);
             var cameraEntity = EntityHelper.GetCameraEntity(cameraGo, playerGo);
