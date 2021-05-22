@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using Assets.Scripts.ECS.Systems.Fixed;
 using Assets.Scripts.ECS.Systems.Unfixed;
+using ECS.Core;
 using Network.Proxy;
 using UnityEngine;
 
@@ -9,14 +10,27 @@ namespace Assets.Scripts.Startup
 {
     public class StartupClient : StartupBase
     {
+        public GameObject PlayerPrefab;
+        public GameObject CameraPrefab;
+        public GameObject SwordPrefab;
+        public GameObject BossPrefab;
+
         private UdpClient _udpClient;
         private IPEndPoint _hostAddress;
         private ClientNetworkProxy _clientProxy;
         private Reconcilator _reconcilator;
 
-        public GameObject PlayerPrefab;
-        public GameObject CameraPrefab;
-        public GameObject SwordPrefab;
+        private GameObject _cameraGo;
+        private GameObject _thisPlayerGo;
+        private GameObject _thisPlayerSwordGo;
+        private GameObject _otherPlayerGo;
+        private GameObject _otherPlayerSwordGo;
+
+        private Entity _cameraEntity;
+        private Entity _thisPlayerEntity;
+        private Entity _thisPlayerSwordEntity;
+        private Entity _otherPlayerEntity;
+        private Entity _otherPlayerSwordEntity;
 
         protected override void Start()
         {
@@ -38,37 +52,9 @@ namespace Assets.Scripts.Startup
                 new MoveCameraSystem(),
                 new ResetKeysInputsSystem());
 
-            var thisPlayerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            var thisPlayerSwordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            thisPlayerSwordGo.transform.parent = thisPlayerGo.transform;
-            var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
-            
-            var otherPlayerGo = Instantiate(PlayerPrefab, new Vector3(3, 3, 0), Quaternion.identity);
-            var otherPlayerSwordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            otherPlayerSwordGo.transform.parent = otherPlayerGo.transform;
-
-            var thisPlayerEntity = EntityHelper.GetClientPlayerEntity(thisPlayerGo, 2, 3)
-                .KeyInputsReceiver()
-                .Serializable();
-
-            var thisPlayerSword = EntityHelper.GetClientWeaponEntity(thisPlayerSwordGo, 3)
-                .MouseInputReceiver(cameraGo)
-                .Serializable();
-
-            var cameraEntity = EntityHelper.GetCameraEntity(cameraGo, thisPlayerGo);
-
-            var otherPlayerEntity = EntityHelper.GetClientPlayerEntity(otherPlayerGo, 0, 3);
-            var otherPlayerSwordEntity = EntityHelper.GetClientWeaponEntity(otherPlayerSwordGo, 1);
-
-            Unfixed.AddEntity(thisPlayerEntity);
-            Unfixed.AddEntity(thisPlayerSword);
-            Unfixed.AddEntity(otherPlayerEntity);
-
-            Fixed.AddEntity(thisPlayerEntity);
-            Fixed.AddEntity(thisPlayerSword);
-            Fixed.AddEntity(cameraEntity);
-            Fixed.AddEntity(otherPlayerEntity);
-            Fixed.AddEntity(otherPlayerSwordEntity);
+            InstantiateGameObjects();
+            CreateEntities();
+            RegisterEntities();
         }
 
         protected override void FixedUpdate()
@@ -80,6 +66,47 @@ namespace Assets.Scripts.Startup
         {
             _udpClient?.Dispose();
             _clientProxy?.Dispose();
+        }
+
+        private void InstantiateGameObjects()
+        {
+            _cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+
+            _thisPlayerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            _thisPlayerSwordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            _thisPlayerSwordGo.transform.parent = _thisPlayerGo.transform;
+
+            _otherPlayerGo = Instantiate(PlayerPrefab, new Vector3(3, 3, 0), Quaternion.identity);
+            _otherPlayerSwordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            _otherPlayerSwordGo.transform.parent = _otherPlayerGo.transform;
+        }
+
+        private void CreateEntities()
+        {
+            _cameraEntity = EntityHelper.GetCameraEntity(_cameraGo, _thisPlayerGo);
+
+            _thisPlayerEntity = EntityHelper.GetClientPlayerEntity(_thisPlayerGo, 2, 3)
+                .KeyInputsReceiver()
+                .Serializable();
+
+            _thisPlayerSwordEntity = EntityHelper.GetClientWeaponEntity(_thisPlayerSwordGo, 3)
+                .MouseInputReceiver(_cameraGo)
+                .Serializable();
+            
+            _otherPlayerEntity = EntityHelper.GetClientPlayerEntity(_otherPlayerGo, 0, 3);
+            _otherPlayerSwordEntity = EntityHelper.GetClientWeaponEntity(_otherPlayerSwordGo, 1);
+        }
+
+        private void RegisterEntities()
+        {
+            Unfixed.AddEntity(_thisPlayerEntity);
+            Unfixed.AddEntity(_thisPlayerSwordEntity);
+
+            Fixed.AddEntity(_thisPlayerEntity);
+            Fixed.AddEntity(_thisPlayerSwordEntity);
+            Fixed.AddEntity(_cameraEntity);
+            Fixed.AddEntity(_otherPlayerEntity);
+            Fixed.AddEntity(_otherPlayerSwordEntity);
         }
     }
 }

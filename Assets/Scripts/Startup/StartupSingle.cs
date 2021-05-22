@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.ECS.Systems.Fixed;
 using Assets.Scripts.ECS.Systems.Unfixed;
+using ECS.Core;
 using UnityEngine;
 
 namespace Assets.Scripts.Startup
@@ -10,6 +11,16 @@ namespace Assets.Scripts.Startup
         public GameObject PlayerPrefab;
         public GameObject SwordPrefab;
         public GameObject BossPrefab;
+
+        private GameObject _cameraGo;
+        private GameObject _playerGo;
+        private GameObject _swordGo;
+        private GameObject _bossGo;
+
+        private Entity _cameraEntity;
+        private Entity _playerEntity;
+        private Entity _swordEntity;
+        private Entity _bossEntity;
 
         protected override void Start()
         {
@@ -28,30 +39,44 @@ namespace Assets.Scripts.Startup
                 new MoveCameraSystem(),
                 new ResetKeysInputsSystem());
 
-            var playerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            var swordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            swordGo.transform.parent = playerGo.transform;
-            var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+            InstantiateGameObjects();
+            CreateEntities();
+            RegisterEntities();
+        }
 
-            var bossGo = Instantiate(BossPrefab, new Vector3(0, 5, 0), Quaternion.identity);
+        private void InstantiateGameObjects()
+        {
+            _cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
 
-            var playerEntity = EntityHelper.GetPlayerEntity(playerGo, 3)
+            _playerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            _swordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            _swordGo.transform.parent = _playerGo.transform;
+            
+            _bossGo = Instantiate(BossPrefab, new Vector3(0, 5, 0), Quaternion.identity);
+        }
+
+        private void CreateEntities()
+        {
+            _cameraEntity = EntityHelper.GetCameraEntity(_cameraGo, _playerGo);
+
+            _playerEntity = EntityHelper.GetPlayerEntity(_playerGo, 3)
                 .KeyInputsReceiver();
 
-            var swordEntity = EntityHelper.GetWeaponEntity(swordGo, playerGo, 1.2f)
-                .MouseInputReceiver(cameraGo);
+            _swordEntity = EntityHelper.GetWeaponEntity(_swordGo, _playerGo, 1.2f)
+                .MouseInputReceiver(_cameraGo);
 
-            var cameraEntity = EntityHelper.GetCameraEntity(cameraGo, playerGo);
+            _bossEntity = EntityHelper.GetBossEntity(_bossGo, 2.5f);
+        }
 
-            var bossEntity = EntityHelper.GetBossEntity(bossGo, 2.5f);
+        private void RegisterEntities()
+        {
+            Unfixed.AddEntity(_playerEntity);
+            Unfixed.AddEntity(_swordEntity);
 
-            Unfixed.AddEntity(playerEntity);
-            Unfixed.AddEntity(swordEntity);
-
-            Fixed.AddEntity(playerEntity);
-            Fixed.AddEntity(swordEntity);
-            Fixed.AddEntity(cameraEntity);
-            Fixed.AddEntity(bossEntity);
+            Fixed.AddEntity(_playerEntity);
+            Fixed.AddEntity(_swordEntity);
+            Fixed.AddEntity(_cameraEntity);
+            Fixed.AddEntity(_bossEntity);
         }
     }
 }
