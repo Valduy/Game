@@ -49,8 +49,8 @@ namespace Assets.Scripts.Startup
                 new CollectMouseInputsSystem());
 
             AddFixedSystems(
-                new ApplyPositionSystem(),
                 new ApplyRotationSystem(),
+                new ApplyPositionSystem(),
                 new MoveCameraSystem(),
                 new ResetKeysInputsSystem());
 
