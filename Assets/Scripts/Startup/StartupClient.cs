@@ -25,12 +25,14 @@ namespace Assets.Scripts.Startup
         private GameObject _thisPlayerSwordGo;
         private GameObject _otherPlayerGo;
         private GameObject _otherPlayerSwordGo;
+        private GameObject _bossGo;
 
         private Entity _cameraEntity;
         private Entity _thisPlayerEntity;
         private Entity _thisPlayerSwordEntity;
         private Entity _otherPlayerEntity;
         private Entity _otherPlayerSwordEntity;
+        private Entity _bossEntity;
 
         protected override void Start()
         {
@@ -79,13 +81,15 @@ namespace Assets.Scripts.Startup
             _otherPlayerGo = Instantiate(PlayerPrefab, new Vector3(3, 3, 0), Quaternion.identity);
             _otherPlayerSwordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             _otherPlayerSwordGo.transform.parent = _otherPlayerGo.transform;
+
+            _bossGo = Instantiate(BossPrefab, new Vector3(0, 5, 0), Quaternion.identity);
         }
 
         private void CreateEntities()
         {
             _cameraEntity = EntityHelper.GetCameraEntity(_cameraGo, _thisPlayerGo);
 
-            _thisPlayerEntity = EntityHelper.GetClientPlayerEntity(_thisPlayerGo, 2, 3)
+            _thisPlayerEntity = EntityHelper.GetClientCharacterEntity(_thisPlayerGo, 2)
                 .KeyInputsReceiver()
                 .Serializable();
 
@@ -93,8 +97,11 @@ namespace Assets.Scripts.Startup
                 .MouseInputReceiver(_cameraGo)
                 .Serializable();
             
-            _otherPlayerEntity = EntityHelper.GetClientPlayerEntity(_otherPlayerGo, 0, 3);
+            _otherPlayerEntity = EntityHelper.GetClientCharacterEntity(_otherPlayerGo, 0);
+
             _otherPlayerSwordEntity = EntityHelper.GetClientWeaponEntity(_otherPlayerSwordGo, 1);
+
+            _bossEntity = EntityHelper.GetClientCharacterEntity(_bossGo, 4);
         }
 
         private void RegisterEntities()
@@ -107,6 +114,7 @@ namespace Assets.Scripts.Startup
             Fixed.AddEntity(_cameraEntity);
             Fixed.AddEntity(_otherPlayerEntity);
             Fixed.AddEntity(_otherPlayerSwordEntity);
+            Fixed.AddEntity(_bossEntity);
         }
     }
 }

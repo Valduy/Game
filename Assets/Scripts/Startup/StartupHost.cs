@@ -88,14 +88,14 @@ namespace Assets.Scripts.Startup
             _otherPlayerSwordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             _otherPlayerSwordGo.transform.parent = _otherPlayerGo.transform;
 
-            //_bossGo = Instantiate(BossPrefab, new Vector3(0, 5, 0), Quaternion.identity);
+            _bossGo = Instantiate(BossPrefab, new Vector3(0, 5, 0), Quaternion.identity);
         }
 
         private void CreateEntities()
         {
             _cameraEntity = EntityHelper.GetCameraEntity(_cameraGo, _thisPlayerGo);
 
-            _thisPlayerEntity = EntityHelper.GetHostPlayerEntity(_thisPlayerGo, 0, 3)
+            _thisPlayerEntity = EntityHelper.GetHostCharacterEntity(_thisPlayerGo, 0, 3)
                 .KeyInputsReceiver()
                 .Serializable();
 
@@ -103,12 +103,15 @@ namespace Assets.Scripts.Startup
                 .MouseInputReceiver(_cameraGo)
                 .Serializable();
             
-            _otherPlayerEntity = EntityHelper.GetHostPlayerEntity(_otherPlayerGo, 2, 3)
+            _otherPlayerEntity = EntityHelper.GetHostCharacterEntity(_otherPlayerGo, 2, 3)
                 .KeyInputSource()
                 .Serializable();
 
             _otherPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(_otherPlayerSwordGo, _otherPlayerGo, 3, 1.2f)
                 .MouseInputSource()
+                .Serializable();
+
+            _bossEntity = EntityHelper.GetHostCharacterEntity(_bossGo, 4, 2.5f)
                 .Serializable();
         }
 
@@ -122,6 +125,7 @@ namespace Assets.Scripts.Startup
             Fixed.AddEntity(_cameraEntity);
             Fixed.AddEntity(_otherPlayerEntity);
             Fixed.AddEntity(_otherPlayerSwordEntity);
+            Fixed.AddEntity(_bossEntity);
         }
     }
 }

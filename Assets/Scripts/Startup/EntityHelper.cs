@@ -8,26 +8,26 @@ namespace Assets.Scripts.Startup
     {
         #region Player.
 
-        public static Entity GetPlayerEntity(GameObject player, float speed)
-            => GetPlayerEntityBase(player, speed)
+        public static Entity GetCharacterEntity(GameObject character, float speed)
+            => GetCharacterEntityBase(character)
                 .Add(new DirectionComponent())
                 .Add(new SpeedComponent { Speed = speed });
 
-        public static Entity GetHostPlayerEntity(GameObject player, uint id, float speed)
-            => GetPlayerEntity(player, speed)
+        public static Entity GetHostCharacterEntity(GameObject character, uint id, float speed)
+            => GetCharacterEntity(character, speed)
                 .Add(new PositionComponent())
                 .Id(id);
 
-        public static Entity GetClientPlayerEntity(GameObject player, uint id, float speed)
-            => GetPlayerEntityBase(player, speed)
+        public static Entity GetClientCharacterEntity(GameObject character, uint id)
+            => GetCharacterEntityBase(character)
                 .Add(new PositionComponent())
                 .Id(id);
 
-        private static Entity GetPlayerEntityBase(GameObject player, float speed)
+        private static Entity GetCharacterEntityBase(GameObject character)
             => new Entity()
                 .Add(new VelocityComponent())
-                .Add(new TransformComponent { Transform = player.GetComponent<Transform>() })
-                .Add(new RigidbodyComponent { Rigidbody = player.GetComponent<Rigidbody2D>() });
+                .Add(new TransformComponent { Transform = character.GetComponent<Transform>() })
+                .Add(new RigidbodyComponent { Rigidbody = character.GetComponent<Rigidbody2D>() });
 
         #endregion
 
@@ -53,14 +53,6 @@ namespace Assets.Scripts.Startup
         private static Entity GetWeaponEntityBase(GameObject sword)
             => new Entity()
                 .Add(new TransformComponent {Transform = sword.GetComponent<Transform>()});
-
-        #endregion
-
-        #region Boss.
-
-        // TODO: возможно, удастся без проблем унифицировать с игровыми персонажами.
-        public static Entity GetBossEntity(GameObject boss, float speed) 
-            => GetPlayerEntity(boss, speed);
 
         #endregion
 

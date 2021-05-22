@@ -59,13 +59,13 @@ namespace Assets.Scripts.Startup
         {
             _cameraEntity = EntityHelper.GetCameraEntity(_cameraGo, _playerGo);
 
-            _playerEntity = EntityHelper.GetPlayerEntity(_playerGo, 3)
+            _playerEntity = EntityHelper.GetCharacterEntity(_playerGo, 3)
                 .KeyInputsReceiver();
 
             _swordEntity = EntityHelper.GetWeaponEntity(_swordGo, _playerGo, 1.2f)
                 .MouseInputReceiver(_cameraGo);
 
-            _bossEntity = EntityHelper.GetBossEntity(_bossGo, 2.5f);
+            _bossEntity = EntityHelper.GetCharacterEntity(_bossGo, 2.5f);
         }
 
         private void RegisterEntities()
