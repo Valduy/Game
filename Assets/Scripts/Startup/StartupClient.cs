@@ -28,7 +28,9 @@ namespace Assets.Scripts.Startup
             _clientProxy.Start();
             _reconcilator = new Reconcilator(Fixed, _clientProxy);
 
-            AddUnfixedSystems(new CollectKeyInputsSystem());
+            AddUnfixedSystems(
+                new CollectKeyInputsSystem(), 
+                new CollectMouseInputsSystem());
 
             AddFixedSystems(
                 new ApplyPositionSystem(),
@@ -37,6 +39,8 @@ namespace Assets.Scripts.Startup
                 new ResetKeysInputsSystem());
 
             var thisPlayerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            var thisPlayerSwordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            thisPlayerSwordGo.transform.parent = thisPlayerGo.transform;
             var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
             
             var otherPlayerGo = Instantiate(PlayerPrefab, new Vector3(3, 3, 0), Quaternion.identity);
@@ -47,15 +51,21 @@ namespace Assets.Scripts.Startup
                 .KeyInputsReceiver()
                 .Serializable();
 
+            var thisPlayerSword = EntityHelper.GetClientSwordEntity(thisPlayerSwordGo, 3)
+                .MouseInputReceiver(cameraGo)
+                .Serializable();
+
             var cameraEntity = EntityHelper.GetCameraEntity(cameraGo, thisPlayerGo);
 
             var otherPlayerEntity = EntityHelper.GetClientPlayerEntity(otherPlayerGo, 0, 3);
             var otherPlayerSwordEntity = EntityHelper.GetClientSwordEntity(otherPlayerSwordGo, 1);
 
             Unfixed.AddEntity(thisPlayerEntity);
+            Unfixed.AddEntity(thisPlayerSword);
             Unfixed.AddEntity(otherPlayerEntity);
 
             Fixed.AddEntity(thisPlayerEntity);
+            Fixed.AddEntity(thisPlayerSword);
             Fixed.AddEntity(cameraEntity);
             Fixed.AddEntity(otherPlayerEntity);
             Fixed.AddEntity(otherPlayerSwordEntity);

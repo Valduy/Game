@@ -51,8 +51,8 @@ namespace Assets.Scripts.Startup
             var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
 
             var otherPlayerGo = Instantiate(PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            //var otherPlayerSwordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            //otherPlayerSwordGo.transform.parent = otherPlayerGo.transform;
+            var otherPlayerSwordGo = Instantiate(SwordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            otherPlayerSwordGo.transform.parent = otherPlayerGo.transform;
 
             var thisPlayerEntity = EntityHelper.GetHostPlayerEntity(thisPlayerGo, 0, 3)
                 .KeyInputsReceiver()
@@ -68,7 +68,9 @@ namespace Assets.Scripts.Startup
                 .KeyInputSource()
                 .Serializable();
 
-            //var otherPlayerSwordEntity = EntityHelper.GetOtherPlayerSwordEntity(otherPlayerSwordGo, otherPlayerGo, 1.2f);
+            var otherPlayerSwordEntity = EntityHelper.GetHostSwordEntity(otherPlayerSwordGo, otherPlayerGo, 3, 1.2f)
+                .MouseInputSource()
+                .Serializable();
 
             Unfixed.AddEntity(thisPlayerEntity);
             Unfixed.AddEntity(thisPlayerSwordEntity);
@@ -78,7 +80,7 @@ namespace Assets.Scripts.Startup
             Fixed.AddEntity(thisPlayerSwordEntity);
             Fixed.AddEntity(cameraEntity);
             Fixed.AddEntity(otherPlayerEntity);
-            //Fixed.AddEntity(otherPlayerSwordEntity);
+            Fixed.AddEntity(otherPlayerSwordEntity);
         }
 
         protected override void FixedUpdate()
