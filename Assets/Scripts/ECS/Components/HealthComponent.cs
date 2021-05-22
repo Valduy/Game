@@ -3,13 +3,17 @@
 namespace Assets.Scripts.ECS.Components
 {
     /// <summary>
-    /// Компонент, определяющий способность сущности получать урон. 
+    /// Компонент, определяющий здоровье сущности. 
     /// </summary>
     public class HealthComponent : ComponentBase
     {
         /// <summary>
-        /// Величина урона, которую сущность способна принять.
+        /// Максимальное здоровье.
         /// </summary>
-        public int Health;
+        public int MaxHealth;
+        /// <summary>
+        /// Текущее здоровье.
+        /// </summary>
+        public int CurrentHealth;
     }
 }

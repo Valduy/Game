@@ -11,7 +11,8 @@ namespace Assets.Scripts.ECS.Systems.Late
         {
             foreach (var node in _engine.GetNodes<HealthBarNode>())
             {
-                node.HealthBarComponent.HealthBar.CurrentHealth = node.HealthComponent.Health;
+                node.HealthBarComponent.HealthBar.MaxHealth = node.HealthComponent.MaxHealth;
+                node.HealthBarComponent.HealthBar.CurrentHealth = node.HealthComponent.CurrentHealth;
             }
         }
 

@@ -12,8 +12,8 @@ namespace Assets.Scripts.Startup
             => GetCharacterEntityBase(character)
                 .Add(new DirectionComponent())                
                 .Add(new ColliderComponent {Collider = character.GetComponent<Collider2D>()})
-                .Add(new HealthComponent { Health = health })
-                .Add(new SpeedComponent { Speed = speed });
+                .Add(new HealthComponent {MaxHealth = health, CurrentHealth = health})
+                .Add(new SpeedComponent {Speed = speed});
 
         public static Entity GetHostCharacterEntity(GameObject character, uint id, int health, float speed)
             => GetCharacterEntity(character, health, speed)
@@ -28,8 +28,8 @@ namespace Assets.Scripts.Startup
         private static Entity GetCharacterEntityBase(GameObject character)
             => new Entity()
                 .Add(new VelocityComponent())
-                .Add(new TransformComponent { Transform = character.GetComponent<Transform>() })
-                .Add(new RigidbodyComponent { Rigidbody = character.GetComponent<Rigidbody2D>() });
+                .Add(new TransformComponent {Transform = character.GetComponent<Transform>()})
+                .Add(new RigidbodyComponent {Rigidbody = character.GetComponent<Rigidbody2D>()});
 
         #endregion
 
