@@ -16,6 +16,7 @@ namespace Assets.Scripts.Networking.Serializers
             HostWorldContext.Register<RotationComponent>();
 
             ClientWorldContext.Register<KeysComponent>();
+            ClientWorldContext.Register<IdComponent>();
         }
     }
 }

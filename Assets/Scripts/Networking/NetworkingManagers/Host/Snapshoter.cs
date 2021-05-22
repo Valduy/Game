@@ -1,29 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Assets.Scripts.ECS.Components;
-using Assets.Scripts.ECS.Nodes;
 using Assets.Scripts.Networking.NetworkingManagers;
 using Assets.Scripts.Networking.Serializers;
 using Assets.Scripts.Util;
 using ECS.Core;
-using ECS.Serialization;
 using Network.Proxy;
-using UnityEngine;
 
 public class Snapshoter : IEngineWrapper
 {
     private readonly Engine _engine;
     private readonly HostNetworkProxy _hostProxy;
-    private readonly ComponentSerializer _componentSerializer;
-    private readonly WorldSerializer _worldSerializer;
 
     public Snapshoter(Engine engine, HostNetworkProxy hostProxy)
     {
         _engine = engine;
         _hostProxy = hostProxy;
-        _componentSerializer = new ComponentSerializer();
-        _worldSerializer = new WorldSerializer();
     }
 
     public void Update(double dt)
@@ -35,17 +27,33 @@ public class Snapshoter : IEngineWrapper
 
     private void Receive()
     {
-        foreach (var node in _engine.GetNodes<ClientKeyNode>().ToList())
+        var receivedSnapshots = new List<List<Entity>>();
+
+        foreach (var client in _hostProxy.Clients)
         {
-            var buffer = _hostProxy.GetReadBuffer(node.EndPointComponent.EndPoint);
+            var buffer = _hostProxy.GetReadBuffer(client);
 
             if (!buffer.IsEmpty)
             {
                 var message = buffer.ReadLast();
-                var data = Encoding.ASCII.GetString(message);
-                var component = _componentSerializer.Deserialize(EcsContextHelper.ClientWorldContext, data);
-                node.Entity.Remove<KeysComponent>();
-                node.Entity.Add(component);
+                var snapshot = MessageHelper.GetSnapshot(EcsContextHelper.ClientWorldContext, message);
+                receivedSnapshots.Add(snapshot);
+            }
+        }
+
+        var identifiedEntities = _engine.GetIdentifiedEntities();
+
+        foreach (var snapshot in receivedSnapshots)
+        {
+            foreach (var entity in snapshot)
+            {
+                var entityToUpdate = identifiedEntities[entity.Id()];
+
+                foreach (var typeComponentPair in entity.ToList())
+                {
+                    entityToUpdate.Remove(typeComponentPair.Key);
+                    entityToUpdate.Add(typeComponentPair.Value);
+                }
             }
         }
     }
@@ -53,12 +61,11 @@ public class Snapshoter : IEngineWrapper
     private void Send()
     {
         var serializableEntities = GetSerializableEntities();
-        var data = _worldSerializer.Serialize(EcsContextHelper.HostWorldContext, serializableEntities);
-        var message = Encoding.ASCII.GetBytes(data);
+        var message = MessageHelper.GetMessage(EcsContextHelper.HostWorldContext, serializableEntities);
 
-        foreach (var node in _engine.GetNodes<EndPointNode>())
+        foreach (var client in _hostProxy.Clients)
         {
-            var buffer = _hostProxy.GetWriteBuffer(node.EndPointComponent.EndPoint);
+            var buffer = _hostProxy.GetWriteBuffer(client);
             buffer.Write(message);
         }
     }

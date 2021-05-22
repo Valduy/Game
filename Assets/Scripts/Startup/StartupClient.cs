@@ -44,7 +44,9 @@ namespace Assets.Scripts.Startup
             otherPlayerSwordGo.transform.parent = otherPlayerGo.transform;
 
             var thisPlayerEntity = EntityHelper.GetClientPlayerEntity(thisPlayerGo, 2, 3)
-                .MakeEntityKeyInputsReceiver();
+                .KeyInputsReceiver()
+                .Serializable();
+
             var cameraEntity = EntityHelper.GetCameraEntity(cameraGo, thisPlayerGo);
 
             var otherPlayerEntity = EntityHelper.GetClientPlayerEntity(otherPlayerGo, 0, 3);

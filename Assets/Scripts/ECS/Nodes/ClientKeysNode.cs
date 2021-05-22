@@ -3,7 +3,7 @@ using ECS.Core;
 
 namespace Assets.Scripts.ECS.Nodes
 {
-    public class ClientKeyNode : NodeBase
+    public class ClientKeysNode : NodeBase
     {
         public KeysComponent KeysComponent { get; private set; }
         public EndPointComponent EndPointComponent { get; private set; }

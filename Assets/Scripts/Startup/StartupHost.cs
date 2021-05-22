@@ -55,14 +55,19 @@ namespace Assets.Scripts.Startup
             //otherPlayerSwordGo.transform.parent = otherPlayerGo.transform;
 
             var thisPlayerEntity = EntityHelper.GetHostPlayerEntity(thisPlayerGo, 0, 3)
-                .MakeEntityKeyInputsReceiver();
+                .KeyInputsReceiver()
+                .Serializable();
+
             var thisPlayerSwordEntity = EntityHelper.GetHostSwordEntity(thisPlayerSwordGo, thisPlayerGo, 1, 1.2f)
-                .MakeEntityMouseInputReceiver(cameraGo);
+                .MouseInputReceiver(cameraGo)
+                .Serializable();
+
             var cameraEntity = EntityHelper.GetCameraEntity(cameraGo, thisPlayerGo);
 
             var otherPlayerEntity = EntityHelper.GetHostPlayerEntity(otherPlayerGo, 2, 3)
-                .MakeEntityKeyInputSource()
-                .BindWithClient(_clients.First());
+                .KeyInputSource()
+                .Serializable();
+
             //var otherPlayerSwordEntity = EntityHelper.GetOtherPlayerSwordEntity(otherPlayerSwordGo, otherPlayerGo, 1.2f);
 
             Unfixed.AddEntity(thisPlayerEntity);

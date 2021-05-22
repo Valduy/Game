@@ -33,9 +33,9 @@ namespace Assets.Scripts.Startup
             var cameraGo = Instantiate(CameraPrefab, new Vector3(0, 0, -10), Quaternion.identity);
 
             var playerEntity = EntityHelper.GetPlayerEntity(playerGo, 3)
-                .MakeEntityKeyInputsReceiver();
+                .KeyInputsReceiver();
             var swordEntity = EntityHelper.GetSwordEntity(swordGo, playerGo, 1.2f)
-                .MakeEntityMouseInputReceiver(cameraGo);
+                .MouseInputReceiver(cameraGo);
             var cameraEntity = EntityHelper.GetCameraEntity(cameraGo, playerGo);
 
             Unfixed.AddEntity(playerEntity);
