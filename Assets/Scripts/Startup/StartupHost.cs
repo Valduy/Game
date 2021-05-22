@@ -38,7 +38,7 @@ namespace Assets.Scripts.Startup
                 new ResetDirectionSystem(),
                 new DirectionSystem(),
                 new VelocitySystem(),
-                new MovePlayerSystem(),
+                new MoveCharacterSystem(),
                 new MoveWeaponSystem(),
                 new MoveCameraSystem(),
                 new GetPositionSystem(),
@@ -58,7 +58,7 @@ namespace Assets.Scripts.Startup
                 .KeyInputsReceiver()
                 .Serializable();
 
-            var thisPlayerSwordEntity = EntityHelper.GetHostSwordEntity(thisPlayerSwordGo, thisPlayerGo, 1, 1.2f)
+            var thisPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(thisPlayerSwordGo, thisPlayerGo, 1, 1.2f)
                 .MouseInputReceiver(cameraGo)
                 .Serializable();
 
@@ -68,7 +68,7 @@ namespace Assets.Scripts.Startup
                 .KeyInputSource()
                 .Serializable();
 
-            var otherPlayerSwordEntity = EntityHelper.GetHostSwordEntity(otherPlayerSwordGo, otherPlayerGo, 3, 1.2f)
+            var otherPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(otherPlayerSwordGo, otherPlayerGo, 3, 1.2f)
                 .MouseInputSource()
                 .Serializable();
 

@@ -4,7 +4,7 @@ using ECS.Core;
 using ECS.Serialization;
 using ECS.Serialization.Contexts;
 
-namespace Assets.Scripts.Util
+namespace Assets.Scripts.Networking.Serializers
 {
     public static class MessageHelper
     {

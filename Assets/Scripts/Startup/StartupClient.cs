@@ -51,14 +51,14 @@ namespace Assets.Scripts.Startup
                 .KeyInputsReceiver()
                 .Serializable();
 
-            var thisPlayerSword = EntityHelper.GetClientSwordEntity(thisPlayerSwordGo, 3)
+            var thisPlayerSword = EntityHelper.GetClientWeaponEntity(thisPlayerSwordGo, 3)
                 .MouseInputReceiver(cameraGo)
                 .Serializable();
 
             var cameraEntity = EntityHelper.GetCameraEntity(cameraGo, thisPlayerGo);
 
             var otherPlayerEntity = EntityHelper.GetClientPlayerEntity(otherPlayerGo, 0, 3);
-            var otherPlayerSwordEntity = EntityHelper.GetClientSwordEntity(otherPlayerSwordGo, 1);
+            var otherPlayerSwordEntity = EntityHelper.GetClientWeaponEntity(otherPlayerSwordGo, 1);
 
             Unfixed.AddEntity(thisPlayerEntity);
             Unfixed.AddEntity(thisPlayerSword);

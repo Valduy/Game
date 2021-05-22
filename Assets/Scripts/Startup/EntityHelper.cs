@@ -33,26 +33,34 @@ namespace Assets.Scripts.Startup
 
         #region Sword.
 
-        public static Entity GetSwordEntity(GameObject sword, GameObject owner, float r) 
-            => GetSwordEntityBase(sword)
+        public static Entity GetWeaponEntity(GameObject sword, GameObject owner, float r) 
+            => GetWeaponEntityBase(sword)
                 .Add(new OwnerTransformComponent { Transform = owner.GetComponent<Transform>() })
                 .Add(new WeaponRadiusComponent { R = r });
 
-        public static Entity GetHostSwordEntity(GameObject sword, GameObject owner, uint id, float r)
-            => GetSwordEntity(sword, owner, r)
+        public static Entity GetHostWeaponEntity(GameObject sword, GameObject owner, uint id, float r)
+            => GetWeaponEntity(sword, owner, r)
                 .Add(new PositionComponent())
                 .Add(new RotationComponent())
                 .Id(id);
 
-        public static Entity GetClientSwordEntity(GameObject sword, uint id) 
-            => GetSwordEntityBase(sword)
+        public static Entity GetClientWeaponEntity(GameObject sword, uint id) 
+            => GetWeaponEntityBase(sword)
                 .Add(new PositionComponent())
                 .Add(new RotationComponent())
                 .Id(id);
 
-        private static Entity GetSwordEntityBase(GameObject sword)
+        private static Entity GetWeaponEntityBase(GameObject sword)
             => new Entity()
                 .Add(new TransformComponent {Transform = sword.GetComponent<Transform>()});
+
+        #endregion
+
+        #region Boss.
+
+        // TODO: возможно, удастся без проблем унифицировать с игровыми персонажами.
+        public static Entity GetBossEntity(GameObject boss, float speed) 
+            => GetPlayerEntity(boss, speed);
 
         #endregion
 
