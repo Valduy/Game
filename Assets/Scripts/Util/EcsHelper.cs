@@ -31,7 +31,8 @@ namespace Assets.Scripts.Util
         /// Метод получает id сущности (используется компонент <see cref="IdComponent"/>).
         /// </summary>
         /// <param name="entity">Сущность, id которой необходимо определить.</param>
-        /// <returns>id, если компонент <see cref="IdComponent"/> присутствует, иначе null.</returns>
+        /// <returns>id компонента.</returns>
+        /// <exception cref="System.NullReferenceException">Если <see cref="IdComponent"/> отсутствует.</exception>
         public static uint Id(this Entity entity) 
             => entity.Get<IdComponent>().Id;
     }

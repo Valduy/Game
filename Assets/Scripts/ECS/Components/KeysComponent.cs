@@ -6,6 +6,9 @@ using ECS.Serialization.Writers;
 
 namespace Assets.Scripts.ECS.Components
 {
+    /// <summary>
+    /// Компонент, содержащий клавиатурный ввод.
+    /// </summary>
     [ComponentConverter(typeof(KeysComponentConverter))]
     public class KeysComponent : ComponentBase
     {

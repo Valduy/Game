@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Assets.Scripts.ECS.Components
 {
     /// <summary>
-    /// Ввод мыши.
+    /// Компонент, содержащий ввод мыши.
     /// </summary>
     [ComponentConverter(typeof(MouseComponentConverter))]
     public class MouseComponent : ComponentBase

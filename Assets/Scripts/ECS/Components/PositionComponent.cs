@@ -8,9 +8,15 @@ using UnityEngine;
 
 namespace Assets.Scripts.ECS.Components
 {
+    /// <summary>
+    /// Компонент, содержащий позицию <see cref="GameObject"/>, описываемого сущностью.
+    /// </summary>
     [ComponentConverter(typeof(PositionComponentConverter))]
     public class PositionComponent : ComponentBase
     {
+        /// <summary>
+        /// Позиция <see cref="GameObject"/>.
+        /// </summary>
         public Vector3 Position;
     }
 

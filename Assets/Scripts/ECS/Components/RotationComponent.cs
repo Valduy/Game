@@ -8,9 +8,15 @@ using UnityEngine;
 
 namespace Assets.Scripts.ECS.Components
 {
+    /// <summary>
+    /// Метод, содержащий поворот <see cref="GameObject"/>, описываемого сущностью.
+    /// </summary>
     [ComponentConverter(typeof(RotationComponentConverter))]
     public class RotationComponent : ComponentBase
     {
+        /// <summary>
+        /// Поворот <see cref="GameObject"/>.
+        /// </summary>
         public Quaternion Rotation;
     }
 

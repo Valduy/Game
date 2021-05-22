@@ -6,9 +6,18 @@ using ECS.Serialization.Writers;
 
 namespace Assets.Scripts.ECS.Components
 {
+    /// <summary>
+    /// Компонент, содержащий идентификатор сущности.
+    /// </summary>
     [ComponentConverter(typeof(IdComponentConverter))]
     public class IdComponent : ComponentBase
     {
+        /// <summary>
+        /// Идентификатор сущности.
+        /// </summary>
+        /// <remarks>
+        /// Уникальность идентификаторов на совести пользователя...
+        /// </remarks>
         public uint Id;
     }
 

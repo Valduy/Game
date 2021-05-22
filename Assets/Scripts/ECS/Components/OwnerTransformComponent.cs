@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Scripts.ECS.Components
 {
     /// <summary>
-    /// <see cref="UnityEngine.Transform"/> владельца сущности.
+    /// Компонент, содержащий <see cref="UnityEngine.Transform"/> владельца сущности.
     /// </summary>
     /// <remarks>
     /// Это не означает, что данный <see cref="Transform"/> принадлежит родительскому <see cref="GameObject"/>.
@@ -13,6 +13,9 @@ namespace Assets.Scripts.ECS.Components
     /// </remarks>
     public class OwnerTransformComponent : ComponentBase
     {
+        /// <summary>
+        /// <see cref="UnityEngine.Transform"/> владельца.
+        /// </summary>
         public Transform Transform;
     }
 }

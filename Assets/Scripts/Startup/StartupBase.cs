@@ -8,11 +8,13 @@ namespace Assets.Scripts.Startup
     {
         protected Engine Unfixed { get; private set; }
         protected Engine Fixed { get; private set; }
+        protected Engine Late { get; private set; }
 
         protected virtual void Start()
         {
             Unfixed = new Engine();
             Fixed = new Engine();
+            Late = new Engine();
         }
 
         protected virtual void Update()
@@ -25,9 +27,16 @@ namespace Assets.Scripts.Startup
             Fixed.Update(Time.fixedDeltaTime);
         }
 
+        protected virtual void LateUpdate()
+        {
+            Late.Update(Time.deltaTime);
+        }
+
         protected void AddUnfixedSystems(params SystemBase[] systems) => AddSystems(Unfixed, systems);
 
         protected void AddFixedSystems(params SystemBase[] systems) => AddSystems(Fixed, systems);
+
+        protected void AddLateSystem(params SystemBase[] systems) => AddSystems(Late, systems);
 
         private void AddSystems(Engine engine, params SystemBase[] systems)
         {

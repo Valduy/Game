@@ -2,7 +2,7 @@
 using ECS.Core;
 using UnityEngine;
 
-namespace Assets.Scripts.ECS.Systems.Fixed
+namespace Assets.Scripts.ECS.Systems.Late
 {
     public class MoveCameraSystem : SystemBase
     {

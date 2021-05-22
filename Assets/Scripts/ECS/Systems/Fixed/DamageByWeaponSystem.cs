@@ -20,6 +20,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
                         if (IsIntersects(weaponNode.ColliderComponent, damagableNode.ColliderComponent))
                         {
                             damagableNode.HealthComponent.Health -= weaponNode.DamageComponent.Damage;
+                            damagableNode.HealthComponent.Health = Mathf.Max(damagableNode.HealthComponent.Health, 0);
                             Debug.Log(damagableNode.HealthComponent.Health);
                         }
                     }

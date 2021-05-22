@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using Assets.Scripts.ECS.Systems.Fixed;
+using Assets.Scripts.ECS.Systems.Late;
 using Assets.Scripts.ECS.Systems.Unfixed;
 using ECS.Core;
 using Network.Proxy;
@@ -53,6 +54,8 @@ namespace Assets.Scripts.Startup
                 new ApplyPositionSystem(),
                 new MoveCameraSystem(),
                 new ResetKeysInputsSystem());
+
+            AddLateSystem(new MoveCameraSystem());
 
             InstantiateGameObjects();
             CreateEntities();
@@ -111,10 +114,11 @@ namespace Assets.Scripts.Startup
 
             Fixed.AddEntity(_thisPlayerEntity);
             Fixed.AddEntity(_thisPlayerSwordEntity);
-            Fixed.AddEntity(_cameraEntity);
             Fixed.AddEntity(_otherPlayerEntity);
             Fixed.AddEntity(_otherPlayerSwordEntity);
             Fixed.AddEntity(_bossEntity);
+
+            Late.AddEntity(_cameraEntity);
         }
     }
 }

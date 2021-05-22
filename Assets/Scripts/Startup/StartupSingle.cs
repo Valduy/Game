@@ -1,5 +1,9 @@
-﻿using Assets.Scripts.ECS.Systems.Fixed;
+﻿using Assets.Scripts.ECS.Components;
+using Assets.Scripts.ECS.Systems.Fixed;
+using Assets.Scripts.ECS.Systems.Late;
 using Assets.Scripts.ECS.Systems.Unfixed;
+using Assets.Scripts.UI;
+using Assets.Scripts.Util;
 using ECS.Core;
 using UnityEngine;
 
@@ -22,9 +26,15 @@ namespace Assets.Scripts.Startup
         private Entity _swordEntity;
         private Entity _bossEntity;
 
+        void Awake()
+        {
+            Debug.Log("awake");
+        }
+
         protected override void Start()
         {
             base.Start();
+            Debug.Log("start");
 
             AddUnfixedSystems(
                 new CollectKeyInputsSystem(), 
@@ -38,8 +48,11 @@ namespace Assets.Scripts.Startup
                 new StorePreviousWeaponAngleSystem(),
                 new MoveWeaponSystem(),
                 new DamageByWeaponSystem(),
-                new MoveCameraSystem(),
                 new ResetKeysInputsSystem());
+
+            AddLateSystem(
+                new MoveCameraSystem(), 
+                new UpdateHealthBarSystem());
 
             InstantiateGameObjects();
             CreateEntities();
@@ -62,12 +75,14 @@ namespace Assets.Scripts.Startup
             _cameraEntity = EntityHelper.GetCameraEntity(_cameraGo, _playerGo);
 
             _playerEntity = EntityHelper.GetCharacterEntity(_playerGo, 100, 3)
-                .KeyInputsReceiver();
+                .KeyInputsReceiver()
+                .Add(new HealthBarComponent {HealthBar = UnityHelper.GetChildComponent<HealthBar>(_playerGo)});
 
             _swordEntity = EntityHelper.GetWeaponEntity(_swordGo, _playerGo, 1.2f, 1, 1)
                 .MouseInputReceiver(_cameraGo);
 
-            _bossEntity = EntityHelper.GetCharacterEntity(_bossGo, 100, 2.5f);
+            _bossEntity = EntityHelper.GetCharacterEntity(_bossGo, 100, 2.5f)
+                .Add(new HealthBarComponent {HealthBar = UnityHelper.GetChildComponent<HealthBar>(_bossGo)});
         }
 
         private void RegisterEntities()
@@ -77,8 +92,11 @@ namespace Assets.Scripts.Startup
 
             Fixed.AddEntity(_playerEntity);
             Fixed.AddEntity(_swordEntity);
-            Fixed.AddEntity(_cameraEntity);
             Fixed.AddEntity(_bossEntity);
+
+            Late.AddEntity(_cameraEntity);
+            Late.AddEntity(_playerEntity);
+            Late.AddEntity(_bossEntity);
         }
     }
 }

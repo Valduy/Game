@@ -8,9 +8,15 @@ using UnityEngine;
 
 namespace Assets.Scripts.ECS.Components
 {
+    /// <summary>
+    /// Компонент, содержащий скорость сущности.
+    /// </summary>
     [ComponentConverter(typeof(VelocityComponentConverter))]
     public class VelocityComponent : ComponentBase
     {
+        /// <summary>
+        /// Скорость сущности.
+        /// </summary>
         public Vector2 Velocity;
     }
 
