@@ -3,7 +3,7 @@ using ECS.Core;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
-    public class VelocitySystem : SystemBase
+    public class CalculateVelocitySystem : SystemBase
     {
         private Engine _engine;
 

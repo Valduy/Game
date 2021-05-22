@@ -8,13 +8,15 @@ namespace Assets.Scripts.Startup
     {
         #region Player.
 
-        public static Entity GetCharacterEntity(GameObject character, float speed)
+        public static Entity GetCharacterEntity(GameObject character, int health, float speed)
             => GetCharacterEntityBase(character)
-                .Add(new DirectionComponent())
+                .Add(new DirectionComponent())                
+                .Add(new ColliderComponent {Collider = character.GetComponent<Collider2D>()})
+                .Add(new HealthComponent { Health = health })
                 .Add(new SpeedComponent { Speed = speed });
 
-        public static Entity GetHostCharacterEntity(GameObject character, uint id, float speed)
-            => GetCharacterEntity(character, speed)
+        public static Entity GetHostCharacterEntity(GameObject character, uint id, int health, float speed)
+            => GetCharacterEntity(character, health, speed)
                 .Add(new PositionComponent())
                 .Id(id);
 
@@ -33,13 +35,28 @@ namespace Assets.Scripts.Startup
 
         #region Sword.
 
-        public static Entity GetWeaponEntity(GameObject sword, GameObject owner, float r) 
+        public static Entity GetWeaponEntity(
+            GameObject sword, 
+            GameObject owner, 
+            float r, 
+            int damage, 
+            float delta) 
             => GetWeaponEntityBase(sword)
+                .Add(new PreviousWeaponAngleComponent())
                 .Add(new OwnerTransformComponent { Transform = owner.GetComponent<Transform>() })
-                .Add(new WeaponRadiusComponent { R = r });
+                .Add(new ColliderComponent {Collider = sword.GetComponent<Collider2D>()})
+                .Add(new WeaponRadiusComponent { R = r })
+                .Add(new WeaponEffectiveDeltaComponent {Delta = delta})
+                .Add(new DamageComponent {Damage = damage});
 
-        public static Entity GetHostWeaponEntity(GameObject sword, GameObject owner, uint id, float r)
-            => GetWeaponEntity(sword, owner, r)
+        public static Entity GetHostWeaponEntity(
+            GameObject sword, 
+            GameObject owner, 
+            uint id, 
+            float r, 
+            int damage, 
+            float delta)
+            => GetWeaponEntity(sword, owner, r, damage, delta)
                 .Add(new PositionComponent())
                 .Add(new RotationComponent())
                 .Id(id);

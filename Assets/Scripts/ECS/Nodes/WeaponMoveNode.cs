@@ -3,7 +3,7 @@ using ECS.Core;
 
 namespace Assets.Scripts.ECS.Nodes
 {
-    class WeaponNode : NodeBase
+    public class WeaponMoveNode : NodeBase
     {
         public MouseComponent MouseComponent { get; private set; }
         public TransformComponent TransformComponent { get; private set; }

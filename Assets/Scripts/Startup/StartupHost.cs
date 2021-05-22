@@ -51,8 +51,8 @@ namespace Assets.Scripts.Startup
 
             AddFixedSystems(
                 new ResetDirectionSystem(),
-                new DirectionSystem(),
-                new VelocitySystem(),
+                new CalculateDirectionSystem(),
+                new CalculateVelocitySystem(),
                 new MoveCharacterSystem(),
                 new MoveWeaponSystem(),
                 new MoveCameraSystem(),
@@ -95,23 +95,29 @@ namespace Assets.Scripts.Startup
         {
             _cameraEntity = EntityHelper.GetCameraEntity(_cameraGo, _thisPlayerGo);
 
-            _thisPlayerEntity = EntityHelper.GetHostCharacterEntity(_thisPlayerGo, 0, 3)
+            _thisPlayerEntity = EntityHelper.GetHostCharacterEntity(_thisPlayerGo, 0, 100, 3)
                 .KeyInputsReceiver()
                 .Serializable();
 
-            _thisPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(_thisPlayerSwordGo, _thisPlayerGo, 1, 1.2f)
+            _thisPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(
+                    _thisPlayerSwordGo, 
+                    _thisPlayerGo, 
+                    1, 1.2f, 1, 1)
                 .MouseInputReceiver(_cameraGo)
                 .Serializable();
             
-            _otherPlayerEntity = EntityHelper.GetHostCharacterEntity(_otherPlayerGo, 2, 3)
+            _otherPlayerEntity = EntityHelper.GetHostCharacterEntity(_otherPlayerGo, 2, 100, 3)
                 .KeyInputSource()
                 .Serializable();
 
-            _otherPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(_otherPlayerSwordGo, _otherPlayerGo, 3, 1.2f)
+            _otherPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(
+                    _otherPlayerSwordGo, 
+                    _otherPlayerGo, 
+                    3, 1.2f, 1, 1)
                 .MouseInputSource()
                 .Serializable();
 
-            _bossEntity = EntityHelper.GetHostCharacterEntity(_bossGo, 4, 2.5f)
+            _bossEntity = EntityHelper.GetHostCharacterEntity(_bossGo, 4, 100, 2.5f)
                 .Serializable();
         }
 

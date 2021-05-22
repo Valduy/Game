@@ -8,9 +8,15 @@ using UnityEngine;
 
 namespace Assets.Scripts.ECS.Components
 {
+    /// <summary>
+    /// Ввод мыши.
+    /// </summary>
     [ComponentConverter(typeof(MouseComponentConverter))]
     public class MouseComponent : ComponentBase
     {
+        /// <summary>
+        /// Позиция курсора в мировых координатах.
+        /// </summary>
         public Vector3 MousePosition;
     }
 

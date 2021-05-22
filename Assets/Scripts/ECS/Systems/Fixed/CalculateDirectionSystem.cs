@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
-    public class DirectionSystem : SystemBase
+    public class CalculateDirectionSystem : SystemBase
     {
         private Engine _engine;
 

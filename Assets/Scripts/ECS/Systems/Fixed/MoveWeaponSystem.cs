@@ -10,14 +10,12 @@ namespace Assets.Scripts.ECS.Systems.Fixed
 
         public override void Update(double time)
         {
-            foreach (var node in _engine.GetNodes<WeaponNode>())
+            foreach (var node in _engine.GetNodes<WeaponMoveNode>())
             {
                 var relativeToOwner = node.MouseComponent.MousePosition - node.OwnerTransformComponent.Transform.position;
                 var direction = new Vector2(relativeToOwner.x, relativeToOwner.y).normalized;
-                var ownerPosition = node.OwnerTransformComponent.Transform.position;
                 var r = node.WeaponRadiusComponent.R;
-                var position = ownerPosition + new Vector3(direction.x, direction.y, 0) * r;
-                node.TransformComponent.Transform.position = position;
+                node.TransformComponent.Transform.localPosition = new Vector3(direction.x, direction.y, 0) * r;
                 node.TransformComponent.Transform.rotation = Quaternion.Euler(new Vector3(0, 0, GetRotationAngle(relativeToOwner)));
             }
         }

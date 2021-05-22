@@ -32,10 +32,12 @@ namespace Assets.Scripts.Startup
 
             AddFixedSystems(
                 new ResetDirectionSystem(),
-                new DirectionSystem(),
-                new VelocitySystem(),
+                new CalculateDirectionSystem(),
+                new CalculateVelocitySystem(),
                 new MoveCharacterSystem(),
+                new StorePreviousWeaponAngleSystem(),
                 new MoveWeaponSystem(),
+                new DamageByWeaponSystem(),
                 new MoveCameraSystem(),
                 new ResetKeysInputsSystem());
 
@@ -59,13 +61,13 @@ namespace Assets.Scripts.Startup
         {
             _cameraEntity = EntityHelper.GetCameraEntity(_cameraGo, _playerGo);
 
-            _playerEntity = EntityHelper.GetCharacterEntity(_playerGo, 3)
+            _playerEntity = EntityHelper.GetCharacterEntity(_playerGo, 100, 3)
                 .KeyInputsReceiver();
 
-            _swordEntity = EntityHelper.GetWeaponEntity(_swordGo, _playerGo, 1.2f)
+            _swordEntity = EntityHelper.GetWeaponEntity(_swordGo, _playerGo, 1.2f, 1, 1)
                 .MouseInputReceiver(_cameraGo);
 
-            _bossEntity = EntityHelper.GetCharacterEntity(_bossGo, 2.5f);
+            _bossEntity = EntityHelper.GetCharacterEntity(_bossGo, 100, 2.5f);
         }
 
         private void RegisterEntities()
