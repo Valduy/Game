@@ -55,7 +55,9 @@ namespace Assets.Scripts.Startup
                 new MoveCameraSystem(),
                 new ResetKeysInputsSystem());
 
-            AddLateSystem(new MoveCameraSystem());
+            AddLateSystem(
+                new MoveCameraSystem(), 
+                new UpdateHealthBarSystem());
 
             InstantiateGameObjects();
             CreateEntities();
@@ -92,7 +94,7 @@ namespace Assets.Scripts.Startup
         {
             _cameraEntity = EntityHelper.GetCameraEntity(_cameraGo, _thisPlayerGo);
 
-            _thisPlayerEntity = EntityHelper.GetClientCharacterEntity(_thisPlayerGo, 2)
+            _thisPlayerEntity = EntityHelper.GetClientCharacterEntity(_thisPlayerGo, 100, 2)
                 .KeyInputsReceiver()
                 .Serializable();
 
@@ -100,11 +102,11 @@ namespace Assets.Scripts.Startup
                 .MouseInputReceiver(_cameraGo)
                 .Serializable();
             
-            _otherPlayerEntity = EntityHelper.GetClientCharacterEntity(_otherPlayerGo, 0);
+            _otherPlayerEntity = EntityHelper.GetClientCharacterEntity(_otherPlayerGo, 100, 0);
 
             _otherPlayerSwordEntity = EntityHelper.GetClientWeaponEntity(_otherPlayerSwordGo, 1);
 
-            _bossEntity = EntityHelper.GetClientCharacterEntity(_bossGo, 4);
+            _bossEntity = EntityHelper.GetClientCharacterEntity(_bossGo, 100, 4);
         }
 
         private void RegisterEntities()
@@ -119,6 +121,9 @@ namespace Assets.Scripts.Startup
             Fixed.AddEntity(_bossEntity);
 
             Late.AddEntity(_cameraEntity);
+            Late.AddEntity(_thisPlayerEntity);
+            Late.AddEntity(_otherPlayerEntity);
+            Late.AddEntity(_bossEntity);
         }
     }
 }

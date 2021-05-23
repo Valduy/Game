@@ -75,14 +75,12 @@ namespace Assets.Scripts.Startup
             _cameraEntity = EntityHelper.GetCameraEntity(_cameraGo, _playerGo);
 
             _playerEntity = EntityHelper.GetCharacterEntity(_playerGo, 100, 3)
-                .KeyInputsReceiver()
-                .Add(new HealthBarComponent {HealthBar = UnityHelper.GetChildComponent<HealthBar>(_playerGo)});
+                .KeyInputsReceiver();
 
             _swordEntity = EntityHelper.GetWeaponEntity(_swordGo, _playerGo, 1.2f, 1, 1)
                 .MouseInputReceiver(_cameraGo);
 
-            _bossEntity = EntityHelper.GetCharacterEntity(_bossGo, 100, 2.5f)
-                .Add(new HealthBarComponent {HealthBar = UnityHelper.GetChildComponent<HealthBar>(_bossGo)});
+            _bossEntity = EntityHelper.GetCharacterEntity(_bossGo, 100, 2.5f);
         }
 
         private void RegisterEntities()

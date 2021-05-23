@@ -14,7 +14,8 @@ namespace Assets.Scripts.Networking.Serializers
             HostWorldContext.Register<VelocityComponent>();
             HostWorldContext.Register<PositionComponent>();
             HostWorldContext.Register<RotationComponent>();
-
+            HostWorldContext.Register<HealthComponent>();
+            
             ClientWorldContext.Register<KeysComponent>();
             ClientWorldContext.Register<MouseComponent>();
             ClientWorldContext.Register<IdComponent>();

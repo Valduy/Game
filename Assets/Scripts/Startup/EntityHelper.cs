@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.ECS.Components;
+using Assets.Scripts.UI;
+using Assets.Scripts.Util;
 using ECS.Core;
 using UnityEngine;
 
@@ -9,10 +11,9 @@ namespace Assets.Scripts.Startup
         #region Player.
 
         public static Entity GetCharacterEntity(GameObject character, int health, float speed)
-            => GetCharacterEntityBase(character)
+            => GetCharacterEntityBase(character, health)
                 .Add(new DirectionComponent())                
                 .Add(new ColliderComponent {Collider = character.GetComponent<Collider2D>()})
-                .Add(new HealthComponent {MaxHealth = health, CurrentHealth = health})
                 .Add(new SpeedComponent {Speed = speed});
 
         public static Entity GetHostCharacterEntity(GameObject character, uint id, int health, float speed)
@@ -20,16 +21,18 @@ namespace Assets.Scripts.Startup
                 .Add(new PositionComponent())
                 .Id(id);
 
-        public static Entity GetClientCharacterEntity(GameObject character, uint id)
-            => GetCharacterEntityBase(character)
+        public static Entity GetClientCharacterEntity(GameObject character, int health, uint id)
+            => GetCharacterEntityBase(character, health)
                 .Add(new PositionComponent())
                 .Id(id);
 
-        private static Entity GetCharacterEntityBase(GameObject character)
+        private static Entity GetCharacterEntityBase(GameObject character, int health)
             => new Entity()
                 .Add(new VelocityComponent())
+                .Add(new HealthComponent { MaxHealth = health, CurrentHealth = health })
                 .Add(new TransformComponent {Transform = character.GetComponent<Transform>()})
-                .Add(new RigidbodyComponent {Rigidbody = character.GetComponent<Rigidbody2D>()});
+                .Add(new RigidbodyComponent {Rigidbody = character.GetComponent<Rigidbody2D>()})
+                .Add(new HealthBarComponent {HealthBar = UnityHelper.GetChildComponent<HealthBar>(character)});
 
         #endregion
 

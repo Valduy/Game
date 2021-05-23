@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using Assets.Scripts.ECS.Components;
 using Assets.Scripts.ECS.Systems.Fixed;
 using Assets.Scripts.ECS.Systems.Late;
 using Assets.Scripts.ECS.Systems.Unfixed;
+using Assets.Scripts.UI;
+using Assets.Scripts.Util;
 using ECS.Core;
 using Network.Proxy;
 using UnityEngine;
@@ -55,12 +58,16 @@ namespace Assets.Scripts.Startup
                 new CalculateDirectionSystem(),
                 new CalculateVelocitySystem(),
                 new MoveCharacterSystem(),
+                new StorePreviousWeaponAngleSystem(),
                 new MoveWeaponSystem(),
+                new DamageByWeaponSystem(),
                 new GetPositionSystem(),
                 new GetRotationSystem(),
                 new ResetKeysInputsSystem());
             
-            AddLateSystem(new MoveCameraSystem());
+            AddLateSystem(
+                new MoveCameraSystem(),
+                new UpdateHealthBarSystem());
 
             InstantiateGameObjects();
             CreateEntities();
@@ -135,6 +142,9 @@ namespace Assets.Scripts.Startup
             Fixed.AddEntity(_bossEntity);
 
             Late.AddEntity(_cameraEntity);
+            Late.AddEntity(_thisPlayerEntity);
+            Late.AddEntity(_otherPlayerEntity);
+            Late.AddEntity(_bossEntity);
         }
     }
 }
