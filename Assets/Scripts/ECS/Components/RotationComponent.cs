@@ -10,6 +10,7 @@ namespace Assets.Scripts.ECS.Components
 {
     /// <summary>
     /// Метод, содержащий поворот <see cref="GameObject"/>, описываемого сущностью.
+    /// Нужен, чтоб не создавать проблем с сериализацией целого <see cref="Transform"/>.
     /// </summary>
     [ComponentConverter(typeof(RotationComponentConverter))]
     public class RotationComponent : ComponentBase

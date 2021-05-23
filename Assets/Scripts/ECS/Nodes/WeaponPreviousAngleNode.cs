@@ -3,14 +3,14 @@ using ECS.Core;
 
 namespace Assets.Scripts.ECS.Nodes
 {
-    public class PreviousWeaponAngleNode : NodeBase
+    public class WeaponPreviousAngleNode : NodeBase
     {
-        public PreviousWeaponAngleComponent PreviousWeaponAngleComponent { get; private set; }
+        public WeaponPreviousAngleComponent WeaponPreviousAngleComponent { get; private set; }
         public TransformComponent TransformComponent { get; private set; }
 
         protected override void OnEntityChanged()
         {
-            PreviousWeaponAngleComponent = Entity.Get<PreviousWeaponAngleComponent>();
+            WeaponPreviousAngleComponent = Entity.Get<WeaponPreviousAngleComponent>();
             TransformComponent = Entity.Get<TransformComponent>();
         }
     }

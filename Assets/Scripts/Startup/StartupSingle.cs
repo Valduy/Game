@@ -1,9 +1,6 @@
-﻿using Assets.Scripts.ECS.Components;
-using Assets.Scripts.ECS.Systems.Fixed;
+﻿using Assets.Scripts.ECS.Systems.Fixed;
 using Assets.Scripts.ECS.Systems.Late;
 using Assets.Scripts.ECS.Systems.Unfixed;
-using Assets.Scripts.UI;
-using Assets.Scripts.Util;
 using ECS.Core;
 using UnityEngine;
 
@@ -45,9 +42,11 @@ namespace Assets.Scripts.Startup
                 new CalculateDirectionSystem(),
                 new CalculateVelocitySystem(),
                 new MoveCharacterSystem(),
-                new StorePreviousWeaponAngleSystem(),
+                new StoreWeaponPreviousAngleSystem(),
                 new MoveWeaponSystem(),
                 new DamageByWeaponSystem(),
+                new KillCharacterSystem(),
+                new KillWeaponSystem(),
                 new ResetKeysInputsSystem());
 
             AddLateSystem(
@@ -77,7 +76,7 @@ namespace Assets.Scripts.Startup
             _playerEntity = EntityHelper.GetCharacterEntity(_playerGo, 100, 3)
                 .KeyInputsReceiver();
 
-            _swordEntity = EntityHelper.GetWeaponEntity(_swordGo, _playerGo, 1.2f, 1, 1)
+            _swordEntity = EntityHelper.GetWeaponEntity(_swordGo, _playerGo, _playerEntity, 1.2f, 1, 1)
                 .MouseInputReceiver(_cameraGo);
 
             _bossEntity = EntityHelper.GetCharacterEntity(_bossGo, 100, 2.5f);

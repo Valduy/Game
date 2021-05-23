@@ -21,7 +21,6 @@ namespace Assets.Scripts.ECS.Systems.Fixed
                         {
                             damagableNode.HealthComponent.CurrentHealth -= weaponNode.DamageComponent.Damage;
                             damagableNode.HealthComponent.CurrentHealth = Mathf.Max(damagableNode.HealthComponent.CurrentHealth, 0);
-                            Debug.Log(damagableNode.HealthComponent.CurrentHealth);
                         }
                     }
                 }

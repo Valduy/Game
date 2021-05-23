@@ -10,7 +10,7 @@ namespace Assets.Scripts.ECS.Systems.Late
 
         public override void Update(double time)
         {
-            foreach (var node in _engine.GetNodes<CameraNode>())
+            foreach (var node in _engine.GetNodes<FollowNode>())
             {
                 node.TransformComponent.Transform.position = new Vector3(
                     node.OwnerTransformComponent.Transform.position.x,

@@ -3,19 +3,17 @@ using ECS.Core;
 
 namespace Assets.Scripts.ECS.Nodes
 {
-    public class WeaponMoveNode : NodeBase
+    class FollowNode : NodeBase
     {
-        public MouseComponent MouseComponent { get; private set; }
+        public FollowComponent FollowComponent { get; private set; }
         public TransformComponent TransformComponent { get; private set; }
         public OwnerTransformComponent OwnerTransformComponent { get; private set; }
-        public WeaponRadiusComponent WeaponRadiusComponent { get; private set; }
 
         protected override void OnEntityChanged()
         {
-            MouseComponent = Entity.Get<MouseComponent>();
+            FollowComponent = Entity.Get<FollowComponent>();
             TransformComponent = Entity.Get<TransformComponent>();
             OwnerTransformComponent = Entity.Get<OwnerTransformComponent>();
-            WeaponRadiusComponent = Entity.Get<WeaponRadiusComponent>();
         }
     }
 }

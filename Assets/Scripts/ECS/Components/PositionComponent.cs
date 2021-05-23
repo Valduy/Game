@@ -10,6 +10,7 @@ namespace Assets.Scripts.ECS.Components
 {
     /// <summary>
     /// Компонент, содержащий позицию <see cref="GameObject"/>, описываемого сущностью.
+    /// Нужен, чтоб не создавать проблем с сериализацией целого <see cref="Transform"/>.
     /// </summary>
     [ComponentConverter(typeof(PositionComponentConverter))]
     public class PositionComponent : ComponentBase

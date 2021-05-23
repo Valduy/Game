@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using Assets.Scripts.ECS.Components;
 using Assets.Scripts.ECS.Systems.Fixed;
 using Assets.Scripts.ECS.Systems.Late;
 using Assets.Scripts.ECS.Systems.Unfixed;
-using Assets.Scripts.UI;
-using Assets.Scripts.Util;
 using ECS.Core;
 using Network.Proxy;
 using UnityEngine;
@@ -58,9 +55,11 @@ namespace Assets.Scripts.Startup
                 new CalculateDirectionSystem(),
                 new CalculateVelocitySystem(),
                 new MoveCharacterSystem(),
-                new StorePreviousWeaponAngleSystem(),
+                new StoreWeaponPreviousAngleSystem(),
                 new MoveWeaponSystem(),
                 new DamageByWeaponSystem(),
+                new KillCharacterSystem(),
+                new KillWeaponSystem(),
                 new GetPositionSystem(),
                 new GetRotationSystem(),
                 new ResetKeysInputsSystem());
@@ -111,6 +110,7 @@ namespace Assets.Scripts.Startup
             _thisPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(
                     _thisPlayerSwordGo, 
                     _thisPlayerGo, 
+                    _thisPlayerEntity,
                     1, 1.2f, 1, 1)
                 .MouseInputReceiver(_cameraGo)
                 .Serializable();
@@ -122,6 +122,7 @@ namespace Assets.Scripts.Startup
             _otherPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(
                     _otherPlayerSwordGo, 
                     _otherPlayerGo, 
+                    _otherPlayerEntity,
                     3, 1.2f, 1, 1)
                 .MouseInputSource()
                 .Serializable();

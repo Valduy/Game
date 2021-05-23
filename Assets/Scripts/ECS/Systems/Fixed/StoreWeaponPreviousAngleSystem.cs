@@ -1,18 +1,17 @@
 ﻿using Assets.Scripts.ECS.Nodes;
 using ECS.Core;
-using UnityEngine;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
-    public class StorePreviousWeaponAngleSystem : SystemBase
+    public class StoreWeaponPreviousAngleSystem : SystemBase
     {
         private Engine _engine;
 
         public override void Update(double time)
         {
-            foreach (var node in _engine.GetNodes<PreviousWeaponAngleNode>())
+            foreach (var node in _engine.GetNodes<WeaponPreviousAngleNode>())
             {
-                node.PreviousWeaponAngleComponent.PreviousAngle = node.TransformComponent.Transform.rotation.eulerAngles.z;
+                node.WeaponPreviousAngleComponent.PreviousAngle = node.TransformComponent.Transform.rotation.eulerAngles.z;
             }
         }
 

@@ -10,7 +10,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
 
         public override void Update(double time)
         {
-            foreach (var node in _engine.GetNodes<WeaponMoveNode>())
+            foreach (var node in _engine.GetNodes<MoveWeaponNode>())
             {
                 var relativeToOwner = node.MouseComponent.MousePosition - node.OwnerTransformComponent.Transform.position;
                 var direction = new Vector2(relativeToOwner.x, relativeToOwner.y).normalized;

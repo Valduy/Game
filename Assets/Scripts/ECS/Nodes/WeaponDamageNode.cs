@@ -7,15 +7,15 @@ namespace Assets.Scripts.ECS.Nodes
     {
         public ColliderComponent ColliderComponent { get; private set; }
         public DamageComponent DamageComponent { get; private set; }
-        public PreviousWeaponAngleComponent PreviousWeaponAngleComponent { get; private set; }
+        public WeaponPreviousAngleComponent PreviousWeaponAngleComponent { get; private set; }
         public WeaponEffectiveDeltaComponent WeaponEffectiveDeltaComponent { get; private set; }
         public TransformComponent TransformComponent { get; private set; }
-
+        
         protected override void OnEntityChanged()
         {
             ColliderComponent = Entity.Get<ColliderComponent>();
             DamageComponent = Entity.Get<DamageComponent>();
-            PreviousWeaponAngleComponent = Entity.Get<PreviousWeaponAngleComponent>();
+            PreviousWeaponAngleComponent = Entity.Get<WeaponPreviousAngleComponent>();
             WeaponEffectiveDeltaComponent = Entity.Get<WeaponEffectiveDeltaComponent>();
             TransformComponent = Entity.Get<TransformComponent>();
         }
