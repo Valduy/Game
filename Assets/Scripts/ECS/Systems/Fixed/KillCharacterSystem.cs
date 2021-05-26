@@ -1,9 +1,7 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using Assets.Scripts.ECS.Components;
 using Assets.Scripts.ECS.Nodes;
 using ECS.Core;
-using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace Assets.Scripts.ECS.Systems.Fixed

@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Scripts.ECS.Components;
+﻿using Assets.Scripts.ECS.Components;
 using ECS.Core;
 
 namespace Assets.Scripts.ECS.Nodes
