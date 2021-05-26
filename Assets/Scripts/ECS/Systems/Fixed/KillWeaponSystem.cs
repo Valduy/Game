@@ -9,12 +9,12 @@ namespace Assets.Scripts.ECS.Systems.Fixed
         public class Node : NodeBase
         {
             public OwnerHealthComponentComponent OwnerHealthComponentComponent { get; private set; }
-            public AttackEnableComponent AttackEnableComponent { get; private set; }
+            public IsAttackEnableComponent IsAttackEnableComponent { get; private set; }
 
             protected override void OnEntityChanged()
             {
                 OwnerHealthComponentComponent = Entity.Get<OwnerHealthComponentComponent>();
-                AttackEnableComponent = Entity.Get<AttackEnableComponent>();
+                IsAttackEnableComponent = Entity.Get<IsAttackEnableComponent>();
             }
         }
 
@@ -26,7 +26,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
             {
                 if (node.OwnerHealthComponentComponent.HealthComponent.CurrentHealth <= 0)
                 {
-                    node.Entity.Remove<AttackEnableComponent>();
+                    node.Entity.Remove<IsAttackEnableComponent>();
                 }
             }
         }

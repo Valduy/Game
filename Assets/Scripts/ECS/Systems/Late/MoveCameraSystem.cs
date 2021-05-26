@@ -9,13 +9,13 @@ namespace Assets.Scripts.ECS.Systems.Late
     {
         public class Node : NodeBase
         {
-            public FollowComponent FollowComponent { get; private set; }
+            public IsFollowComponent IsFollowComponent { get; private set; }
             public TransformComponent TransformComponent { get; private set; }
             public OwnerTransformComponent OwnerTransformComponent { get; private set; }
 
             protected override void OnEntityChanged()
             {
-                FollowComponent = Entity.Get<FollowComponent>();
+                IsFollowComponent = Entity.Get<IsFollowComponent>();
                 TransformComponent = Entity.Get<TransformComponent>();
                 OwnerTransformComponent = Entity.Get<OwnerTransformComponent>();
             }

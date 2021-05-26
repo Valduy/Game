@@ -8,14 +8,14 @@ namespace Assets.Scripts.ECS.Systems.Unfixed
     {
         public class Node : NodeBase
         {
-            public InputReceiverComponent InputReceiverComponent { get; private set; }
+            public IsInputReceiverComponent IsInputReceiverComponent { get; private set; }
             public MouseComponent MouseComponent { get; private set; }
             public CameraComponent CameraComponent { get; private set; }
 
             protected override void OnEntityChanged()
             {
                 MouseComponent = Entity.Get<MouseComponent>();
-                InputReceiverComponent = Entity.Get<InputReceiverComponent>();
+                IsInputReceiverComponent = Entity.Get<IsInputReceiverComponent>();
                 CameraComponent = Entity.Get<CameraComponent>();
             }
         }

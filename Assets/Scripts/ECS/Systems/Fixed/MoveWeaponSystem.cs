@@ -12,7 +12,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
             public TransformComponent TransformComponent { get; private set; }
             public OwnerTransformComponent OwnerTransformComponent { get; private set; }
             public WeaponRadiusComponent WeaponRadiusComponent { get; private set; }
-            public AttackEnableComponent AttackEnableComponent { get; private set; }
+            public IsAttackEnableComponent IsAttackEnableComponent { get; private set; }
 
             protected override void OnEntityChanged()
             {
@@ -20,7 +20,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
                 TransformComponent = Entity.Get<TransformComponent>();
                 OwnerTransformComponent = Entity.Get<OwnerTransformComponent>();
                 WeaponRadiusComponent = Entity.Get<WeaponRadiusComponent>();
-                AttackEnableComponent = Entity.Get<AttackEnableComponent>();
+                IsAttackEnableComponent = Entity.Get<IsAttackEnableComponent>();
             }
         }
 

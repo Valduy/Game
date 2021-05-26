@@ -12,7 +12,7 @@ namespace Assets.Scripts.Startup
 
         public static Entity GetCharacterEntity(GameObject characterGo, int health, float speed)
             => GetCharacterEntityBase(characterGo, health)
-                .Add(new MoveEnableComponent())
+                .Add(new IsMoveEnableComponent())
                 .Add(new DirectionComponent())                
                 .Add(new ColliderComponent {Collider = characterGo.GetComponent<Collider2D>()})
                 .Add(new SpeedComponent {Speed = speed});
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Startup
             int damage, 
             float delta) 
             => GetWeaponEntityBase(swordGo)
-                .Add(new AttackEnableComponent())
+                .Add(new IsAttackEnableComponent())
                 .Add(new WeaponPreviousAngleComponent())
                 .Add(new OwnerTransformComponent {Transform = ownerGo.GetComponent<Transform>()})
                 .Add(new OwnerHealthComponentComponent {HealthComponent = ownerEntity.Get<HealthComponent>()})
@@ -85,7 +85,7 @@ namespace Assets.Scripts.Startup
 
         public static Entity GetCameraEntity(GameObject cameraGo, GameObject targetGo)
             => new Entity()
-                .Add(new FollowComponent())
+                .Add(new IsFollowComponent())
                 .Add(new TransformComponent { Transform = cameraGo.GetComponent<Transform>() })
                 .Add(new OwnerTransformComponent { Transform = targetGo.GetComponent<Transform>() });
 
@@ -96,18 +96,18 @@ namespace Assets.Scripts.Startup
 
         public static Entity KeyInputsReceiver(this Entity entity) 
             => entity.KeyInputSource()
-                .Add(new InputReceiverComponent());
+                .Add(new IsInputReceiverComponent());
 
         public static Entity MouseInputSource(this Entity entity) 
             => entity.Add(new MouseComponent());
 
         public static Entity MouseInputReceiver(this Entity entity, GameObject cameraGo)
             => entity.MouseInputSource()
-                .Add(new InputReceiverComponent())
+                .Add(new IsInputReceiverComponent())
                 .Add(new CameraComponent {Camera = cameraGo.GetComponent<Camera>()});
 
         public static Entity Serializable(this Entity entity) 
-            => entity.Add(new SerializableComponent());
+            => entity.Add(new IsSerializableComponent());
 
         public static Entity Id(this Entity entity, uint id) 
             => entity.Add(new IdComponent {Id = id});

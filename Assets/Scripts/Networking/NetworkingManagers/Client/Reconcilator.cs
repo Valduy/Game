@@ -54,5 +54,5 @@ public class Reconcilator : IEngineWrapper
     }
 
     private List<Entity> GetSerializableEntities()
-        => _engine.GetEntities().Filter<SerializableComponent>().ToList();
+        => _engine.GetEntities().Filter<IsSerializableComponent>().ToList();
 }

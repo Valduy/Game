@@ -8,12 +8,12 @@ namespace Assets.Scripts.ECS.Systems.Unfixed
     {
         public class Node : NodeBase
         {
-            public InputReceiverComponent InputReceiverComponent { get; private set; }
+            public IsInputReceiverComponent IsInputReceiverComponent { get; private set; }
             public KeysComponent KeysComponent { get; private set; }
 
             protected override void OnEntityChanged()
             {
-                InputReceiverComponent = Entity.Get<InputReceiverComponent>();
+                IsInputReceiverComponent = Entity.Get<IsInputReceiverComponent>();
                 KeysComponent = Entity.Get<KeysComponent>();
             }
         }

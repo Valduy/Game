@@ -10,12 +10,12 @@ namespace Assets.Scripts.ECS.Systems.Fixed
         public class Node : NodeBase
         {
             public HealthComponent HealthComponent { get; private set; }
-            public MoveEnableComponent MoveEnableComponent { get; private set; }
+            public IsMoveEnableComponent IsMoveEnableComponent { get; private set; }
 
             protected override void OnEntityChanged()
             {
                 HealthComponent = Entity.Get<HealthComponent>();
-                MoveEnableComponent = Entity.Get<MoveEnableComponent>();
+                IsMoveEnableComponent = Entity.Get<IsMoveEnableComponent>();
             }
         }
 
@@ -27,7 +27,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
             {
                 if (node.HealthComponent.CurrentHealth <= 0)
                 {
-                    node.Entity.Remove<MoveEnableComponent>();
+                    node.Entity.Remove<IsMoveEnableComponent>();
                     Debug.Log("kill");
                 }
             }
