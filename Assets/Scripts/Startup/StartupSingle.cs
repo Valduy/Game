@@ -23,11 +23,6 @@ namespace Assets.Scripts.Startup
         private Entity _swordEntity;
         private Entity _bossEntity;
 
-        void Awake()
-        {
-            Debug.Log("awake");
-        }
-
         protected override void Start()
         {
             base.Start();
