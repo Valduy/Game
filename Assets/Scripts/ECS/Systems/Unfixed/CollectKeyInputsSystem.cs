@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.ECS.Nodes;
+﻿using Assets.Scripts.ECS.Components;
 using ECS.Core;
 using UnityEngine;
 
@@ -6,11 +6,23 @@ namespace Assets.Scripts.ECS.Systems.Unfixed
 {
     public class CollectKeyInputsSystem : SystemBase
     {
+        public class Node : NodeBase
+        {
+            public InputReceiverComponent InputReceiverComponent { get; private set; }
+            public KeysComponent KeysComponent { get; private set; }
+
+            protected override void OnEntityChanged()
+            {
+                InputReceiverComponent = Entity.Get<InputReceiverComponent>();
+                KeysComponent = Entity.Get<KeysComponent>();
+            }
+        }
+
         private Engine _engine;
 
         public override void Update(double time)
         {
-            foreach (var node in _engine.GetNodes<KeysNode>())
+            foreach (var node in _engine.GetNodes<Node>())
             {
                 node.KeysComponent.W |= Input.GetKey(KeyCode.W);
                 node.KeysComponent.A |= Input.GetKey(KeyCode.A);

@@ -1,15 +1,25 @@
-﻿using Assets.Scripts.ECS.Nodes;
+﻿using Assets.Scripts.ECS.Components;
 using ECS.Core;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
     public class ResetKeysInputsSystem : SystemBase
     {
+        public class Node : NodeBase
+        {
+            public KeysComponent KeysComponent { get; private set; }
+
+            protected override void OnEntityChanged()
+            {
+                KeysComponent = Entity.Get<KeysComponent>();
+            }
+        }
+        
         private Engine _engine;
 
         public override void Update(double time)
         {
-            foreach (var node in _engine.GetNodes<KeysNode>())
+            foreach (var node in _engine.GetNodes<Node>())
             {
                 node.KeysComponent.W = false;
                 node.KeysComponent.A = false;

@@ -1,15 +1,27 @@
-﻿using Assets.Scripts.ECS.Nodes;
+﻿using Assets.Scripts.ECS.Components;
 using ECS.Core;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
     public class MoveCharacterSystem : SystemBase
     {
+        public class Node : NodeBase
+        {
+            public VelocityComponent VelocityComponent { get; private set; }
+            public RigidbodyComponent RigidbodyComponent { get; private set; }
+
+            protected override void OnEntityChanged()
+            {
+                VelocityComponent = Entity.Get<VelocityComponent>();
+                RigidbodyComponent = Entity.Get<RigidbodyComponent>();
+            }
+        }
+
         private Engine _engine;
 
         public override void Update(double time)
         {
-            foreach (var node in _engine.GetNodes<MoveNode>())
+            foreach (var node in _engine.GetNodes<Node>())
             {
                 node.RigidbodyComponent.Rigidbody.velocity = node.VelocityComponent.Velocity;
             }

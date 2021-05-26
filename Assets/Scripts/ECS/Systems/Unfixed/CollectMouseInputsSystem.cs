@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.ECS.Nodes;
+﻿using Assets.Scripts.ECS.Components;
 using ECS.Core;
 using UnityEngine;
 
@@ -6,11 +6,25 @@ namespace Assets.Scripts.ECS.Systems.Unfixed
 {
     class CollectMouseInputsSystem : SystemBase
     {
+        public class Node : NodeBase
+        {
+            public InputReceiverComponent InputReceiverComponent { get; private set; }
+            public MouseComponent MouseComponent { get; private set; }
+            public CameraComponent CameraComponent { get; private set; }
+
+            protected override void OnEntityChanged()
+            {
+                MouseComponent = Entity.Get<MouseComponent>();
+                InputReceiverComponent = Entity.Get<InputReceiverComponent>();
+                CameraComponent = Entity.Get<CameraComponent>();
+            }
+        }
+
         private Engine _engine;
 
         public override void Update(double time)
         {
-            foreach (var node in _engine.GetNodes<MouseNode>())
+            foreach (var node in _engine.GetNodes<Node>())
             {
                 var screenMousePosition = Input.mousePosition;
                 var camera = node.CameraComponent.Camera;

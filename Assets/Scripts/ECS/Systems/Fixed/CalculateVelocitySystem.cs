@@ -1,15 +1,29 @@
-﻿using Assets.Scripts.ECS.Nodes;
+﻿using Assets.Scripts.ECS.Components;
 using ECS.Core;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
     public class CalculateVelocitySystem : SystemBase
     {
+        public class Node : NodeBase
+        {
+            public DirectionComponent DirectionComponent { get; private set; }
+            public SpeedComponent SpeedComponent { get; private set; }
+            public VelocityComponent VelocityComponent { get; private set; }
+
+            protected override void OnEntityChanged()
+            {
+                DirectionComponent = Entity.Get<DirectionComponent>();
+                SpeedComponent = Entity.Get<SpeedComponent>();
+                VelocityComponent = Entity.Get<VelocityComponent>();
+            }
+        }
+
         private Engine _engine;
 
         public override void Update(double time)
         {
-            foreach (var node in _engine.GetNodes<VelocityNode>())
+            foreach (var node in _engine.GetNodes<Node>())
             {
                 node.VelocityComponent.Velocity = node.DirectionComponent.Direction * node.SpeedComponent.Speed;
             }

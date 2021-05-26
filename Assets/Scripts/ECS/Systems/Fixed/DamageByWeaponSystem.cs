@@ -7,11 +7,29 @@ namespace Assets.Scripts.ECS.Systems.Fixed
 {
     public class DamageByWeaponSystem : SystemBase
     {
+        public class DamageNode : NodeBase
+        {
+            public ColliderComponent ColliderComponent { get; private set; }
+            public DamageComponent DamageComponent { get; private set; }
+            public WeaponPreviousAngleComponent PreviousWeaponAngleComponent { get; private set; }
+            public WeaponEffectiveDeltaComponent WeaponEffectiveDeltaComponent { get; private set; }
+            public TransformComponent TransformComponent { get; private set; }
+
+            protected override void OnEntityChanged()
+            {
+                ColliderComponent = Entity.Get<ColliderComponent>();
+                DamageComponent = Entity.Get<DamageComponent>();
+                PreviousWeaponAngleComponent = Entity.Get<WeaponPreviousAngleComponent>();
+                WeaponEffectiveDeltaComponent = Entity.Get<WeaponEffectiveDeltaComponent>();
+                TransformComponent = Entity.Get<TransformComponent>();
+            }
+        }
+
         private Engine _engine;
 
         public override void Update(double time)
         {
-            foreach (var weaponNode in _engine.GetNodes<WeaponDamageNode>())
+            foreach (var weaponNode in _engine.GetNodes<DamageNode>())
             {
                 if (IsAttack(weaponNode))
                 {
@@ -37,7 +55,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
             _engine = null;
         }
 
-        private bool IsAttack(WeaponDamageNode weaponNode)
+        private bool IsAttack(DamageNode weaponNode)
         {
             var delta = Mathf.Abs(weaponNode.PreviousWeaponAngleComponent.PreviousAngle -
                 weaponNode.TransformComponent.Transform.rotation.eulerAngles.z);
