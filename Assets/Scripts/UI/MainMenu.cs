@@ -8,8 +8,8 @@ namespace Assets.Scripts.UI
     {
         public void StartSingle()
         {
-            Debug.Log("Single!");
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            LoadingData.NextScene = "Single";
+            SceneManager.LoadScene("Loading");
         }
 
         public void StartMultiplayer()
