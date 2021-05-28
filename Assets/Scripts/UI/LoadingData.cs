@@ -2,6 +2,6 @@
 {
     public static class LoadingData
     {
-        public static string NextScene { get; set; }
+        public static string NextScene { get; set; } = "MainMenu";
     }
 }
