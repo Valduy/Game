@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.UI.Loading;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Application = UnityEngine.Application;
 

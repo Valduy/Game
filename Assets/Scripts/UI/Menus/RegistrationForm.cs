@@ -47,12 +47,12 @@ namespace Assets.Scripts.UI.Menus
             SuccessText.gameObject.SetActive(false);
         }
 
-        private void SetInteractableUI(bool enable)
+        private void SetInteractableUi(bool interactable)
         {
-            BackButton.interactable = enable;
-            RegisterButton.interactable = enable;
-            LoginField.interactable = enable;
-            PasswordField.interactable = enable;
+            BackButton.interactable = interactable;
+            RegisterButton.interactable = interactable;
+            LoginField.interactable = interactable;
+            PasswordField.interactable = interactable;
         }
 
         private User GetUserInformation() => new User
@@ -126,7 +126,7 @@ namespace Assets.Scripts.UI.Menus
 
         private IEnumerator RegistrationCoroutine(User user)
         {
-            SetInteractableUI(false);
+            SetInteractableUi(false);
             LoadCircle.SetActive(true);
 
             var config = StreamingAssetsHelper.GetConfig();
@@ -151,7 +151,7 @@ namespace Assets.Scripts.UI.Menus
                     break;
             }
 
-            SetInteractableUI(true);
+            SetInteractableUi(true);
         }
     }
 }

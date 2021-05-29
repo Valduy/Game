@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -252, y: 228}
+  m_AnchoredPosition: {x: 55, y: 0}
   m_SizeDelta: {x: 86, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &662834239156613782
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Character: {fileID: 662834239974495179}
   Weapon: {fileID: 662834239156613779}
-  AngularVelocity: -250
+  AngularVelocity: -360
 --- !u!1 &662834239974495179
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -308, y: 228}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &662834239974495182
