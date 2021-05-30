@@ -14,5 +14,13 @@ namespace Assets.Scripts.Util
             request.downloadHandler = new DownloadHandlerBuffer();
             return request;
         }
+
+        public static UnityWebRequest Get(string url, string bearerToken)
+        {
+            var request = new UnityWebRequest(url, UnityWebRequest.kHttpVerbGET);
+            request.SetRequestHeader("Authorization", $"Bearer {bearerToken}");
+            request.downloadHandler = new DownloadHandlerBuffer();
+            return request;
+        }
     }
 }

@@ -1,60 +1,55 @@
-﻿using System;
+﻿using System.Collections;
+using Assets.Scripts.Util;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Menus
 {
-    public enum AuthorizationStatus
-    {
-        Undefined,
-        Authorized,
-        Unauthorized
-    }
-
     public class AuthorizationStatusIndicator : MonoBehaviour
     {
-        private AuthorizationStatus _authorizationStatus;
-
-        public Image GrayCircle;
-        public Image GreenCircle;
-        public Image RedCircle;
+        public Color UndefinedColor;
+        public Color AuthorizedColor;
+        public Color UnauthorizedColor;
+        public Color NoConnectionColor;
+        public Image Indicator;
         public TMP_Text StatusText;
 
-        public AuthorizationStatus AuthorizationStatus
+        public void Refresh()
         {
-            get => _authorizationStatus;
-            set
-            {
-                _authorizationStatus = value;
-
-                switch (_authorizationStatus)
-                {
-                    case AuthorizationStatus.Undefined:
-                        GrayCircle.enabled = true;
-                        GreenCircle.enabled = false;
-                        RedCircle.enabled = false;
-                        ShowStatus("проверка авторизации");
-                        break;
-                    case AuthorizationStatus.Authorized:
-                        GrayCircle.enabled = false;
-                        GreenCircle.enabled = true;
-                        RedCircle.enabled = false;
-                        ShowStatus("авторизован");
-                        break;
-                    case AuthorizationStatus.Unauthorized:
-                        GrayCircle.enabled = false;
-                        GreenCircle.enabled = false;
-                        RedCircle.enabled = true;
-                        ShowStatus("неавторизации");
-                        break;
-                }
-            }
+            StartCoroutine(GetStatusCoroutine());
         }
 
-        void Start()
+        void OnEnable()
         {
-            AuthorizationStatus = AuthorizationStatus.Undefined;
+            Indicator.color = UndefinedColor;
+            ShowStatus("проверка авторизации");
+            Refresh();
+        }
+
+        private IEnumerator GetStatusCoroutine()
+        {
+            var config = StreamingAssetsHelper.GetConfig();
+            var url = $"{config.Url}/api/account/authorization";
+            var request = UnityHttpHelper.Get(url, config.Token);
+            
+            yield return request.SendWebRequest();
+
+            switch (request.responseCode)
+            {
+                case 200:
+                    Indicator.color = AuthorizedColor;
+                    ShowStatus("авторизован");
+                    break;
+                case 401:
+                    Indicator.color = UnauthorizedColor;
+                    ShowStatus("неавторизован");
+                    break;
+                default:
+                    Indicator.color = NoConnectionColor;
+                    ShowStatus("нет сети");
+                    break;
+            }
         }
 
         private void ShowStatus(string status)
