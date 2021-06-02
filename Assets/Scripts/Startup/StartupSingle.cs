@@ -26,7 +26,6 @@ namespace Assets.Scripts.Startup
         protected override void Start()
         {
             base.Start();
-            Debug.Log("start");
 
             AddUnfixedSystems(
                 new CollectKeyInputsSystem(), 

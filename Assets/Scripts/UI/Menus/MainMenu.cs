@@ -13,6 +13,11 @@ namespace Assets.Scripts.UI.Menus
             SceneManager.LoadScene("Loading");
         }
 
+        public void StartMultiplayer()
+        {
+            SceneManager.LoadScene("SearchMatch");
+        }
+
         public void Quit()
         {
             Debug.Log("Quit!");

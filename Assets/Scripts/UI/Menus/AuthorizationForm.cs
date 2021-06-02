@@ -66,28 +66,29 @@ namespace Assets.Scripts.UI.Menus
             var config = StreamingAssetsHelper.GetConfig();
             var url = $"{config.Url}/api/account/authorization";
             var json = JsonUtility.ToJson(user);
-            var request = UnityHttpHelper.Post(url, json);
 
-            yield return request.SendWebRequest();
-
-            LoadCircle.SetActive(false);
-
-            switch (request.responseCode)
+            using (var request = UnityHttpHelper.Post(url, json))
             {
-                case 200:
-                    ShowSuccess();
-                    var session = JsonUtility.FromJson<Session>(request.downloadHandler.text);
-                    config.Token = session.accessToken;
-                    StreamingAssetsHelper.SaveConfig(config);
-                    break;
-                case 401:
-                    ShowError("Неверный логин или пароль.");
-                    break;
-                default:
-                    ShowError("Не удалось установить соединение с сервером.");
-                    break;
+                yield return request.SendWebRequest();
+                
+                switch (request.responseCode)
+                {
+                    case 200:
+                        ShowSuccess();
+                        var session = JsonUtility.FromJson<Session>(request.downloadHandler.text);
+                        config.Token = session.accessToken;
+                        StreamingAssetsHelper.SaveConfig(config);
+                        break;
+                    case 401:
+                        ShowError("Неверный логин или пароль.");
+                        break;
+                    default:
+                        ShowError("Не удалось установить соединение с сервером.");
+                        break;
+                }
             }
 
+            LoadCircle.SetActive(false);
             SetInteractableUi(true);
         }
     }

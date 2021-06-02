@@ -31,24 +31,26 @@ namespace Assets.Scripts.UI.Menus
         {
             var config = StreamingAssetsHelper.GetConfig();
             var url = $"{config.Url}/api/account/authorization";
-            var request = UnityHttpHelper.Get(url, config.Token);
-            
-            yield return request.SendWebRequest();
 
-            switch (request.responseCode)
+            using (var request = UnityHttpHelper.Get(url, config.Token))
             {
-                case 200:
-                    Indicator.color = AuthorizedColor;
-                    ShowStatus("авторизован");
-                    break;
-                case 401:
-                    Indicator.color = UnauthorizedColor;
-                    ShowStatus("неавторизован");
-                    break;
-                default:
-                    Indicator.color = NoConnectionColor;
-                    ShowStatus("нет сети");
-                    break;
+                yield return request.SendWebRequest();
+
+                switch (request.responseCode)
+                {
+                    case 200:
+                        Indicator.color = AuthorizedColor;
+                        ShowStatus("авторизован");
+                        break;
+                    case 401:
+                        Indicator.color = UnauthorizedColor;
+                        ShowStatus("неавторизован");
+                        break;
+                    default:
+                        Indicator.color = NoConnectionColor;
+                        ShowStatus("нет сети");
+                        break;
+                }
             }
         }
 

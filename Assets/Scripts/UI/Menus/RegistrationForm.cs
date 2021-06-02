@@ -132,25 +132,26 @@ namespace Assets.Scripts.UI.Menus
             var config = StreamingAssetsHelper.GetConfig();
             var url = $"{config.Url}/api/account/registration";
             var json = JsonUtility.ToJson(user);
-            var request = UnityHttpHelper.Post(url, json);
 
-            yield return request.SendWebRequest();
-
-            LoadCircle.SetActive(false);
-
-            switch (request.responseCode)
+            using (var request = UnityHttpHelper.Post(url, json))
             {
-                case 200:
-                    ShowSuccess();
-                    break;
-                case 409:
-                    ShowError("Логин уже занят.");
-                    break;
-                default:
-                    ShowError("Не удалось установить соединение с сервером.");
-                    break;
+                yield return request.SendWebRequest();
+
+                switch (request.responseCode)
+                {
+                    case 200:
+                        ShowSuccess();
+                        break;
+                    case 409:
+                        ShowError("Логин уже занят.");
+                        break;
+                    default:
+                        ShowError("Не удалось установить соединение с сервером.");
+                        break;
+                }
             }
 
+            LoadCircle.SetActive(false);
             SetInteractableUi(true);
         }
     }
