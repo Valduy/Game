@@ -6,6 +6,7 @@ using Assets.Scripts.Networking.Serializers;
 using Assets.Scripts.Util;
 using ECS.Core;
 using Network.Proxy;
+using UnityEngine;
 
 public class Reconcilator : IEngineWrapper
 {
@@ -30,18 +31,26 @@ public class Reconcilator : IEngineWrapper
         if (!_clientProxy.ReadBuffer.IsEmpty)
         {
             var message = _clientProxy.ReadBuffer.ReadLast();
-            var snapshot = MessageHelper.GetSnapshot(EcsContextHelper.HostWorldContext, message);
-            var reconcilableEntities = _engine.GetIdentifiedEntities();
 
-            foreach (var entity in snapshot)
+            try
             {
-                var reconcilable = reconcilableEntities[entity.Id()];
+                var snapshot = MessageHelper.GetSnapshot(EcsContextHelper.HostWorldContext, message);
+                var reconcilableEntities = _engine.GetIdentifiedEntities();
 
-                foreach (var typeComponentPair in entity.ToList())
+                foreach (var entity in snapshot)
                 {
-                    reconcilable.Remove(typeComponentPair.Key);
-                    reconcilable.Add(typeComponentPair.Value);
+                    var reconcilable = reconcilableEntities[entity.Id()];
+
+                    foreach (var typeComponentPair in entity.ToList())
+                    {
+                        reconcilable.Remove(typeComponentPair.Key);
+                        reconcilable.Add(typeComponentPair.Value);
+                    }
                 }
+            }
+            catch
+            {
+                Debug.Log("Не удалось десериализовать сообщение.");
             }
         }
     }

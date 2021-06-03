@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using Assets.Scripts.ECS.Systems.Fixed;
 using Assets.Scripts.ECS.Systems.Late;
 using Assets.Scripts.ECS.Systems.Unfixed;
+using Assets.Scripts.UI.Loading;
 using ECS.Core;
 using Network.Proxy;
 using UnityEngine;
@@ -40,8 +41,8 @@ namespace Assets.Scripts.Startup
         {
             base.Start();
 
-            _udpClient = new UdpClient(54322);
-            _clients = new List<IPEndPoint>() { new IPEndPoint(IPAddress.Loopback, 54321) };
+            _udpClient = MatchData.UdpClient;
+            _clients = MatchData.Clients;
             _hostProxy = new HostNetworkProxy(_udpClient, _clients);
             _hostProxy.Start();
             _snapshoter = new Snapshoter(Fixed, _hostProxy);

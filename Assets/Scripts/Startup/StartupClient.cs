@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using Assets.Scripts.ECS.Systems.Fixed;
 using Assets.Scripts.ECS.Systems.Late;
 using Assets.Scripts.ECS.Systems.Unfixed;
+using Assets.Scripts.UI.Loading;
 using ECS.Core;
 using Network.Proxy;
 using UnityEngine;
@@ -39,8 +41,8 @@ namespace Assets.Scripts.Startup
         {
             base.Start();
 
-            _udpClient = new UdpClient(54321);
-            _hostAddress = new IPEndPoint(IPAddress.Loopback, 54322);
+            _udpClient = MatchData.UdpClient;
+            _hostAddress = MatchData.Clients.First();
             _clientProxy = new ClientNetworkProxy(_udpClient, _hostAddress);
             _clientProxy.Start();
             _reconcilator = new Reconcilator(Fixed, _clientProxy);

@@ -6,6 +6,7 @@ using Assets.Scripts.Networking.Serializers;
 using Assets.Scripts.Util;
 using ECS.Core;
 using Network.Proxy;
+using UnityEngine;
 
 public class Snapshoter : IEngineWrapper
 {
@@ -35,9 +36,16 @@ public class Snapshoter : IEngineWrapper
 
             if (!buffer.IsEmpty)
             {
-                var message = buffer.ReadLast();
-                var snapshot = MessageHelper.GetSnapshot(EcsContextHelper.ClientWorldContext, message);
-                receivedSnapshots.Add(snapshot);
+                try
+                {
+                    var message = buffer.ReadLast();
+                    var snapshot = MessageHelper.GetSnapshot(EcsContextHelper.ClientWorldContext, message);
+                    receivedSnapshots.Add(snapshot);
+                }
+                catch
+                {
+                    Debug.Log("Не удалось десериализовать сообщение.");
+                }
             }
         }
 

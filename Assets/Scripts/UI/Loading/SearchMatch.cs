@@ -35,24 +35,30 @@ namespace Assets.Scripts.UI.Loading
             {
                 _tokenSource = new CancellationTokenSource();
                 await SearchMatchAsync(_tokenSource.Token);
-                Debug.Log("Все хорошо.");
-                // TODO: загрузка сцены, в зависимости от роли
+
+                switch (MatchData.Role)
+                {
+                    case Role.Host:
+                        LoadingData.NextScene = "Host";
+                        break;
+                    case Role.Client:
+                        LoadingData.NextScene = "Client";
+                        break;
+                }
+
+                SceneManager.LoadScene("Loading");
             }
             catch (OperationCanceledException)
             {
                 MatchData.UdpClient?.Dispose();
                 SceneManager.LoadScene("MainMenu");
             }
-            catch (HttpRequestException)
-            {
-                _errorPanel.SetActive(true);
-                ShowError("Произошла ошибка при попытке подключиться к серверу.");
-                _cancelButton.interactable = false;
-            }
             catch (Exception e)
             {
                 _errorPanel.SetActive(true);
-                ShowError(e.Message);
+                ShowError(e is HttpRequestException 
+                    ? "Произошла ошибка при попытке подключиться к серверу." 
+                    : e.Message);
                 _cancelButton.interactable = false;
             }
         }
