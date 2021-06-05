@@ -5,7 +5,7 @@ namespace Assets.Scripts.UI.Game
 {
     public class HealthBar : MonoBehaviour
     {
-        public Slider Slider;
+        [SerializeField] private Slider _slider;
 
         private int _maxHealth;
         private int _currentHealth;
@@ -16,7 +16,7 @@ namespace Assets.Scripts.UI.Game
             set
             {
                 _maxHealth = Mathf.Max(value, 0);
-                Slider.maxValue = _maxHealth;
+                _slider.maxValue = _maxHealth;
                 _currentHealth = Mathf.Min(_maxHealth, _currentHealth);
             }
         }
@@ -27,7 +27,7 @@ namespace Assets.Scripts.UI.Game
             set
             {
                 _currentHealth = Mathf.Max(value, 0);
-                Slider.value = _currentHealth;
+                _slider.value = _currentHealth;
             }
         }
     }

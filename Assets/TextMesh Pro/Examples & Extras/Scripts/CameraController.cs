@@ -46,8 +46,8 @@ namespace TMPro.Examples
         //private float prev_ZoomDelta;
 
 
-        private const string event_SmoothingValue = "Slider - Smoothing Value";
-        private const string event_FollowDistance = "Slider - Camera Zoom";
+        private const string event_SmoothingValue = "_slider - Smoothing Value";
+        private const string event_FollowDistance = "_slider - Camera Zoom";
 
 
         void Awake()

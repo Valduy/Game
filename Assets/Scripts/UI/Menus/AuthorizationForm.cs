@@ -9,13 +9,13 @@ namespace Assets.Scripts.UI.Menus
 {
     public class AuthorizationForm : MonoBehaviour
     {
-        public TMP_InputField LoginField;
-        public TMP_InputField PasswordField;
-        public TMP_Text ErrorText;
-        public TMP_Text SuccessText;
-        public Button BackButton;
-        public Button AuthorizeButton;
-        public GameObject LoadCircle;
+        [SerializeField] private TMP_InputField _loginField;
+        [SerializeField] private TMP_InputField _passwordField;
+        [SerializeField] private TMP_Text _errorText;
+        [SerializeField] private TMP_Text _successText;
+        [SerializeField] private Button _backButton;
+        [SerializeField] private Button _authorizeButton;
+        [SerializeField] private GameObject _loadCircle;
 
         public void Authorize()
         {
@@ -31,37 +31,37 @@ namespace Assets.Scripts.UI.Menus
 
         private void DisableMessageTexts()
         {
-            ErrorText.gameObject.SetActive(false);
-            SuccessText.gameObject.SetActive(false);
+            _errorText.gameObject.SetActive(false);
+            _successText.gameObject.SetActive(false);
         }
 
         private void SetInteractableUi(bool interactable)
         {
-            BackButton.interactable = interactable;
-            AuthorizeButton.interactable = interactable;
-            LoginField.interactable = interactable;
-            PasswordField.interactable = interactable;
+            _backButton.interactable = interactable;
+            _authorizeButton.interactable = interactable;
+            _loginField.interactable = interactable;
+            _passwordField.interactable = interactable;
         }
 
         private User GetUserInformation() => new User
         {
-            Login = LoginField.text,
-            Password = PasswordField.text
+            Login = _loginField.text,
+            Password = _passwordField.text
         };
 
         private void ShowError(string error)
         {
-            ErrorText.gameObject.SetActive(false);
-            ErrorText.gameObject.GetComponent<TextMeshProUGUI>().text = error;
-            ErrorText.gameObject.SetActive(true);
+            _errorText.gameObject.SetActive(false);
+            _errorText.gameObject.GetComponent<TextMeshProUGUI>().text = error;
+            _errorText.gameObject.SetActive(true);
         }
 
-        private void ShowSuccess() => SuccessText.gameObject.SetActive(true);
+        private void ShowSuccess() => _successText.gameObject.SetActive(true);
 
         private IEnumerator AuthorizationCoroutine(User user)
         {
             SetInteractableUi(false);
-            LoadCircle.SetActive(true);
+            _loadCircle.SetActive(true);
 
             var config = StreamingAssetsHelper.GetConfig();
             var url = $"{config.Url}/api/account/authorization";
@@ -88,7 +88,7 @@ namespace Assets.Scripts.UI.Menus
                 }
             }
 
-            LoadCircle.SetActive(false);
+            _loadCircle.SetActive(false);
             SetInteractableUi(true);
         }
     }
