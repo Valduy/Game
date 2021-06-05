@@ -34,7 +34,7 @@ namespace Assets.Scripts.Startup
                 .Add(new HealthComponent { MaxHealth = health, CurrentHealth = health })
                 .Add(new TransformComponent {Transform = characterGo.GetComponent<Transform>()})
                 .Add(new RigidbodyComponent {Rigidbody = characterGo.GetComponent<Rigidbody2D>()})
-                .Add(new HealthBarComponent {HealthBar = UnityHelper.GetChildComponent<HealthBar>(characterGo)});
+                .Add(new HealthBarComponent {HealthBar = characterGo.GetComponentInChildren<HealthBar>()});
 
         #endregion
 
