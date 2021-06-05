@@ -1764,7 +1764,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: cf2e8a2dd0001034282ed3b32b080d74, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
@@ -2147,8 +2147,8 @@ MonoBehaviour:
   PasswordField: {fileID: 534201786}
   ErrorText: {fileID: 1389982240}
   SuccessText: {fileID: 472696627}
-  BackButton: {fileID: 0}
-  RegisterButton: {fileID: 0}
+  BackButton: {fileID: 2007258175}
+  RegisterButton: {fileID: 1357553489}
   LoadCircle: {fileID: 971124518}
 --- !u!1 &699809205
 GameObject:
@@ -3858,8 +3858,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cf2e8a2dd0001034282ed3b32b080d74, type: 2}
+  m_sharedMaterial: {fileID: -5949936939777225276, guid: cf2e8a2dd0001034282ed3b32b080d74,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4363,6 +4364,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af4c4e16f0a1efc4e8893c23fff2fc48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1357553489 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2339594588552100949, guid: 4ee2df2343ae85b4fb04a0ad2617de29,
+    type: 3}
+  m_PrefabInstance: {fileID: 833742412}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fb4052e27b7884dab3aa4ee6745075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1389982238
@@ -5819,6 +5832,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1973193857}
   m_CullTransparentMesh: 0
+--- !u!114 &2007258175 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2339594588552100949, guid: 4ee2df2343ae85b4fb04a0ad2617de29,
+    type: 3}
+  m_PrefabInstance: {fileID: 886273169}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fb4052e27b7884dab3aa4ee6745075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &662834239462489056
 PrefabInstance:
   m_ObjectHideFlags: 0
