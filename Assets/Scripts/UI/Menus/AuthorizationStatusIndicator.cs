@@ -8,12 +8,13 @@ namespace Assets.Scripts.UI.Menus
 {
     public class AuthorizationStatusIndicator : MonoBehaviour
     {
+        [SerializeField] private Image _indicator;
+        [SerializeField] private TMP_Text _statusText;
+
         public Color UndefinedColor;
         public Color AuthorizedColor;
         public Color UnauthorizedColor;
         public Color NoConnectionColor;
-        public Image Indicator;
-        public TMP_Text StatusText;
 
         public void Refresh()
         {
@@ -22,7 +23,7 @@ namespace Assets.Scripts.UI.Menus
 
         void OnEnable()
         {
-            Indicator.color = UndefinedColor;
+            _indicator.color = UndefinedColor;
             ShowStatus("проверка авторизации");
             Refresh();
         }
@@ -39,15 +40,15 @@ namespace Assets.Scripts.UI.Menus
                 switch (request.responseCode)
                 {
                     case 200:
-                        Indicator.color = AuthorizedColor;
+                        _indicator.color = AuthorizedColor;
                         ShowStatus("авторизован");
                         break;
                     case 401:
-                        Indicator.color = UnauthorizedColor;
+                        _indicator.color = UnauthorizedColor;
                         ShowStatus("неавторизован");
                         break;
                     default:
-                        Indicator.color = NoConnectionColor;
+                        _indicator.color = NoConnectionColor;
                         ShowStatus("нет сети");
                         break;
                 }
@@ -56,9 +57,9 @@ namespace Assets.Scripts.UI.Menus
 
         private void ShowStatus(string status)
         {
-            StatusText.gameObject.SetActive(false);
-            StatusText.gameObject.GetComponent<TextMeshProUGUI>().text = status;
-            StatusText.gameObject.SetActive(true);
+            _statusText.gameObject.SetActive(false);
+            _statusText.gameObject.GetComponent<TextMeshProUGUI>().text = status;
+            _statusText.gameObject.SetActive(true);
         }
     }
 }

@@ -2143,13 +2143,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574cbc4bdfe959345b3cca4cecc91253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoginField: {fileID: 1050214206}
-  PasswordField: {fileID: 534201786}
-  ErrorText: {fileID: 1389982240}
-  SuccessText: {fileID: 472696627}
-  BackButton: {fileID: 2007258175}
-  RegisterButton: {fileID: 1357553489}
-  LoadCircle: {fileID: 971124518}
+  _loginField: {fileID: 1050214206}
+  _passwordField: {fileID: 534201786}
+  _errorText: {fileID: 1389982240}
+  _successText: {fileID: 472696627}
+  _backButton: {fileID: 2007258175}
+  _registerButton: {fileID: 1357553489}
+  _loadCircle: {fileID: 971124518}
 --- !u!1 &699809205
 GameObject:
   m_ObjectHideFlags: 0
@@ -4830,12 +4830,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d922eaf86e67e4180e99daa1256c61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _indicator: {fileID: 1972073193}
+  _statusText: {fileID: 1441216145}
   UndefinedColor: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
   AuthorizedColor: {r: 0, g: 0.6901961, b: 0.059551347, a: 1}
   UnauthorizedColor: {r: 0.7264151, g: 0, b: 0, a: 1}
   NoConnectionColor: {r: 0, g: 0, b: 0, a: 1}
-  Indicator: {fileID: 1972073193}
-  StatusText: {fileID: 1441216145}
 --- !u!224 &1577314985 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2339594588552100950, guid: 4ee2df2343ae85b4fb04a0ad2617de29,
