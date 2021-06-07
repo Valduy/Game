@@ -87,7 +87,7 @@ namespace Assets.Scripts.UI.Loading
 
             ShowStatus("Соединение...");
             var holePuncher = new HolePuncher();
-            MatchData.Clients = await holePuncher.ConnectAsync(MatchData.UdpClient, message.Clients, cancellationToken);
+            MatchData.Clients = await holePuncher.ConnectAsync(MatchData.UdpClient, message.SessionId, message.Clients, cancellationToken);
         }
 
         private void ShowStatus(string status)
