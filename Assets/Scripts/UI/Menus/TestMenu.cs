@@ -2,6 +2,9 @@
 using System.Net;
 using System.Net.Sockets;
 using Assets.Scripts.UI.Loading;
+using Assets.Scripts.Util;
+using Connectors.HolePuncher;
+using Connectors.MatchConnectors;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +24,11 @@ namespace Assets.Scripts.UI.Menus
             MatchData.UdpClient = new UdpClient(54322);
             MatchData.Clients = new List<IPEndPoint> { new IPEndPoint(IPAddress.Loopback, 54321) };
             SceneManager.LoadScene("Host");
+        }
+
+        public void PunchHole()
+        {
+            SceneManager.LoadScene("HolePunching");
         }
     }
 }
