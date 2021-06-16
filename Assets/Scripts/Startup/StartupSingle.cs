@@ -42,6 +42,7 @@ namespace Assets.Scripts.Startup
                 new CollectMouseInputsSystem());
 
             AddFixedSystems(
+                new MenuSystem(),
                 new ResetDirectionSystem(),
                 new AvailableGoalsConfiguratorSystem(),
                 new GoalFindSystem(),
@@ -116,6 +117,7 @@ namespace Assets.Scripts.Startup
         {
             Unfixed.AddEntity(_playerEntity);
             Unfixed.AddEntity(_swordEntity);
+            Unfixed.AddEntity(_menuEntity);
 
             Fixed.AddEntity(_playerEntity);
             Fixed.AddEntity(_swordEntity);

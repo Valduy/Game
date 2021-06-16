@@ -18,7 +18,11 @@ namespace Assets.Scripts.ECS.Systems.Fixed
         {
             foreach (var node in _engine.GetNodes<MenuNode>().ToList())
             {
-                
+                Debug.Log(node.KeysComponent.Esc);
+                if (node.KeysComponent.Esc)
+                {
+                    node.MenuComponent.Menu.SetActive(!node.MenuComponent.Menu.activeSelf);
+                }
             }
         }
 

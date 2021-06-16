@@ -7,7 +7,7 @@ using ECS.Core;
 
 namespace Assets.Scripts.ECS.Components
 {
-    public class DeathTimerComponent : ComponentBase
+    public class TimerComponent : ComponentBase
     {
         public float TimeLeft;
     }

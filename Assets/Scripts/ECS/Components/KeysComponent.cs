@@ -16,6 +16,8 @@ namespace Assets.Scripts.ECS.Components
         public bool A;
         public bool S;
         public bool D;
+
+        public bool Esc;
     }
 
     public class KeysComponentConverter : IComponentConverter
@@ -27,6 +29,8 @@ namespace Assets.Scripts.ECS.Components
             writer.WriteBool(keyComponent.A);
             writer.WriteBool(keyComponent.S);
             writer.WriteBool(keyComponent.D);
+
+            writer.WriteBool(keyComponent.Esc);
         }
 
         public ComponentBase FromTokenSequence(ISequentialReader reader) 
@@ -36,6 +40,8 @@ namespace Assets.Scripts.ECS.Components
                 A = reader.ReadBool(),
                 S = reader.ReadBool(),
                 D = reader.ReadBool(),
+
+                Esc = reader.ReadBool()
             };
     }
 }

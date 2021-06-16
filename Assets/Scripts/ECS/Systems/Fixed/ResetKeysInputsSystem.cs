@@ -25,6 +25,8 @@ namespace Assets.Scripts.ECS.Systems.Fixed
                 node.KeysComponent.A = false;
                 node.KeysComponent.S = false;
                 node.KeysComponent.D = false;
+
+                node.KeysComponent.Esc = false;
             }
         }
 

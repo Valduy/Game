@@ -22,12 +22,12 @@ namespace Assets.Scripts.ECS.Systems.Fixed
         public class NodeDead : NodeBase
         {
             public IsDeadComponent IsDeadComponent { get; private set; }
-            public DeathTimerComponent DeathTimerComponent { get; private set; }
+            public TimerComponent DeathTimerComponent { get; private set; }
 
             protected override void OnEntityChanged()
             {
                 IsDeadComponent = Entity.Get<IsDeadComponent>();
-                DeathTimerComponent = Entity.Get<DeathTimerComponent>();
+                DeathTimerComponent = Entity.Get<TimerComponent>();
             }
         }
 
@@ -43,7 +43,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
                     node.Entity.Remove<IsAliveComponent>();
 
                     node.Entity.Add(new IsDeadComponent());
-                    node.Entity.Add(new DeathTimerComponent() { TimeLeft = 0 });
+                    node.Entity.Add(new TimerComponent() { TimeLeft = 0 });
                     node.Entity.Get<ColliderComponent>().Collider.enabled = false;
                 }
             }

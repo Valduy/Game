@@ -13,11 +13,13 @@ namespace Assets.Scripts.ECS.Nodes
     {
         public EndGameComponent EndGameComponent { get; private set; }
         public MenuComponent MenuComponent { get; private set; }
+        public KeysComponent KeysComponent { get; private set; }
 
         protected override void OnEntityChanged()
         {
             EndGameComponent = Entity.Get<EndGameComponent>();
             MenuComponent = Entity.Get<MenuComponent>();
+            KeysComponent = Entity.Get<KeysComponent>();
         }
     }
 }

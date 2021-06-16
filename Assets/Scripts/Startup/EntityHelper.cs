@@ -97,7 +97,9 @@ namespace Assets.Scripts.Startup
         public static Entity GetMenuEntity(GameObject gameOver, GameObject win, GameObject menu)
             => new Entity()
                 .Add(new EndGameComponent() { GameOver = gameOver, Win = win })
-                .Add(new MenuComponent() { Menu = menu });
+                .Add(new MenuComponent() { Menu = menu })
+                .Add(new IsInputReceiverComponent())
+                .Add(new KeysComponent());
 
         #endregion
 
