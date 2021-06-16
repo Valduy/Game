@@ -129,7 +129,7 @@ namespace Assets.Scripts.Startup
 
             _otherPlayerSwordEntity = EntityHelper.GetClientWeaponEntity(_otherPlayerSwordGo, 1);
 
-            _bossEntity = EntityHelper.GetClientCharacterEntity(_bossGo, 100, 4)
+            _bossEntity = EntityHelper.GetClientCharacterEntity(_bossGo, 300, 4)
                 .EnemyIdentity()
                 .SetAnimatable(_bossGo.GetComponent<Animator>());
 

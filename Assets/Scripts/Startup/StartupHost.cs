@@ -159,7 +159,7 @@ namespace Assets.Scripts.Startup
                 .MouseInputSource()
                 .Serializable();
 
-            _bossEntity = EntityHelper.GetHostCharacterEntity(_bossGo, 4, 100, 2.5f)
+            _bossEntity = EntityHelper.GetHostCharacterEntity(_bossGo, 4, 300, 2.5f)
                 .Serializable()
                 .EnemyIdentity()
                 .SetDangerZone(2)
