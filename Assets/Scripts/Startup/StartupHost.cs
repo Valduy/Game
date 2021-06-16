@@ -133,23 +133,27 @@ namespace Assets.Scripts.Startup
 
             _thisPlayerEntity = EntityHelper.GetHostCharacterEntity(_thisPlayerGo, 0, 100, 3)
                 .KeyInputsReceiver()
-                .Serializable();
+                .Serializable()
+                .PlayerIdentity()
+                .SetAnimatable(_thisPlayerGo.GetComponent<Animator>());
 
             _thisPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(
-                    _thisPlayerSwordGo, 
-                    _thisPlayerGo, 
+                    _thisPlayerSwordGo,
+                    _thisPlayerGo,
                     _thisPlayerEntity,
                     1, 1.2f, 1, 1)
                 .MouseInputReceiver(_cameraGo)
                 .Serializable();
-            
+
             _otherPlayerEntity = EntityHelper.GetHostCharacterEntity(_otherPlayerGo, 2, 100, 3)
                 .KeyInputSource()
-                .Serializable();
+                .Serializable()
+                .PlayerIdentity() // Не уверен нужно ли это тут. Используется в EndGameSystem
+                .SetAnimatable(_thisPlayerGo.GetComponent<Animator>());
 
             _otherPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(
-                    _otherPlayerSwordGo, 
-                    _otherPlayerGo, 
+                    _otherPlayerSwordGo,
+                    _otherPlayerGo,
                     _otherPlayerEntity,
                     3, 1.2f, 1, 1)
                 .MouseInputSource()
