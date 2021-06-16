@@ -15,24 +15,24 @@ namespace Assets.Scripts.ECS.Systems.Fixed
     {
         public class NodeCharacter : NodeBase
         {
-            public IsAliveComponent IsAliveComponent { get; private set; }
+            public HealthComponent HealthComponent { get; private set; }
             public PlayerFlagComponent PlayerFlagComponent { get; private set; }
 
             protected override void OnEntityChanged()
             {
-                IsAliveComponent = Entity.Get<IsAliveComponent>();
+                HealthComponent = Entity.Get<HealthComponent>();
                 PlayerFlagComponent = Entity.Get<PlayerFlagComponent>();
             }
         }
 
         public class NodeEnemies : NodeBase
         {
-            public IsAliveComponent IsAliveComponent { get; private set; }
+            public HealthComponent HealthComponent { get; private set; }
             public EnemyFlagComponent EnemyFlagComponent { get; private set; }
 
             protected override void OnEntityChanged()
             {
-                IsAliveComponent = Entity.Get<IsAliveComponent>();
+                HealthComponent = Entity.Get<HealthComponent>();
                 EnemyFlagComponent = Entity.Get<EnemyFlagComponent>();
             }
         }
@@ -41,14 +41,14 @@ namespace Assets.Scripts.ECS.Systems.Fixed
 
         public override void Update(double time)
         {
-            if (_engine.GetNodes<NodeEnemies>().ToList().Count <= 0)
+            if (_engine.GetNodes<NodeEnemies>().ToList().All(enemy => enemy.HealthComponent.CurrentHealth <= 0))
             {
                 foreach (var node in _engine.GetNodes<MenuNode>().ToList())
                 {
                     node.EndGameComponent.Win.SetActive(true);
                 }
             }
-            if (_engine.GetNodes<NodeCharacter>().ToList().Count <= 0)
+            else if (_engine.GetNodes<NodeCharacter>().ToList().All(player => player.HealthComponent.CurrentHealth <= 0))
             {
                 foreach (var node in _engine.GetNodes<MenuNode>().ToList())
                 {

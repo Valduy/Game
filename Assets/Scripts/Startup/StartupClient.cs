@@ -119,27 +119,21 @@ namespace Assets.Scripts.Startup
                 .PlayerIdentity()
                 .SetAnimatable(_thisPlayerGo.GetComponent<Animator>());
 
-
             _thisPlayerSwordEntity = EntityHelper.GetClientWeaponEntity(_thisPlayerSwordGo, 3)
                 .MouseInputReceiver(_cameraGo)
                 .Serializable();
 
             _otherPlayerEntity = EntityHelper.GetClientCharacterEntity(_otherPlayerGo, 100, 0)
-                .PlayerIdentity() // Не уверен нужно ли это тут. Используется в EndGameSystem
+                .PlayerIdentity()
                 .SetAnimatable(_otherPlayerGo.GetComponent<Animator>());
 
             _otherPlayerSwordEntity = EntityHelper.GetClientWeaponEntity(_otherPlayerSwordGo, 1);
 
             _bossEntity = EntityHelper.GetClientCharacterEntity(_bossGo, 100, 4)
-                .EnemyIdentity() // Не уверен нужно ли это тут. Используется в EndGameSystem
+                .EnemyIdentity()
                 .SetAnimatable(_bossGo.GetComponent<Animator>());
 
-            _swordBossEntity = EntityHelper.GetWeaponEntity(_swordBossGO, _bossGo, _bossEntity, 2f, 1, 1)
-                .EnemyWeaponIdentity();
-
-            // Этого вроде бы быть не должно, т.к. ItsWeaponEntityComponent используется только в VirtualMouse,
-            // Но на всякий случай оставил
-            //_bossEntity.Add(new ItsWeaponEntityComponent() { Weapon = _swordBossEntity });
+            _swordBossEntity = EntityHelper.GetClientWeaponEntity(_swordBossGO, 5);
 
             _menuEntity = EntityHelper.GetMenuEntity(GameOverPrefab, VictoryPrefab, MenuPrefab);
         }

@@ -2144,6 +2144,9 @@ MonoBehaviour:
     type: 3}
   BossPrefab: {fileID: 4845494093220753614, guid: d50426ef606744c4d80a94c78a231575,
     type: 3}
+  GameOverPrefab: {fileID: 87501964}
+  VictoryPrefab: {fileID: 1705611400}
+  MenuPrefab: {fileID: 1056100446}
 --- !u!4 &439067959
 Transform:
   m_ObjectHideFlags: 0

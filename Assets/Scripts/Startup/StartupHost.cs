@@ -149,7 +149,7 @@ namespace Assets.Scripts.Startup
                 .KeyInputSource()
                 .Serializable()
                 .PlayerIdentity() // Не уверен нужно ли это тут. Используется в EndGameSystem
-                .SetAnimatable(_thisPlayerGo.GetComponent<Animator>());
+                .SetAnimatable(_otherPlayerGo.GetComponent<Animator>());
 
             _otherPlayerSwordEntity = EntityHelper.GetHostWeaponEntity(
                     _otherPlayerSwordGo,
@@ -166,9 +166,14 @@ namespace Assets.Scripts.Startup
                 .GoalIndigentIdentity(new Entity[] { _thisPlayerEntity, _otherPlayerEntity })
                 .SetAnimatable(_bossGo.GetComponent<Animator>());
 
-            _swordBossEntity = EntityHelper.GetWeaponEntity(_swordBossGO, _bossGo, _bossEntity, 2f, 1, 1)
+            _swordBossEntity = EntityHelper.GetHostWeaponEntity(
+                    _swordBossGO, 
+                    _bossGo, 
+                    _bossEntity, 
+                    5, 2f, 1, 1)
                 .VirtualMouse(4, 100)
-                .EnemyWeaponIdentity();
+                .EnemyWeaponIdentity()
+                .Serializable();
 
             _bossEntity.Add(new ItsWeaponEntityComponent() { Weapon = _swordBossEntity });
 
