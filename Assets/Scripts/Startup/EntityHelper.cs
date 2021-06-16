@@ -34,7 +34,8 @@ namespace Assets.Scripts.Startup
                 .Add(new HealthComponent { MaxHealth = health, CurrentHealth = health })
                 .Add(new TransformComponent {Transform = characterGo.GetComponent<Transform>()})
                 .Add(new RigidbodyComponent {Rigidbody = characterGo.GetComponent<Rigidbody2D>()})
-                .Add(new HealthBarComponent {HealthBar = characterGo.GetComponentInChildren<HealthBar>()});
+                .Add(new HealthBarComponent {HealthBar = characterGo.GetComponentInChildren<HealthBar>()})
+                .Add(new IsAliveComponent());
 
         #endregion
 
@@ -92,6 +93,25 @@ namespace Assets.Scripts.Startup
 
         #endregion
 
+        #region Menu.
+        public static Entity GetMenuEntity(GameObject gameOver, GameObject win, GameObject menu)
+            => new Entity()
+                .Add(new EndGameComponent() { GameOver = gameOver, Win = win })
+                .Add(new MenuComponent() { Menu = menu });
+
+        #endregion
+
+        #region VirtualMouse.
+
+        public static Entity VirtualMouse(this Entity entity, float speed, float radius)
+           => entity.Add(new MouseComponent() { MousePosition = new Vector3(0, 0, -9.7f) })
+                .Add(new WeaponSpeedComponent() { Speed = speed })
+                .Add(new VirtualMouseComponent() { Angle = 0 })
+                .Add(new VirtualMouseRadiusComponent() { Radius = radius })
+                .Add(new VirtualMouseAttackAngleComponent() { Angle = 60 });
+
+        #endregion
+
         public static Entity KeyInputSource(this Entity entity)
             => entity.Add(new KeysComponent());
 
@@ -112,5 +132,23 @@ namespace Assets.Scripts.Startup
 
         public static Entity Id(this Entity entity, uint id) 
             => entity.Add(new IdComponent {Id = id});
+
+
+        public static Entity PlayerIdentity(this Entity entiry)
+            => entiry.Add(new PlayerFlagComponent());
+
+        public static Entity EnemyIdentity(this Entity entiry, float radius)
+            => entiry.Add(new EnemyFlagComponent())
+                     .Add(new DangerZoneComponent() { Radius = radius });
+
+        public static Entity GoalIndigentIdentity(this Entity entiry, Entity[] goals)
+            => entiry.Add(new GoalsAvailableComponent() { Goals = goals})
+                     .Add(new SearchAvailableComponent());
+
+        public static Entity EnemyWeaponIdentity(this Entity entiry)
+            => entiry.Add(new IsEnemyWeaponComponent());
+
+        public static Entity SetAnimatable(this Entity entiry, Animator animator)
+            => entiry.Add(new AnimatorComponent() { Animator = animator });
     }
 }

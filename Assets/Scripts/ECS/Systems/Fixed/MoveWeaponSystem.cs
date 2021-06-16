@@ -2,6 +2,9 @@
 using ECS.Core;
 using UnityEngine;
 
+using System.Linq;
+
+
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
     public class MoveWeaponSystem : SystemBase

@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.ECS.Components;
 using ECS.Core;
 
+using UnityEngine;
+
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
     public class MoveCharacterSystem : SystemBase

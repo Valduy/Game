@@ -1,6 +1,10 @@
 ﻿using Assets.Scripts.ECS.Components;
 using ECS.Core;
 
+using System.Linq;
+using UnityEngine;
+
+
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
     public class CalculateVelocitySystem : SystemBase

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Assets.Scripts.ECS.Components;
 using ECS.Core;
-using Debug = UnityEngine.Debug;
+using UnityEngine;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
@@ -19,6 +19,18 @@ namespace Assets.Scripts.ECS.Systems.Fixed
             }
         }
 
+        public class NodeDead : NodeBase
+        {
+            public IsDeadComponent IsDeadComponent { get; private set; }
+            public DeathTimerComponent DeathTimerComponent { get; private set; }
+
+            protected override void OnEntityChanged()
+            {
+                IsDeadComponent = Entity.Get<IsDeadComponent>();
+                DeathTimerComponent = Entity.Get<DeathTimerComponent>();
+            }
+        }
+
         private Engine _engine;
 
         public override void Update(double time)
@@ -28,7 +40,21 @@ namespace Assets.Scripts.ECS.Systems.Fixed
                 if (node.HealthComponent.CurrentHealth <= 0)
                 {
                     node.Entity.Remove<IsMoveEnableComponent>();
-                    Debug.Log("kill");
+                    node.Entity.Remove<IsAliveComponent>();
+
+                    node.Entity.Add(new IsDeadComponent());
+                    node.Entity.Add(new DeathTimerComponent() { TimeLeft = 0 });
+                    node.Entity.Get<ColliderComponent>().Collider.enabled = false;
+                }
+            }
+
+            foreach (var node in _engine.GetNodes<NodeDead>().ToList())
+            {
+                node.DeathTimerComponent.TimeLeft += Time.deltaTime;
+
+                if(node.DeathTimerComponent.TimeLeft > 3)
+                {
+                    node.Entity.Get<TransformComponent>().Transform.gameObject.SetActive(false);
                 }
             }
         }
