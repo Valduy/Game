@@ -156,7 +156,11 @@ namespace Assets.Scripts.Startup
                 .Serializable();
 
             _bossEntity = EntityHelper.GetHostCharacterEntity(_bossGo, 4, 100, 2.5f)
-                .Serializable();
+                .Serializable()
+                .EnemyIdentity()
+                .SetDangerZone(2)
+                .GoalIndigentIdentity(new Entity[] { _thisPlayerEntity, _otherPlayerEntity })
+                .SetAnimatable(_bossGo.GetComponent<Animator>());
 
             _swordBossEntity = EntityHelper.GetWeaponEntity(_swordBossGO, _bossGo, _bossEntity, 2f, 1, 1)
                 .VirtualMouse(4, 100)

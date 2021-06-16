@@ -98,7 +98,8 @@ namespace Assets.Scripts.Startup
                 .MouseInputReceiver(_cameraGo);
 
             _bossEntity = EntityHelper.GetCharacterEntity(_bossGo, 400, 2.5f)
-                .EnemyIdentity(2)
+                .EnemyIdentity()
+                .SetDangerZone(2)
                 .GoalIndigentIdentity(new Entity[] { _playerEntity })
                 .SetAnimatable(_bossGo.GetComponent<Animator>());
 

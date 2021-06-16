@@ -137,9 +137,11 @@ namespace Assets.Scripts.Startup
         public static Entity PlayerIdentity(this Entity entiry)
             => entiry.Add(new PlayerFlagComponent());
 
-        public static Entity EnemyIdentity(this Entity entiry, float radius)
-            => entiry.Add(new EnemyFlagComponent())
-                     .Add(new DangerZoneComponent() { Radius = radius });
+        public static Entity EnemyIdentity(this Entity entiry)
+            => entiry.Add(new EnemyFlagComponent());
+
+        public static Entity SetDangerZone(this Entity entity, float radius)
+            => entity.Add(new DangerZoneComponent() { Radius = radius });
 
         public static Entity GoalIndigentIdentity(this Entity entiry, Entity[] goals)
             => entiry.Add(new GoalsAvailableComponent() { Goals = goals})

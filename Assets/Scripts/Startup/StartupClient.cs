@@ -9,6 +9,8 @@ using ECS.Core;
 using Network.Proxy;
 using UnityEngine;
 
+using Assets.Scripts.ECS.Components;
+
 namespace Assets.Scripts.Startup
 {
     public class StartupClient : StartupBase
@@ -33,6 +35,7 @@ namespace Assets.Scripts.Startup
         private GameObject _otherPlayerGo;
         private GameObject _otherPlayerSwordGo;
         private GameObject _bossGo;
+        private GameObject _swordBossGO;
 
         private Entity _cameraEntity;
         private Entity _thisPlayerEntity;
@@ -40,6 +43,9 @@ namespace Assets.Scripts.Startup
         private Entity _otherPlayerEntity;
         private Entity _otherPlayerSwordEntity;
         private Entity _bossEntity;
+        private Entity _swordBossEntity;
+
+        private Entity _menuEntity;
 
         protected override void Start()
         {
@@ -58,7 +64,9 @@ namespace Assets.Scripts.Startup
             AddFixedSystems(
                 new ApplyRotationSystem(),
                 new ApplyPositionSystem(),
-                new MoveCameraSystem(),
+
+                new AnimationSystem(),
+
                 new ResetKeysInputsSystem());
 
             AddLateSystem(
@@ -94,6 +102,9 @@ namespace Assets.Scripts.Startup
             _otherPlayerSwordGo.transform.parent = _otherPlayerGo.transform;
 
             _bossGo = Instantiate(BossPrefab, new Vector3(0, 5, 0), Quaternion.identity);
+
+            _swordBossGO = Instantiate(SwordPrefab, new Vector3(0, 0, -9), Quaternion.identity);
+            _swordBossGO.transform.parent = _bossGo.transform;
         }
 
         private void CreateEntities()
@@ -112,7 +123,16 @@ namespace Assets.Scripts.Startup
 
             _otherPlayerSwordEntity = EntityHelper.GetClientWeaponEntity(_otherPlayerSwordGo, 1);
 
-            _bossEntity = EntityHelper.GetClientCharacterEntity(_bossGo, 100, 4);
+            _bossEntity = EntityHelper.GetClientCharacterEntity(_bossGo, 100, 4)
+                .EnemyIdentity()
+                .SetAnimatable(_bossGo.GetComponent<Animator>());
+
+            _swordBossEntity = EntityHelper.GetWeaponEntity(_swordBossGO, _bossGo, _bossEntity, 2f, 1, 1)
+                .EnemyWeaponIdentity();
+
+            //_bossEntity.Add(new ItsWeaponEntityComponent() { Weapon = _swordBossEntity });
+
+            _menuEntity = EntityHelper.GetMenuEntity(GameOverPrefab, VictoryPrefab, MenuPrefab);
         }
 
         private void RegisterEntities()
@@ -125,6 +145,8 @@ namespace Assets.Scripts.Startup
             Fixed.AddEntity(_otherPlayerEntity);
             Fixed.AddEntity(_otherPlayerSwordEntity);
             Fixed.AddEntity(_bossEntity);
+            Fixed.AddEntity(_swordBossEntity);
+            Fixed.AddEntity(_menuEntity);
 
             Late.AddEntity(_cameraEntity);
             Late.AddEntity(_thisPlayerEntity);

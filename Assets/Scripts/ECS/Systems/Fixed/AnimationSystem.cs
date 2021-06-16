@@ -64,7 +64,6 @@ namespace Assets.Scripts.ECS.Systems.Fixed
         {
             foreach (var node in _engine.GetNodes<NodeDeathable>().ToList())
             {
-                //Debug.Log($"{node.HealthComponent.CurrentHealth}");
                 node.AnimatorComponent.Animator.SetBool("IsDeath", node.HealthComponent.CurrentHealth <= 0);
             }
         }
