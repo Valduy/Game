@@ -18,6 +18,10 @@ namespace Assets.Scripts.Startup
         public GameObject SwordPrefab;
         public GameObject BossPrefab;
 
+        public GameObject GameOverPrefab;
+        public GameObject VictoryPrefab;
+        public GameObject MenuPrefab;
+
         private UdpClient _udpClient;
         private IPEndPoint _hostAddress;
         private ClientNetworkProxy _clientProxy;

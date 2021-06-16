@@ -9,6 +9,8 @@ using ECS.Core;
 using Network.Proxy;
 using UnityEngine;
 
+using Assets.Scripts.ECS.Components;
+
 namespace Assets.Scripts.Startup
 {
     public class StartupHost : StartupBase
@@ -17,6 +19,10 @@ namespace Assets.Scripts.Startup
         public GameObject PlayerPrefab;
         public GameObject SwordPrefab;
         public GameObject BossPrefab;
+
+        public GameObject GameOverPrefab;
+        public GameObject VictoryPrefab;
+        public GameObject MenuPrefab;
 
         private UdpClient _udpClient;
         private List<IPEndPoint> _clients;
@@ -29,6 +35,7 @@ namespace Assets.Scripts.Startup
         private GameObject _otherPlayerGo;
         private GameObject _otherPlayerSwordGo;
         private GameObject _bossGo;
+        private GameObject _swordBossGO;
 
         private Entity _cameraEntity;
         private Entity _thisPlayerEntity;
@@ -36,6 +43,9 @@ namespace Assets.Scripts.Startup
         private Entity _otherPlayerEntity;
         private Entity _otherPlayerSwordEntity;
         private Entity _bossEntity;
+        private Entity _swordBossEntity;
+
+        private Entity _menuEntity;
 
         protected override void Start()
         {
@@ -53,9 +63,21 @@ namespace Assets.Scripts.Startup
 
             AddFixedSystems(
                 new ResetDirectionSystem(),
+
+                new AvailableGoalsConfiguratorSystem(),
+                new GoalFindSystem(),
+                new TrackGoalSystem(),
+                new CheckBossDangerZoneSystem(),
+                new AttackPreparationSystem(),
+                new VirtualMouseSystem(),
+                new VirtualMouseToMouseConverterSystem(),
+
                 new CalculateDirectionSystem(),
                 new CalculateVelocitySystem(),
                 new MoveCharacterSystem(),
+
+                new AnimationSystem(),
+
                 new StoreWeaponPreviousAngleSystem(),
                 new MoveWeaponSystem(),
                 new DamageByWeaponSystem(),
@@ -63,7 +85,9 @@ namespace Assets.Scripts.Startup
                 new KillWeaponSystem(),
                 new GetPositionSystem(),
                 new GetRotationSystem(),
-                new ResetKeysInputsSystem());
+                new ResetKeysInputsSystem(),
+
+                new EndGameSystem());
             
             AddLateSystem(
                 new MoveCameraSystem(),
@@ -98,6 +122,9 @@ namespace Assets.Scripts.Startup
             _otherPlayerSwordGo.transform.parent = _otherPlayerGo.transform;
 
             _bossGo = Instantiate(BossPrefab, new Vector3(0, 5, 0), Quaternion.identity);
+
+            _swordBossGO = Instantiate(SwordPrefab, new Vector3(0, 0, -9), Quaternion.identity);
+            _swordBossGO.transform.parent = _bossGo.transform;
         }
 
         private void CreateEntities()
@@ -130,6 +157,14 @@ namespace Assets.Scripts.Startup
 
             _bossEntity = EntityHelper.GetHostCharacterEntity(_bossGo, 4, 100, 2.5f)
                 .Serializable();
+
+            _swordBossEntity = EntityHelper.GetWeaponEntity(_swordBossGO, _bossGo, _bossEntity, 2f, 1, 1)
+                .VirtualMouse(4, 100)
+                .EnemyWeaponIdentity();
+
+            _bossEntity.Add(new ItsWeaponEntityComponent() { Weapon = _swordBossEntity });
+
+            _menuEntity = EntityHelper.GetMenuEntity(GameOverPrefab, VictoryPrefab, MenuPrefab);
         }
 
         private void RegisterEntities()
@@ -142,6 +177,8 @@ namespace Assets.Scripts.Startup
             Fixed.AddEntity(_otherPlayerEntity);
             Fixed.AddEntity(_otherPlayerSwordEntity);
             Fixed.AddEntity(_bossEntity);
+            Fixed.AddEntity(_swordBossEntity);
+            Fixed.AddEntity(_menuEntity);
 
             Late.AddEntity(_cameraEntity);
             Late.AddEntity(_thisPlayerEntity);
