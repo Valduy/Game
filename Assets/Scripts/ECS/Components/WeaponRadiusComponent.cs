@@ -1,7 +1,5 @@
 ﻿using ECS.Core;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Радиус, по которому вращается оружие.
     /// </summary>
@@ -9,4 +7,3 @@ namespace Assets.Scripts.ECS.Components
     {
         public float R;
     }
-}

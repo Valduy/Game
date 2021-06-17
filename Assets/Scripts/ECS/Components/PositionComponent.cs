@@ -6,8 +6,6 @@ using ECS.Serialization.Readers;
 using ECS.Serialization.Writers;
 using UnityEngine;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент, содержащий позицию <see cref="GameObject"/>, описываемого сущностью.
     /// Нужен, чтоб не создавать проблем с сериализацией целого <see cref="Transform"/>.
@@ -32,4 +30,3 @@ namespace Assets.Scripts.ECS.Components
         public ComponentBase FromTokenSequence(ISequentialReader reader)
             => new PositionComponent { Position = ConverterHelper.ReadVector3(reader) };
     }
-}

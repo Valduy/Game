@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using UnityEngine;
 using ECS.Core;
 
-namespace Assets.Scripts.ECS.Components
-{
+namespace Assets.Scripts.ECS.Components { }
+
     public class AnimatorComponent : ComponentBase
     {
         public Animator Animator;   
     }
-}
+

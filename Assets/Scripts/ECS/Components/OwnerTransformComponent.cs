@@ -1,8 +1,6 @@
 ﻿using ECS.Core;
 using UnityEngine;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент, содержащий <see cref="UnityEngine.Transform"/> владельца сущности.
     /// </summary>
@@ -18,4 +16,3 @@ namespace Assets.Scripts.ECS.Components
         /// </summary>
         public Transform Transform;
     }
-}

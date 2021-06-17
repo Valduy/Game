@@ -10,7 +10,7 @@ using Assets.Scripts.ECS.Components;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
-    class AvailableGoalsConfiguratorSystem : SystemBase
+    public class AvailableGoalsConfiguratorSystem : SystemBase
     {
         public class Node : NodeBase
         {
@@ -33,7 +33,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
             {
                 if (!node.GoalsAvailableComponent.Goals[node.GoalComponent.Goal].Contain<IsAliveComponent>())
                 {
-                    node.GoalsAvailableComponent.Goals = 
+                    node.GoalsAvailableComponent.Goals =
                         node.GoalsAvailableComponent.Goals.Where((el, i) => i != node.GoalComponent.Goal).ToArray();
                     SetFindActive(node);
                     continue;

@@ -9713,6 +9713,8 @@ MonoBehaviour:
     type: 3}
   SwordPrefab: {fileID: 4704870805806649563, guid: 70a6da6c8f7c7f14db17a81a0b0e3d75,
     type: 3}
+  SwordBossPrefab: {fileID: 4704870805806649563, guid: 527a1cd8bcb8ed44cb53ce251cf8943e,
+    type: 3}
   BossPrefab: {fileID: 4845494093220753614, guid: d50426ef606744c4d80a94c78a231575,
     type: 3}
   GameOverPrefab: {fileID: 254747324}

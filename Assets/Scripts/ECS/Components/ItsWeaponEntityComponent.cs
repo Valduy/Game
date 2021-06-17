@@ -5,10 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ECS.Core;
 
-namespace Assets.Scripts.ECS.Components
-{
     class ItsWeaponEntityComponent : ComponentBase
     {
         public Entity Weapon;
     }
-}

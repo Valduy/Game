@@ -1,8 +1,6 @@
 ﻿using ECS.Core;
 using UnityEngine;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент, содержащий <see cref="UnityEngine.Transform"/> игрового объекта, описываемого сущностью.
     /// </summary>
@@ -13,4 +11,3 @@ namespace Assets.Scripts.ECS.Components
         /// </summary>
         public Transform Transform;
     }
-}

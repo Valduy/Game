@@ -1,7 +1,6 @@
 ﻿using ECS.Core;
 
-namespace Assets.Scripts.ECS.Components
-{
+
     /// <summary>
     /// Компонент, определяющий урон сущности, способной наносить урон.
     /// </summary>
@@ -12,4 +11,4 @@ namespace Assets.Scripts.ECS.Components
         /// </summary>
         public int Damage;
     }
-}
+

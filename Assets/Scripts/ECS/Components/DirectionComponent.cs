@@ -6,8 +6,7 @@ using ECS.Serialization.Readers;
 using ECS.Serialization.Writers;
 using UnityEngine;
 
-namespace Assets.Scripts.ECS.Components
-{
+
     /// <summary>
     /// Компонент, определяющий направление движения.
     /// </summary>
@@ -31,4 +30,4 @@ namespace Assets.Scripts.ECS.Components
         public ComponentBase FromTokenSequence(ISequentialReader reader) 
             => new DirectionComponent {Direction = ConverterHelper.ReadVector2(reader)};
     }
-}
+

@@ -1,8 +1,6 @@
 ﻿using ECS.Core;
 using UnityEngine;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент, содержащий главную камеру.
     /// </summary>
@@ -13,4 +11,4 @@ namespace Assets.Scripts.ECS.Components
         /// </summary>
         public Camera Camera;
     }
-}
+

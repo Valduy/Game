@@ -5,10 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ECS.Core;
 
-namespace Assets.Scripts.ECS.Components
-{
     public class IsWideAttackComponent : ComponentBase
     {
         public int Type;
     }
-}

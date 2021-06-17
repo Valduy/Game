@@ -1,7 +1,5 @@
 ﻿using ECS.Core;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент, содержащий угол поворота оружия до перемещения.
     /// </summary>
@@ -12,4 +10,3 @@ namespace Assets.Scripts.ECS.Components
         /// </summary>
         public float PreviousAngle;
     }
-}

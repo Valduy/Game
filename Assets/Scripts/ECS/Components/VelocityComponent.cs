@@ -6,8 +6,6 @@ using ECS.Serialization.Readers;
 using ECS.Serialization.Writers;
 using UnityEngine;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент, содержащий скорость сущности.
     /// </summary>
@@ -31,4 +29,3 @@ namespace Assets.Scripts.ECS.Components
         public ComponentBase FromTokenSequence(ISequentialReader reader)
             => new VelocityComponent { Velocity = ConverterHelper.ReadVector2(reader) };
     }
-}

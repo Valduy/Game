@@ -13,6 +13,7 @@ namespace Assets.Scripts.Startup
         public GameObject CameraPrefab;
         public GameObject PlayerPrefab;
         public GameObject SwordPrefab;
+        public GameObject SwordBossPrefab;
         public GameObject BossPrefab;
 
         public GameObject GameOverPrefab;
@@ -82,7 +83,7 @@ namespace Assets.Scripts.Startup
             
             _bossGo = Instantiate(BossPrefab, new Vector3(0, 0, -9), Quaternion.identity);
 
-            _swordBossGO = Instantiate(SwordPrefab, new Vector3(0, 0, -9), Quaternion.identity);
+            _swordBossGO = Instantiate(SwordBossPrefab, new Vector3(0, 0, -9), Quaternion.identity);
             _swordBossGO.transform.parent = _bossGo.transform;
         }
 

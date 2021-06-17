@@ -1,8 +1,7 @@
 ﻿using ECS.Core;
 using UnityEngine;
 
-namespace Assets.Scripts.ECS.Components
-{
+
     /// <summary>
     /// Компонент, содержаций коллайдер <see cref="GameObject"/>.
     /// </summary>
@@ -13,4 +12,4 @@ namespace Assets.Scripts.ECS.Components
         /// </summary>
         public Collider2D Collider;
     }
-}
+

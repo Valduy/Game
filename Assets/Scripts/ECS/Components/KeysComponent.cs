@@ -4,8 +4,6 @@ using ECS.Serialization.Converters;
 using ECS.Serialization.Readers;
 using ECS.Serialization.Writers;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент, содержащий клавиатурный ввод.
     /// </summary>
@@ -44,4 +42,3 @@ namespace Assets.Scripts.ECS.Components
                 Esc = reader.ReadBool()
             };
     }
-}

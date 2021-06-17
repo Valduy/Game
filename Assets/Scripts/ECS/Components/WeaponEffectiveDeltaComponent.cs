@@ -1,7 +1,5 @@
 ﻿using ECS.Core;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент определяет, на сколько градусов должно было повернуться оружие, чтобы нанести урон.
     /// </summary>
@@ -12,4 +10,3 @@ namespace Assets.Scripts.ECS.Components
         /// </summary>
         public float Delta;
     }
-}

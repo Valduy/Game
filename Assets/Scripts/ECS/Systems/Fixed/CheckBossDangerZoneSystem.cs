@@ -7,7 +7,6 @@ using UnityEngine;
 using ECS.Core;
 using Assets.Scripts.ECS.Components;
 
-
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
     class CheckBossDangerZoneSystem : SystemBase
@@ -43,19 +42,17 @@ namespace Assets.Scripts.ECS.Systems.Fixed
                     node.DangerZoneComponent.Radius, LayerMask.GetMask("Characters"));
 
                 if (colliders.Length == 1) continue;
+
                 var goal = colliders.Where(
                     el => el.gameObject.name == node.GoalsAvailableComponent.Goals[node.GoalComponent.Goal]
                     .Get<ColliderComponent>().Collider.gameObject.name).ToList();
-
                 if (goal.Count == 0)
                 {
                     SetFindActive(node);
                     continue;
                 }
 
-                var angle = Mathf.Atan2(goal[0].gameObject.transform.position.y - node.TransformComponent.Transform.position.y,
-                    goal[0].gameObject.transform.position.x - node.TransformComponent.Transform.position.x) * 180 / Mathf.PI;
-                if (angle < 0) angle += 360;
+                var angle = GetAngleBetween(goal[0].gameObject.transform, node.TransformComponent.Transform);
 
                 node.ItsWeaponEntityComponent.Weapon.Add(new VirtualMouseGoalComponent() { Tendention = 1, Angle = angle });
                 node.ItsWeaponEntityComponent.Weapon.Add(new IsPrepareStateComponent());
@@ -71,10 +68,24 @@ namespace Assets.Scripts.ECS.Systems.Fixed
 
         public override void Unregister(Engine engine) => _engine = null;
 
+        private float GetAngleBetween(Transform go1, Transform go2)
+        {
+            var angle = Mathf.Atan2(go1.position.y - go2.position.y,
+                    go1.position.x - go2.position.x) * 180 / Mathf.PI;
+            if (angle < 0) angle += 360;
+
+            return angle;
+        }
+
         private void SetFindActive(Node node)
         {
             node.Entity.Remove<GoalComponent>();
             node.Entity.Add(new SearchAvailableComponent());
+        }
+    
+        private void CheckDangerZone(Node node)
+        {
+
         }
     }
 }

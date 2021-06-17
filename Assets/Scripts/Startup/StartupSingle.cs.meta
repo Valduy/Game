@@ -3,7 +3,20 @@ guid: 59ec47567e8430e40a2a9a12b0a85804
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - CameraPrefab: {fileID: 115479406459253204, guid: b7b67caa4ab728a40874eb3ae1fdb0de,
+      type: 3}
+  - PlayerPrefab: {fileID: 2323408106406757114, guid: e3df9aaee2e933e4e8ab779c63165255,
+      type: 3}
+  - SwordPrefab: {fileID: 4704870805806649563, guid: 70a6da6c8f7c7f14db17a81a0b0e3d75,
+      type: 3}
+  - SwordBossPrefab: {fileID: 4704870805806649563, guid: 527a1cd8bcb8ed44cb53ce251cf8943e,
+      type: 3}
+  - BossPrefab: {fileID: 4704870805806649563, guid: 527a1cd8bcb8ed44cb53ce251cf8943e,
+      type: 3}
+  - GameOverPrefab: {instanceID: 0}
+  - VictoryPrefab: {instanceID: 0}
+  - MenuPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

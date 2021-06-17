@@ -6,8 +6,6 @@ using ECS.Serialization.Readers;
 using ECS.Serialization.Writers;
 using UnityEngine;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент, содержащий ввод мыши.
     /// </summary>
@@ -31,4 +29,3 @@ namespace Assets.Scripts.ECS.Components
         public ComponentBase FromTokenSequence(ISequentialReader reader) 
             => new MouseComponent {MousePosition = ConverterHelper.ReadVector3(reader)};
     }
-}

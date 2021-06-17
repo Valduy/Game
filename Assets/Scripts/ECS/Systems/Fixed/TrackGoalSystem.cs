@@ -6,7 +6,7 @@ using Assets.Scripts.ECS.Components;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
-    class TrackGoalSystem : SystemBase
+    public class TrackGoalSystem : SystemBase
     {
         Engine _engine;
 

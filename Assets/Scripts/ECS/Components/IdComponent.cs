@@ -4,8 +4,6 @@ using ECS.Serialization.Converters;
 using ECS.Serialization.Readers;
 using ECS.Serialization.Writers;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент, содержащий идентификатор сущности.
     /// </summary>
@@ -32,4 +30,3 @@ namespace Assets.Scripts.ECS.Components
         public ComponentBase FromTokenSequence(ISequentialReader reader) 
             => new IdComponent {Id = reader.ReadUInt32()};
     }
-}

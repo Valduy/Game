@@ -3,9 +3,10 @@ using UnityEngine;
 using ECS.Core;
 using Assets.Scripts.ECS.Components;
 
+
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
-    class GoalFindSystem : SystemBase
+    public class GoalFindSystem : SystemBase
     {
         public class Node : NodeBase
         {

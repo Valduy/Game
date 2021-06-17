@@ -4,8 +4,6 @@ using ECS.Serialization.Converters;
 using ECS.Serialization.Readers;
 using ECS.Serialization.Writers;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент, определяющий здоровье сущности. 
     /// </summary>
@@ -38,4 +36,3 @@ namespace Assets.Scripts.ECS.Components
                 CurrentHealth = reader.ReadInt32()
             };
     }
-}

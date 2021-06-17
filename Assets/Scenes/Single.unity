@@ -969,7 +969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &148574400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 148574399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af4c4e16f0a1efc4e8893c23fff2fc48, type: 3}
+  m_Script: {fileID: 11500000, guid: 053d12439dd9cda4884acb4fe0beed12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &183347772
@@ -9551,8 +9551,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 148574399}
-        m_MethodName: 
+      - m_Target: {fileID: 148574404}
+        m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10119,6 +10119,8 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 2323408106406757114, guid: e3df9aaee2e933e4e8ab779c63165255,
     type: 3}
   SwordPrefab: {fileID: 4704870805806649563, guid: 70a6da6c8f7c7f14db17a81a0b0e3d75,
+    type: 3}
+  SwordBossPrefab: {fileID: 4704870805806649563, guid: 527a1cd8bcb8ed44cb53ce251cf8943e,
     type: 3}
   BossPrefab: {fileID: 4845494093220753614, guid: d50426ef606744c4d80a94c78a231575,
     type: 3}

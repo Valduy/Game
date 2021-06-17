@@ -1,7 +1,5 @@
 ﻿using ECS.Core;
 
-namespace Assets.Scripts.ECS.Components
-{
     /// <summary>
     /// Компонент, определяющий модуль скорости сущности.
     /// </summary>
@@ -12,4 +10,3 @@ namespace Assets.Scripts.ECS.Components
         /// </summary>
         public float Speed;
     }
-}

@@ -5,12 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ECS.Core;
 
-namespace Assets.Scripts.ECS.Components
-{
     public class VirtualMouseGoalComponent: ComponentBase
     {
         public float Angle = -1;
         public int Tendention = 0;
         public int CurrentStage = 0;
     }
-}
