@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.ECS.Components;
 using Assets.Scripts.Networking.NetworkingManagers;
 using Assets.Scripts.Networking.Serializers;
 using Assets.Scripts.Util;
@@ -11,9 +11,9 @@ using UnityEngine;
 public class Snapshoter : IEngineWrapper
 {
     private readonly Engine _engine;
-    private readonly HostNetworkProxy _hostProxy;
+    private readonly IHostNetworkProxy _hostProxy;
 
-    public Snapshoter(Engine engine, HostNetworkProxy hostProxy)
+    public Snapshoter(Engine engine, IHostNetworkProxy hostProxy)
     {
         _engine = engine;
         _hostProxy = hostProxy;

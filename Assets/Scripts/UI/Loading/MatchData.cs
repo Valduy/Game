@@ -9,6 +9,7 @@ namespace Assets.Scripts.UI.Loading
     {
         public static UdpClient UdpClient { get; set; }
         public static Role Role { get; set; }
+        public static uint SessionId { get; set; }
         public static List<IPEndPoint> Clients;
     }
 }

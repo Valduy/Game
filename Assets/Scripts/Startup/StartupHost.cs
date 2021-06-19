@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Text.RegularExpressions;
 using Assets.Scripts.ECS.Systems.Fixed;
 using Assets.Scripts.ECS.Systems.Late;
 using Assets.Scripts.ECS.Systems.Unfixed;
@@ -54,7 +55,7 @@ namespace Assets.Scripts.Startup
 
             _udpClient = MatchData.UdpClient;
             _clients = MatchData.Clients;
-            _hostProxy = new HostNetworkProxy(_udpClient, _clients);
+            _hostProxy = new HostNetworkProxy(_udpClient, MatchData.SessionId, _clients);
             _hostProxy.Start();
             _snapshoter = new Snapshoter(Fixed, _hostProxy);
             

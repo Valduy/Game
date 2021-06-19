@@ -54,7 +54,7 @@ namespace Assets.Scripts.Startup
 
             _udpClient = MatchData.UdpClient;
             _hostAddress = MatchData.Clients.First();
-            _clientProxy = new ClientNetworkProxy(_udpClient, _hostAddress);
+            _clientProxy = new ClientNetworkProxy(_udpClient, MatchData.SessionId, _hostAddress);
             _clientProxy.Start();
             _reconcilator = new Reconcilator(Fixed, _clientProxy);
 

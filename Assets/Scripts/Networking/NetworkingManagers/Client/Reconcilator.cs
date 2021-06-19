@@ -11,9 +11,9 @@ using UnityEngine;
 public class Reconcilator : IEngineWrapper
 {
     private readonly Engine _engine;
-    private readonly ClientNetworkProxy _clientProxy;
+    private readonly IClientNetworkProxy _clientProxy;
 
-    public Reconcilator(Engine engine, ClientNetworkProxy clientProxy)
+    public Reconcilator(Engine engine, IClientNetworkProxy clientProxy)
     {
         _engine = engine;
         _clientProxy = clientProxy;

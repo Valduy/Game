@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
 using System.Threading;
@@ -6,6 +8,7 @@ using System.Threading.Tasks;
 using Assets.Scripts.Util;
 using Connectors.HolePuncher;
 using Connectors.MatchConnectors;
+using Connectors.MatchmakerConnectors;
 using Network.Messages;
 using TMPro;
 using UnityEngine;
@@ -16,6 +19,8 @@ namespace Assets.Scripts.UI.Loading
 {
     public class HolePunching : MonoBehaviour
     {
+        private const int Timeout = 10 * 1000;
+
         private CancellationTokenSource _tokenSource;
 
         [SerializeField] private Button _cancelButton;
@@ -32,7 +37,7 @@ namespace Assets.Scripts.UI.Loading
             try
             {
                 _tokenSource = new CancellationTokenSource();
-                await PunchHole(_tokenSource.Token);
+                await SearchMatchAsync(_tokenSource.Token);
 
                 switch (MatchData.Role)
                 {
@@ -46,18 +51,23 @@ namespace Assets.Scripts.UI.Loading
 
                 SceneManager.LoadScene("Loading");
             }
-            catch (OperationCanceledException)
-            {
-                MatchData.UdpClient?.Dispose();
-                SceneManager.LoadScene("MainMenu");
-            }
             catch (Exception e)
             {
-                _errorPanel.SetActive(true);
-                ShowError(e is HttpRequestException
-                    ? "Произошла ошибка при попытке подключиться к серверу."
-                    : e.Message);
-                _cancelButton.interactable = false;
+                if (e is OperationCanceledException)
+                {
+                    _tokenSource.Cancel();
+                    SceneManager.LoadScene("MainMenu");
+                }
+                else
+                {
+                    _errorPanel.SetActive(true);
+                    ShowError(e is HttpRequestException
+                        ? "Произошла ошибка при попытке подключиться к серверу."
+                        : e.Message);
+                    _cancelButton.interactable = false;
+                }
+
+                MatchData.UdpClient?.Dispose();
             }
         }
 
@@ -66,20 +76,64 @@ namespace Assets.Scripts.UI.Loading
             _tokenSource?.Cancel();
             _tokenSource?.Dispose();
         }
-        private async Task PunchHole(CancellationToken cancellationToken)
+
+        private async Task SearchMatchAsync(CancellationToken cancellationToken)
         {
             MatchData.UdpClient = new UdpClient(0);
             var config = StreamingAssetsHelper.GetConfig();
 
             ShowStatus("Получение данных...");
-            var matchConnector = new MatchConnector();
-            var message = await matchConnector.ConnectAsync(MatchData.UdpClient, config.Ip, 54321, cancellationToken);
-            MatchData.Role = message.Role;
+            var message = await GetConnectionMessageAsync(MatchData.UdpClient, config.Ip, 54321, cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
+            MatchData.Role = message.Role;
+            MatchData.SessionId = message.SessionId;
 
             ShowStatus("Соединение...");
-            var holePuncher = new HolePuncher();
-            MatchData.Clients = await holePuncher.ConnectAsync(MatchData.UdpClient, message.SessionId, message.Clients, cancellationToken);
+            MatchData.Clients = await PunchHoleAsync(MatchData.UdpClient, MatchData.SessionId, message.Clients, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+        }
+
+        private async Task<int> GetMatchPortAsync(
+            ClientEndPoint privateEndPoint,
+            string host,
+            string bearerToken,
+            CancellationToken cancellationToken)
+            => await new MatchmakerConnector().ConnectAsync(privateEndPoint, host, bearerToken, cancellationToken);
+
+        private async Task<ConnectionMessage> GetConnectionMessageAsync(
+            UdpClient udpClient,
+            string ip,
+            int port,
+            CancellationToken cancellationToken)
+        {
+            try
+            {
+                return await new MatchConnector()
+                    .ConnectAsync(udpClient, ip, port, cancellationToken)
+                    .GetResultOrThrowOnTimeOutAsync(Timeout);
+            }
+            catch (TimeoutException)
+            {
+                throw new TimeoutException("Истекло время на подключение к матчу.");
+            }
+        }
+
+        private async Task<List<IPEndPoint>> PunchHoleAsync(
+            UdpClient udpClient,
+            uint sessionId,
+            List<ClientEndPoints> clients,
+            CancellationToken cancellationToken)
+        {
+            try
+            {
+                return await new HolePuncher()
+                    .ConnectAsync(udpClient, sessionId, clients, cancellationToken)
+                    .GetResultOrThrowOnTimeOutAsync(Timeout);
+            }
+            catch (TimeoutException)
+            {
+                throw new TimeoutException("Истекло время на соединение.");
+            }
         }
 
         private void ShowStatus(string status)
