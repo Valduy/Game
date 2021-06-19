@@ -66,6 +66,7 @@ namespace Assets.Scripts.Startup
             AddFixedSystems(
                 new CollectKeyInputsSystem(),
                 new CollectMouseInputsSystem(),
+                new MenuSystem(),
                 new ResetDirectionSystem(),
 
                 new AvailableGoalsConfiguratorSystem(),

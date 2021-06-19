@@ -23,8 +23,6 @@ namespace Assets.Scripts.ECS.Systems.Unfixed
 
         public override void Update(double time)
         {
-            Debug.Log(nameof(CollectKeyInputsSystem));
-
             foreach (var node in _engine.GetNodes<Node>())
             {
                 node.KeysComponent.W |= Input.GetKey(KeyCode.W);
@@ -33,7 +31,6 @@ namespace Assets.Scripts.ECS.Systems.Unfixed
                 node.KeysComponent.D |= Input.GetKey(KeyCode.D);
 
                 node.KeysComponent.Esc |= Input.GetKeyDown(KeyCode.Escape);
-
             }
         }
 
