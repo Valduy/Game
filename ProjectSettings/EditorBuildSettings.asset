@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HolePunching.unity
     guid: ff1cde1f440256f41a6c8d1c14cb713a
+  - enabled: 1
+    path: Assets/Scenes/ErrorScreen.unity
+    guid: 1054bfc226ae20245b59991658041a7d
   m_configObjects: {}

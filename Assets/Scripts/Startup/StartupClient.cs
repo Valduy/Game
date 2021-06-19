@@ -8,8 +8,8 @@ using Assets.Scripts.UI.Loading;
 using ECS.Core;
 using Network.Proxy;
 using UnityEngine;
-
-using Assets.Scripts.ECS.Components;
+using Assets.Scripts.Networking.NetworkingManagers;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Startup
 {
@@ -83,7 +83,15 @@ namespace Assets.Scripts.Startup
 
         protected override void FixedUpdate()
         {
-            _reconcilator.Update(Time.fixedDeltaTime);
+            try
+            {
+                _reconcilator.Update(Time.fixedDeltaTime);
+            }
+            catch (ReceiveException e)
+            {
+                ErrorData.ErrorMessage = e.Message;
+                SceneManager.LoadScene("ErrorScreen");
+            }
         }
 
         void OnDestroy()
