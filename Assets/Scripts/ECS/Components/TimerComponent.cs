@@ -7,5 +7,5 @@ using ECS.Core;
 
     public class TimerComponent : ComponentBase
     {
-        public float TimeLeft;
+        public double TimeLeft;
     }

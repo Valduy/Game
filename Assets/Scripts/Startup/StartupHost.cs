@@ -64,6 +64,8 @@ namespace Assets.Scripts.Startup
                 new CollectMouseInputsSystem());
 
             AddFixedSystems(
+                new CollectKeyInputsSystem(),
+                new CollectMouseInputsSystem(),
                 new ResetDirectionSystem(),
 
                 new AvailableGoalsConfiguratorSystem(),

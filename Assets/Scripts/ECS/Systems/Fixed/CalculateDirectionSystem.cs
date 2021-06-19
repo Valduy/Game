@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.ECS.Components;
-using ECS.Core;
+﻿using ECS.Core;
 using UnityEngine;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
@@ -28,7 +27,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
             {
                 node.DirectionComponent.Direction = new Vector2(
                     -BoolToInt(node.KeysComponent.A) + BoolToInt(node.KeysComponent.D),
-                    -BoolToInt(node.KeysComponent.S) + BoolToInt(node.KeysComponent.W));
+                    -BoolToInt(node.KeysComponent.S) + BoolToInt(node.KeysComponent.W)).normalized;
             }
         }
 

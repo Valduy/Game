@@ -23,7 +23,7 @@ namespace Assets.Scripts.ECS.Systems.Unfixed
 
         public override void Update(double time)
         {
-            Debug.Log(_engine.GetNodes<Node>().ToList().Count);
+            Debug.Log(nameof(CollectKeyInputsSystem));
 
             foreach (var node in _engine.GetNodes<Node>())
             {

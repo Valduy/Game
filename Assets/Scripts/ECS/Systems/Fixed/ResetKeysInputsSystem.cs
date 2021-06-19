@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.ECS.Components;
-using ECS.Core;
+﻿using ECS.Core;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {

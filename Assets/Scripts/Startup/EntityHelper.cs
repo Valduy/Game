@@ -13,7 +13,6 @@ namespace Assets.Scripts.Startup
 
         public static Entity GetCharacterEntity(GameObject characterGo, int health, float speed)
             => GetCharacterEntityBase(characterGo, health)
-                .Add(new IsMoveEnableComponent())
                 .Add(new ColliderComponent {Collider = characterGo.GetComponent<Collider2D>()})
                 .Add(new SpeedComponent {Speed = speed});
 
@@ -31,6 +30,7 @@ namespace Assets.Scripts.Startup
             => new Entity()
                 .Add(new DirectionComponent())
                 .Add(new VelocityComponent())
+                .Add(new IsMoveEnableComponent())
                 .Add(new HealthComponent { MaxHealth = health, CurrentHealth = health })
                 .Add(new TransformComponent {Transform = characterGo.GetComponent<Transform>()})
                 .Add(new RigidbodyComponent {Rigidbody = characterGo.GetComponent<Rigidbody2D>()})

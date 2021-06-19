@@ -44,19 +44,19 @@ namespace Assets.Scripts.ECS.Systems.Fixed
 
                     node.Entity.Add(new IsDeadComponent());
                     node.Entity.Add(new TimerComponent() { TimeLeft = 0 });
-                    node.Entity.Get<ColliderComponent>().Collider.enabled = false;
+                    //node.Entity.Get<ColliderComponent>().Collider.enabled = false;
                 }
             }
 
-            foreach (var node in _engine.GetNodes<NodeDead>().ToList())
-            {
-                node.DeathTimerComponent.TimeLeft += Time.deltaTime;
+            //foreach (var node in _engine.GetNodes<NodeDead>().ToList())
+            //{
+            //    node.DeathTimerComponent.TimeLeft += time;
 
-                if(node.DeathTimerComponent.TimeLeft > 3)
-                {
-                    node.Entity.Get<TransformComponent>().Transform.gameObject.SetActive(false);
-                }
-            }
+            //    if(node.DeathTimerComponent.TimeLeft > 3)
+            //    {
+            //        node.Entity.Get<TransformComponent>().Transform.gameObject.SetActive(false);
+            //    }
+            //}
         }
 
         public override void Register(Engine engine) => _engine = engine;

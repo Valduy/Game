@@ -63,13 +63,17 @@ namespace Assets.Scripts.Startup
                 new CollectMouseInputsSystem());
 
             AddFixedSystems(
+                new CollectKeyInputsSystem(),
+                new CollectMouseInputsSystem(),
+
                 new ApplyRotationSystem(),
                 new ApplyPositionSystem(),
+                new CalculateDirectionSystem(),
 
                 new AnimationSystem(),
-
+                new KillCharacterSystem(),
                 new ResetKeysInputsSystem(),
-                
+
                 new EndGameSystem());
 
             AddLateSystem(

@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using ECS.Core;
-using UnityEngine;
 
 using UnityEngine.SceneManagement;
 using Assets.Scripts.UI.Loading;
-
-using Assets.Scripts.ECS.Components;
 using Assets.Scripts.ECS.Nodes;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
@@ -81,7 +74,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
 
             foreach (var node in _engine.GetNodes<MenuTimerNode>())
             {
-                node.TimerComponent.TimeLeft += (float)time;
+                node.TimerComponent.TimeLeft += time;
 
                 if (node.TimerComponent.TimeLeft > 5)
                 {

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using ECS.Core;
-using UnityEngine;
-
-using Assets.Scripts.ECS.Components;
 
 namespace Assets.Scripts.ECS.Systems.Fixed
 {
