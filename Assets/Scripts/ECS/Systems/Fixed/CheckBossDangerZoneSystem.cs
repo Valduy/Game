@@ -38,6 +38,9 @@ namespace Assets.Scripts.ECS.Systems.Fixed
             {
                 if (node.ItsWeaponEntityComponent.Weapon.Contain<VirtualMouseGoalComponent>()) continue;
 
+                var shortTimeout = node.ItsWeaponEntityComponent.Weapon.Contain<ShortAttackTimeoutComponent>();
+                var wideTimeout = node.ItsWeaponEntityComponent.Weapon.Contain<WideAttackTimeoutComponent>();
+
                 var colliders = Physics2D.OverlapCircleAll(node.TransformComponent.Transform.position,
                     node.DangerZoneComponent.Radius, LayerMask.GetMask("Characters"));
 
@@ -58,9 +61,27 @@ namespace Assets.Scripts.ECS.Systems.Fixed
                 node.ItsWeaponEntityComponent.Weapon.Add(new IsPrepareStateComponent());
 
                 if (colliders.Length != 2)
-                    node.ItsWeaponEntityComponent.Weapon.Add(new IsWideAttackComponent() { });
+                {
+                    if (!wideTimeout)
+                    {
+                        node.ItsWeaponEntityComponent.Weapon.Add(new IsWideAttackComponent() { });
+                        node.ItsWeaponEntityComponent.Weapon.Add(new WideAttackTimeoutComponent() { Timeout = 0 });
+                        continue;
+                    }
+                    node.ItsWeaponEntityComponent.Weapon.Remove<VirtualMouseGoalComponent>();
+                    node.ItsWeaponEntityComponent.Weapon.Remove<IsPrepareStateComponent>();
+                }
                 else
-                    node.ItsWeaponEntityComponent.Weapon.Add(new IsShortAttackComponent() { });
+                {
+                    if (!shortTimeout)
+                    {
+                        node.ItsWeaponEntityComponent.Weapon.Add(new IsShortAttackComponent() { });
+                        node.ItsWeaponEntityComponent.Weapon.Add(new ShortAttackTimeoutComponent() { Timeout = 0 });
+                        continue;
+                    }
+                    node.ItsWeaponEntityComponent.Weapon.Remove<VirtualMouseGoalComponent>();
+                    node.ItsWeaponEntityComponent.Weapon.Remove<IsPrepareStateComponent>();
+                }
             }
         }
 

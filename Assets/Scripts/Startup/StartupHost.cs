@@ -75,6 +75,7 @@ namespace Assets.Scripts.Startup
                 new CheckBossDangerZoneSystem(),
                 new AttackPreparationSystem(),
                 new VirtualMouseSystem(),
+                new AttackTimeoutSystem(),
                 new VirtualMouseToMouseConverterSystem(),
 
                 new CalculateDirectionSystem(),

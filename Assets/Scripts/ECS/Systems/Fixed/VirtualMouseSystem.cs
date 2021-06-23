@@ -71,8 +71,8 @@ namespace Assets.Scripts.ECS.Systems.Fixed
         {
             var nextAngle = current + addition;
 
-            if (nextAngle > 360) nextAngle -= 360;
-            else if (nextAngle < 0) nextAngle = 360 + nextAngle;
+            if (nextAngle > 720) nextAngle -= 1080;
+            else if (nextAngle < -360) nextAngle = 720 + nextAngle;
 
             return nextAngle;
         }
@@ -136,12 +136,6 @@ namespace Assets.Scripts.ECS.Systems.Fixed
                     continue;
                 }
 
-                if(angle1 < angle2)
-                {
-                    var t = angle1;
-                    angle1 = angle2;
-                    angle2 = t;
-                }
                 if (currentAngle > angle2 && currentAngle < angle1)
                 {
                     node.WeaponSpeedComponent.Speed = node.OldWeaponSpeedComponent.Speed;

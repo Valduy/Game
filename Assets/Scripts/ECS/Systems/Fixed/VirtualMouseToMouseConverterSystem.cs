@@ -34,9 +34,20 @@ namespace Assets.Scripts.ECS.Systems.Fixed
         {
             foreach (var node in _engine.GetNodes<Node>().ToList())
             {
+                var angle = node.VirtualMouseComponent.Angle;
+
+                if(angle > 360)
+                {
+                    angle -= 360;
+                }
+                if(angle < 0)
+                {
+                    angle = 360 + angle;
+                }
+
                 var radius = node.VirtualMouseRadiusComponent.Radius;
-                var mouseCoords = new Vector2(radius * (float)Math.Cos(Math.PI * node.VirtualMouseComponent.Angle / 180.0),
-                    radius * (float)Math.Sin(Math.PI * node.VirtualMouseComponent.Angle / 180.0));
+                var mouseCoords = new Vector2(radius * (float)Math.Cos(Math.PI * angle / 180.0),
+                    radius * (float)Math.Sin(Math.PI * angle / 180.0));
 
                 node.MouseComponent.MousePosition = mouseCoords;
             }
