@@ -76,7 +76,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
             {
                 node.TimerComponent.TimeLeft += time;
 
-                if (node.TimerComponent.TimeLeft > 5)
+                if (node.TimerComponent.TimeLeft > 10)
                 {
                     LoadingData.NextScene = "MainMenu";
                     SceneManager.LoadScene("Loading");

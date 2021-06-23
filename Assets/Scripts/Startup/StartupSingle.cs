@@ -102,7 +102,7 @@ namespace Assets.Scripts.Startup
             _swordEntity = EntityHelper.GetWeaponEntity(_swordGo, _playerGo, _playerEntity, 1.2f, 1, 1)
                 .MouseInputReceiver(_cameraGo);
 
-            _bossEntity = EntityHelper.GetCharacterEntity(_bossGo, 400, 2.5f)
+            _bossEntity = EntityHelper.GetCharacterEntity(_bossGo, 100, 2.5f)
                 .EnemyIdentity()
                 .SetDangerZone(2)
                 .GoalIndigentIdentity(new Entity[] { _playerEntity })

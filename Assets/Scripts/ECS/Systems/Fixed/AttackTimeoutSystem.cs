@@ -43,7 +43,7 @@ namespace Assets.Scripts.ECS.Systems.Fixed
                 Debug.Log(timeoutTime);
                 
 
-                if (timeoutTime < .3f) continue;
+                if (timeoutTime < 0.5f) continue;
                 
                 node.Entity.Remove<ShortAttackTimeoutComponent>();
             }
